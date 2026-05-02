@@ -51,6 +51,9 @@ export default function Footer() {
             <a href="#services" className="hover:text-gold py-1 touch-manipulation">
               Services
             </a>
+            <a href="#trust" className="hover:text-gold py-1 touch-manipulation">
+              How we work
+            </a>
             <a href="#contact" className="hover:text-gold py-1 touch-manipulation">
               Contact
             </a>

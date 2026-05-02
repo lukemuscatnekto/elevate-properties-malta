@@ -19,11 +19,18 @@ export default function FeaturedProperties() {
         aria-labelledby="properties-heading"
       >
         <div className="max-w-7xl mx-auto">
-          <h2 id="properties-heading" className="text-[2rem] md:text-[2.2rem] font-playfair text-white mb-5 text-center">
+          <h2 id="properties-heading" className="text-[2rem] md:text-[2.2rem] font-playfair text-white mb-4 text-center">
             Featured Properties
           </h2>
+          <p className="text-xs sm:text-sm text-white/45 font-light leading-relaxed text-center max-w-2xl mx-auto mb-2">
+            A curated spotlight from our Malta portfolio — open any card for specifications, narrative, and highlights. When you wish to inspect in person,
+            request a confidential viewing directly from that screen.
+          </p>
+          <p className="text-[10px] text-white/30 uppercase tracking-[0.22em] text-center mb-6">
+            Featured selection · Availability subject to confirmation
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pb-10 border-b border-white/6">
             {featuredHomepageProperties.map((property, i) => (
               <motion.article
                 key={property.id}
@@ -94,12 +101,24 @@ export default function FeaturedProperties() {
                     </div>
                   </dl>
                   <span className="block w-full text-center border border-gold/40 text-gold text-[9px] uppercase tracking-[0.2em] py-2.5 min-h-[44px] flex items-center justify-center group-hover:bg-gold group-hover:text-black transition-colors touch-manipulation font-bold pointer-events-none" aria-hidden="true">
-                    View details
+                    View listing · enquire
                   </span>
                 </div>
               </motion.article>
             ))}
           </div>
+
+          <nav className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto" aria-label="After browsing listings">
+            <span className="text-[11px] text-white/40 font-light text-center sm:text-right sm:flex-1">
+              Want broader options than this spotlight — or bespoke shortlists?
+            </span>
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center min-h-[48px] w-full sm:w-auto px-8 bg-gold text-black text-[10px] font-bold uppercase tracking-[0.22em] hover:bg-white transition-colors touch-manipulation whitespace-nowrap"
+            >
+              Contact an advisor
+            </a>
+          </nav>
         </div>
       </section>
 

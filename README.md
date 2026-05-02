@@ -19,13 +19,20 @@ Copy environment defaults:
 cp .env.example .env.local
 ```
 
-Edit `.env.local` before launch (forms + optional URL):
+Edit `.env.local` before launch (forms + optional URL). **All `VITE_*` vars are inlined at build time** — redeploy after every change.
+
+| Variable | Values | Purpose |
+|---------|--------|--------|
+| `VITE_SITE_URL` | `https://www.yoursite.mt` | Optional reference URL (documented here for ops consistency). |
+| `VITE_FORM_PROVIDER` | **`none`** (local demo success), **`formspree`** (recommended first production path), **`netlify`**, **`emailjs`** | Selects outbound handler inside `submitForm()` — see `.env.example`. |
+| `VITE_FORMSPREE_ENDPOINT` | `https://formspree.io/f/xxxxxxx` | **Required** when provider is `formspree`; one endpoint can distinguish contact vs valuation vs viewing using the emitted `formType` field inside the payload. |
 
 ```env
 VITE_SITE_URL=https://your-production-domain.example
 VITE_FORM_PROVIDER=none
-# For Formspree:
-VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/yourFormId
+# Production with Formspree:
+# VITE_FORM_PROVIDER=formspree
+# VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/yourFormId
 ```
 
 ## Scripts
@@ -139,10 +146,16 @@ npm run preview
 ## Launch checklist
 
 - [ ] Replace placeholders in `src/config/site.ts`.
-- [ ] Set production `VITE_FORM_PROVIDER` + endpoints.
+- [ ] Fix **social URLs** removing `TODO` segments or Footer hides live icons until valid.
+- [ ] Replace **`+356 9999 0101`** and WhatsApp stubs with audited business numbers when known.
+- [ ] Set production `VITE_FORM_PROVIDER` + `VITE_FORMSPREE_ENDPOINT` (or alternate provider docs).
 - [ ] Replace example URLs in `index.html`, `robots.txt`, and `sitemap.xml`.
 - [ ] Run `npm run lint` and `npm run build`.
-- [ ] Smoke-test mobile / tablet / desktop and all nav anchors (`#hero`, `#properties`, `#list-property`, `#about`, `#services`, `#contact`).
+- [ ] Smoke-test mobile / tablet / desktop and anchors: `#hero`, `#properties`, `#about`, `#services`, `#trust`, `#contact`, `#list-property`.
+
+### Still placeholders after this repo snapshot
+
+Canonical + OG URLs use `elevate-properties-malta.example.com`. `siteConfig` retains TODO social URLs. JSON-LD `telephone` in `index.html` should match operational lines in `site.ts`.
 
 ## Internal CRM
 

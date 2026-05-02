@@ -3,6 +3,7 @@ import { X, Bed, Bath, Maximize, MapPin, Check, Send, Phone, Mail, User, CheckCi
 import type { Property } from '../types';
 import { useState, FormEvent, useEffect } from 'react';
 import { submitForm } from '../utils/formSubmission';
+import { formDiscretionFootnote, formTechnicalFailureHint } from '../content/formFootnotes';
 
 interface PropertyModalProps {
   property: Property | null;
@@ -48,7 +49,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
   };
 
   const inputCls =
-    'w-full bg-[#111] border border-white/8 py-4 pl-11 pr-4 text-white text-xs placeholder:text-white/20 focus:border-gold/50 outline-none transition-colors';
+    'w-full min-h-[48px] bg-[#111] border border-white/8 py-3 sm:py-4 pl-11 pr-4 text-white text-xs placeholder:text-white/20 focus:border-gold/50 outline-none transition-colors';
 
   return (
     <AnimatePresence>
@@ -68,11 +69,13 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
           />
 
           <motion.div
+            role="document"
             initial={{ opacity: 0, scale: 0.94, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 16 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-5xl max-h-[min(92vh,920px)] bg-[#0B0B0D] border border-gold/15 shadow-[0_40px_80px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col lg:flex-row"
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-5xl max-h-[min(92dvh,920px)] bg-[#0B0B0D] border border-gold/15 shadow-[0_40px_80px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col lg:flex-row"
           >
             <button
               type="button"
@@ -147,7 +150,10 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 ) : null}
 
                 <div className="border-t border-gold/8 pt-6">
-                  <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-4">Request a private viewing</p>
+                  <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-2">Request a private viewing</p>
+                  <p className="text-white/38 text-[11px] font-light leading-relaxed mb-5">
+                    There is no obligation to proceed — we coordinate times that respect sellers and neighbours, typically within one-to-two working days subject to confirmations.
+                  </p>
 
                   {formState === 'success' ? (
                     <motion.div
@@ -156,8 +162,8 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                       className="text-center py-6 border border-gold/15 bg-gold/4 px-4"
                     >
                       <CheckCircle2 className="w-10 h-10 text-gold mx-auto mb-4" aria-hidden="true" />
-                      <p className="text-white font-playfair text-lg mb-2">Request received</p>
-                      <p className="text-gray-500 text-sm font-light break-words">{successMessage}</p>
+                      <p className="text-white font-playfair text-xl mb-2">Viewing enquiry received</p>
+                      <p className="text-gray-400 text-sm font-light break-words max-w-xs mx-auto">{successMessage}</p>
                       <button
                         type="button"
                         onClick={() => setFormState('idle')}
@@ -167,7 +173,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                       </button>
                     </motion.div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-3" aria-label="Request a viewing">
+                    <form onSubmit={handleSubmit} className="space-y-3" aria-label="Request a private viewing for this property">
                       <div className="relative group">
                         <label htmlFor="modal-name" className="sr-only">
                           Full name
@@ -225,17 +231,18 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                           'Sending…'
                         ) : (
                           <>
-                            Submit request
+                            Request private viewing
                             <Send className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" />
                           </>
                         )}
                       </button>
                       {formState === 'error' && (
-                        <p className="text-[11px] text-red-300 text-center break-words" role="alert">
-                          {successMessage}
-                        </p>
+                        <div className="text-[11px] text-red-200/95 text-center break-words space-y-1" role="alert">
+                          <p>{successMessage}</p>
+                          <p className="text-[10px] text-white/40 font-light">{formTechnicalFailureHint}</p>
+                        </div>
                       )}
-                      <p className="text-[9px] text-white/25 text-center break-words">We respond discreetly — no obligation.</p>
+                      <p className="text-[10px] text-white/38 text-center break-words leading-relaxed">{formDiscretionFootnote}</p>
                     </form>
                   )}
                 </div>

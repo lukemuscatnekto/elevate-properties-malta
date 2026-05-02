@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { ShieldCheck, Target, Camera, Key, CheckCircle2 } from 'lucide-react';
 import { useState, FormEvent } from 'react';
 import { submitForm } from '../utils/formSubmission';
+import { formDiscretionFootnote, formTechnicalFailureHint } from '../content/formFootnotes';
 
 const pillars = [
   {
@@ -116,8 +117,8 @@ export default function ListProperty() {
               <div className="flex items-start gap-4 py-4" role="status">
                 <CheckCircle2 className="w-5 h-5 text-gold shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
-                  <p className="text-white text-sm font-medium mb-1">Request Received</p>
-                  <p className="text-gray-500 text-xs font-light break-words">{successMessage}</p>
+                  <p className="text-white text-sm font-medium mb-1">Briefing logged</p>
+                  <p className="text-gray-400 text-xs font-light leading-relaxed break-words">{successMessage}</p>
                 </div>
               </div>
             ) : (
@@ -165,15 +166,17 @@ export default function ListProperty() {
                   disabled={formState === 'submitting'}
                   className="w-full min-h-[48px] bg-gold hover:bg-white text-black py-4 font-bold uppercase tracking-[0.3em] text-[10px] transition-all disabled:opacity-50 touch-manipulation"
                 >
-                  {formState === 'submitting' ? 'Sending…' : 'Request Valuation'}
+                  {formState === 'submitting' ? 'Sending…' : 'Submit confidential briefing'}
                 </button>
                 {formState === 'error' && (
-                  <p className="text-[11px] text-red-300 text-center break-words" role="alert">
-                    {successMessage}
-                  </p>
+                  <div className="text-[11px] text-red-200 text-center break-words space-y-1" role="alert">
+                    <p>{successMessage}</p>
+                    <p className="text-[10px] text-white/40 font-light">{formTechnicalFailureHint}</p>
+                  </div>
                 )}
               </form>
             )}
+            <p className="text-[10px] text-white/38 text-center leading-relaxed mt-5 pt-4 border-t border-white/6">{formDiscretionFootnote}</p>
             {import.meta.env.DEV && (
               <p className="text-[9px] text-white/25 text-center mt-4 leading-relaxed break-words border-t border-white/5 pt-3">
                 Dev: set <code className="text-gold/60">VITE_FORM_PROVIDER</code> and endpoint in <code className="text-gold/60">.env</code> — see README
@@ -201,17 +204,25 @@ export default function ListProperty() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" aria-hidden="true" />
 
-            {/* Testimonial */}
-            <blockquote className="absolute bottom-8 left-6 right-6 bg-black/75 backdrop-blur-md border border-gold/15 p-6">
-              <p className="text-white font-playfair text-base italic leading-relaxed mb-3">
-                &ldquo;Elevate didn&rsquo;t simply sell our villa — they sold the lifestyle it embodied. Exceptional results, complete discretion.&rdquo;
+            <aside className="absolute bottom-6 left-4 right-4 sm:bottom-8 sm:left-6 sm:right-6 bg-black/84 backdrop-blur-md border border-gold/15 p-5 sm:p-6 max-h-[52vh] sm:max-h-none overflow-y-auto shadow-2xl">
+              <p className="text-[9px] text-gold/75 uppercase tracking-[0.28em] font-bold mb-3">Selling in Malta?</p>
+              <ul className="text-[11px] sm:text-xs text-white/65 font-light leading-relaxed space-y-2 list-disc list-inside">
+                <li>Valuations consider micro-location, covenant strength, tenancy (if applicable), capex allowances, comparable evidence, not algorithmic guesses.</li>
+                <li>Buyers introduced only after prudent qualification — safeguarding your diary and doorstep.</li>
+                <li>Materials and tours follow your approvals; nothing broadcasts without consent.</li>
+              </ul>
+              <p className="mt-4 text-[10px] text-white/38 leading-relaxed">
+                Professional legal tax and structuring advice stays with licensed practitioners you nominate — Elevate concentrates on transactional representation plus marketing choreography.
               </p>
-              <footer>
-                <cite className="text-gold text-[9px] font-bold uppercase tracking-[0.3em] not-italic">
-                  — Private client, Malta (illustrative)
-                </cite>
-              </footer>
-            </blockquote>
+              <div className="mt-5 flex flex-wrap gap-2 justify-end">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center min-h-[40px] px-4 py-2 border border-gold/35 text-[9px] font-bold uppercase tracking-[0.2em] text-gold hover:bg-gold hover:text-black transition-colors touch-manipulation"
+                >
+                  Speak with us first
+                </a>
+              </div>
+            </aside>
           </div>
 
           {/* Corner accents */}

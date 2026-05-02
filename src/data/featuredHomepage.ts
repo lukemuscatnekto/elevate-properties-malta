@@ -1,6 +1,6 @@
 import type { Property } from '../types';
 
-/** Featured trio on the homepage (matches public-facing showcase). */
+/** Curated Malta listings shown on the homepage — update from your authoritative inventory when launching. Do not inflate beyond what your team represents. */
 export const featuredHomepageProperties: Property[] = [
   {
     id: 'mosta-villa-f',

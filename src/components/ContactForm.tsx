@@ -3,6 +3,7 @@ import { Phone, Mail, Clock, MessageSquare, CheckCircle2 } from 'lucide-react';
 import { useState, FormEvent } from 'react';
 import { siteConfig } from '../config/site';
 import { submitForm } from '../utils/formSubmission';
+import { formDiscretionFootnote, formTechnicalFailureHint } from '../content/formFootnotes';
 
 export default function ContactForm() {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -23,7 +24,8 @@ export default function ContactForm() {
     setFormState(result.success ? 'success' : 'error');
   };
 
-  const inputCls = 'w-full bg-white/4 border border-white/8 px-5 py-4 text-white text-sm font-light placeholder:text-white/15 focus:border-gold/40 outline-none transition-colors';
+  const inputCls =
+    'w-full min-h-[48px] bg-white/4 border border-white/8 px-5 py-3 sm:py-4 text-white text-sm font-light placeholder:text-white/15 focus:border-gold/40 outline-none transition-colors';
   const selectCls = `${inputCls} appearance-none cursor-pointer`;
 
   return (
@@ -51,7 +53,8 @@ export default function ContactForm() {
                 Start a private conversation
               </h2>
               <p className="text-white/40 text-sm font-light leading-relaxed max-w-md mb-6">
-                Our advisors are available for private consultations to discuss your property goals in Malta — whether buying, selling, renting, or investing.
+                Message our advisors for Malta buying, leasing, divestment timing, portfolio expansion, pricing context, introductions to professional partners you appoint —
+                whatever stage you are at today.
               </p>
             </motion.div>
 
@@ -95,12 +98,10 @@ export default function ContactForm() {
               ))}
             </div>
 
-            {/* Advisor team note */}
-            <div className="border-t border-white/5 pt-5 max-w-xs">
-              <p className="text-white/50 font-light text-sm leading-relaxed italic font-playfair">
-                &ldquo;Every great Malta property story begins with a single conversation. We look forward to yours.&rdquo;
+            <div className="border-t border-white/5 pt-5 max-w-md">
+              <p className="text-white/42 text-[12px] font-light leading-relaxed">
+                Responses are routed to a senior adviser during working hours CET. For urgency, use the phone line — we escalate property-specific matters discreetly when required.
               </p>
-              <p className="text-gold/40 text-[10px] uppercase tracking-widest font-bold mt-3">— The Elevate Team</p>
             </div>
           </div>
 
@@ -126,22 +127,23 @@ export default function ContactForm() {
                   <div className="w-16 h-16 rounded-full bg-gold/8 border border-gold/20 flex items-center justify-center mx-auto mb-6">
                     <CheckCircle2 className="w-8 h-8 text-gold" aria-hidden="true" />
                   </div>
-                  <h3 className="text-2xl font-playfair text-white mb-4">Enquiry Received</h3>
-                  <p className="text-white/50 font-light leading-relaxed max-w-xs mx-auto">
+                  <h3 className="text-2xl font-playfair text-white mb-4">We have your enquiry</h3>
+                  <p className="text-white/50 font-light leading-relaxed max-w-sm mx-auto text-sm">
                     {successMessage}
                   </p>
                   <button
+                    type="button"
                     onClick={() => setFormState('idle')}
-                    className="mt-8 text-gold text-[10px] font-bold uppercase tracking-[0.35em] hover:text-white transition-colors"
+                    className="mt-8 text-gold text-[10px] font-bold uppercase tracking-[0.35em] hover:text-white transition-colors min-h-[44px] touch-manipulation"
                   >
-                    Send Another Enquiry
+                    Send another enquiry
                   </button>
                 </motion.div>
               ) : (
                 <>
                   <div className="mb-5">
                     <p className="text-[10px] text-gold/60 uppercase tracking-[0.3em] font-bold mb-1">Property Enquiry</p>
-                    <h3 className="text-2xl font-playfair text-white">How can we help?</h3>
+                    <h3 className="text-2xl font-playfair text-white">Tell our advisers what matters</h3>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-3" aria-label="Property enquiry form">
@@ -217,7 +219,7 @@ export default function ContactForm() {
                         value={formData.message}
                         onChange={e => setFormData({ ...formData, message: e.target.value })}
                         placeholder="Tell us about your ideal property or investment goals…"
-                        className={`${inputCls} resize-none`}
+                        className={`${inputCls} min-h-[120px] resize-none`}
                       />
                     </div>
 
@@ -229,17 +231,15 @@ export default function ContactForm() {
                       disabled={formState === 'submitting'}
                       className="w-full min-h-[48px] flex items-center justify-center gap-3 bg-gold hover:bg-white text-black py-4 font-bold uppercase tracking-[0.28em] text-[10px] transition-all disabled:opacity-50 group touch-manipulation"
                     >
-                      {formState === 'submitting' ? 'Sending Enquiry…' : (
+                      {formState === 'submitting' ? 'Sending…' : (
                         <>
-                          Send Enquiry
+                          Send to our advisers
                           <MessageSquare className="w-4 h-4 group-hover:scale-110 transition-transform" aria-hidden="true" />
                         </>
                       )}
                     </motion.button>
 
-                    <p className="text-[10px] text-white/15 text-center">
-                      Your enquiry is handled with complete discretion.
-                    </p>
+                    <p className="text-[10px] text-white/42 text-center leading-relaxed px-2 max-w-md mx-auto">{formDiscretionFootnote}</p>
                     {import.meta.env.DEV && (
                       <p className="text-[9px] text-white/25 text-center leading-relaxed break-words border border-white/5 rounded px-3 py-2 bg-white/[0.02]">
                         Dev: configure <code className="text-gold/60">VITE_FORM_PROVIDER</code>,{' '}
@@ -247,9 +247,10 @@ export default function ContactForm() {
                       </p>
                     )}
                     {formState === 'error' && (
-                      <p className="text-[11px] text-red-300 text-center break-words" role="alert">
-                        {successMessage}
-                      </p>
+                      <div className="text-[11px] text-red-200 text-center break-words space-y-2 px-2" role="alert">
+                        <p>{successMessage}</p>
+                        <p className="text-[10px] text-white/40 font-light">{formTechnicalFailureHint}</p>
+                      </div>
                     )}
                   </form>
                 </>

@@ -57,26 +57,20 @@ export default function AboutServices() {
               agency, not a volume house — every client receives the full attention of our senior advisors.
             </p>
             <p className="text-white/40 font-light text-xs leading-relaxed mb-5 max-w-lg">
-              From signature villas to premium penthouses, our boutique team delivers a discreet, premium service tailored to each client.
+              From signature villas to premium penthouses, our focus is calibrated advice, orderly viewings, and seller campaigns that preserve discretion — whether you are transacting locally or briefing us from overseas.
             </p>
 
-            {/* Stats (illustrative — replace with audited figures before regulated advertising) */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-2 py-4 border-y border-white/5" aria-label="Illustrative brand highlights">
-              {[
-                { val: '€50M+',  label: 'Portfolio Value' },
-                { val: '120+',   label: 'Premium Listings' },
-                { val: '100%',   label: 'Client Discretion' },
-              ].map(s => (
-                <div key={s.label} className="group text-center">
-                  <p className="text-lg sm:text-xl md:text-2xl font-playfair text-white mb-1 group-hover:text-gold transition-colors tabular-nums">{s.val}</p>
-                  <p className="text-[8px] sm:text-[9px] text-white/25 uppercase tracking-[0.18em] sm:tracking-[0.2em] font-bold">{s.label}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-[9px] text-white/20 mb-6 max-w-lg leading-relaxed">Figures are representative highlights for positioning — not audited performance claims.</p>
+            <ul className="space-y-2 mb-8 max-w-lg text-white/38 text-[11px] sm:text-xs font-light leading-relaxed border-l border-gold/20 pl-5">
+              <li>Context on neighbourhoods, micro-locations, and practical living or tenancy considerations.</li>
+              <li>Coordinated introductions to trusted notaries or specialists when you need them.</li>
+              <li>No loud claims — we grow credibility through consistency and confidentiality.</li>
+            </ul>
 
-            <a href="#contact" className="inline-flex items-center gap-2 text-gold text-[10px] font-bold uppercase tracking-[0.25em]">
-              Book a Private Consultation <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 min-h-[44px] text-gold text-[10px] font-bold uppercase tracking-[0.25em] touch-manipulation"
+            >
+              Book a confidential consultation <ArrowRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             </a>
           </motion.div>
 
@@ -103,17 +97,14 @@ export default function AboutServices() {
               />
             </div>
 
-            {/* Floating quote card */}
-            <div className="absolute -bottom-8 -left-8 bg-[#0D0D0D] border border-gold/15 p-7 hidden xl:block shadow-2xl max-w-[240px]">
-              <div className="flex gap-0.5 mb-3" aria-label="5 star rating">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-3.5 h-3.5 fill-gold" viewBox="0 0 20 20" aria-hidden="true">
-                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-white font-playfair text-base italic leading-snug mb-2">&ldquo;Malta&rsquo;s most trusted luxury agency.&rdquo;</p>
-              <p className="text-gold/50 text-[9px] uppercase tracking-widest font-bold">Representative client sentiment — not third-party accreditation</p>
+            {/* Factual call-out — avoids fabricated reviews or accolades */}
+            <div className="absolute -bottom-8 -left-8 bg-[#0D0D0D] border border-gold/15 p-6 hidden xl:block shadow-2xl max-w-[260px]">
+              <p className="text-[9px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-2">What to expect first</p>
+              <ol className="text-white/50 text-[11px] font-light leading-relaxed space-y-2 list-decimal list-inside">
+                <li>Brief qualification of your objectives and timing.</li>
+                <li>Curated options or valuation direction — aligned to budget.</li>
+                <li>Clear next steps, without obligation.</li>
+              </ol>
             </div>
           </motion.div>
         </div>
@@ -146,7 +137,7 @@ export default function AboutServices() {
                 <p className="text-white/35 text-[11px] sm:text-xs font-light leading-relaxed flex-1 line-clamp-4">{svc.desc}</p>
 
                 <div className="mt-6 flex items-center gap-2 text-[10px] text-gold/50 uppercase tracking-widest font-bold group-hover:gap-4 transition-all duration-400" aria-hidden="true">
-                  Enquire <ArrowRight className="w-3.5 h-3.5" />
+                  Continue <ArrowRight className="w-3.5 h-3.5" />
                 </div>
               </motion.a>
             ))}

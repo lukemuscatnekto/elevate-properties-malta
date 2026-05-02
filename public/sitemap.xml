@@ -26,6 +26,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://elevate-properties-malta.example.com/#trust</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://elevate-properties-malta.example.com/#contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
