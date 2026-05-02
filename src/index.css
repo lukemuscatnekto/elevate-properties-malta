@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-playfair: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+
+  /* Champagne Gold */
+  --color-gold: #C5A052;
+  --color-charcoal: #0B0B0D;
+}
+
+@layer base {
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply bg-charcoal text-white font-sans antialiased selection:bg-gold selection:text-black;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight leading-tight;
+  }
+}
+
+/* Offset in-page anchors below the fixed navbar (~5rem + padding). */
+.scroll-anchor-target {
+  scroll-margin-top: clamp(4.75rem, 10vw, 6.25rem);
+}
+
+.glass {
+  @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[inset_0_0_30px_rgba(255,255,255,0.015)];
+}
+
+.glass-card {
+  @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[inset_0_0_30px_rgba(255,255,255,0.015)] p-8;
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #A8864B 0%, #D4B67C 50%, #A8864B 100%);
+}
+
+.gold-dimmed {
+  background: linear-gradient(135deg, rgba(197, 160, 82, 0.4) 0%, rgba(212, 182, 124, 0.2) 100%);
+}
+
+.radial-luxury {
+  background: radial-gradient(circle at center, rgba(197, 160, 82, 0.08) 0%, transparent 70%);
+}
+
+.divider-gold {
+  @apply h-[1px] w-full bg-gradient-to-r from-transparent via-gold/30 to-transparent my-10;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-black;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-gold/20 rounded-full hover:bg-gold/40 transition-colors;
+}
+
+.luxury-pattern {
+  background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png");
+}
+
+@keyframes slow-zoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+.animate-slow-zoom {
+  animation: slow-zoom 20s infinite alternate ease-in-out;
+}

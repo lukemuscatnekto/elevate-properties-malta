@@ -1,0 +1,249 @@
+import { motion, AnimatePresence } from 'motion/react';
+import { X, Bed, Bath, Maximize, MapPin, Check, Send, Phone, Mail, User, CheckCircle2 } from 'lucide-react';
+import type { Property } from '../types';
+import { useState, FormEvent, useEffect } from 'react';
+import { submitForm } from '../utils/formSubmission';
+
+interface PropertyModalProps {
+  property: Property | null;
+  onClose: () => void;
+}
+
+export default function PropertyModal({ property, onClose }: PropertyModalProps) {
+  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+  const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleEsc);
+    document.body.style.overflow = property ? 'hidden' : '';
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = '';
+    };
+  }, [property, onClose]);
+
+  useEffect(() => {
+    if (!property) {
+      setFormState('idle');
+      setFormData({ name: '', email: '', phone: '' });
+      setSuccessMessage('');
+    }
+  }, [property]);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!property) return;
+    setFormState('submitting');
+    const result = await submitForm('viewing', {
+      ...formData,
+      propertyTitle: property.title,
+      propertyId: property.id,
+    });
+    setSuccessMessage(result.message);
+    setFormState(result.success ? 'success' : 'error');
+  };
+
+  const inputCls =
+    'w-full bg-[#111] border border-white/8 py-4 pl-11 pr-4 text-white text-xs placeholder:text-white/20 focus:border-gold/50 outline-none transition-colors';
+
+  return (
+    <AnimatePresence>
+      {property && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/92 backdrop-blur-md cursor-pointer"
+          />
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 16 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-full max-w-5xl max-h-[min(92vh,920px)] bg-[#0B0B0D] border border-gold/15 shadow-[0_40px_80px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col lg:flex-row"
+          >
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close property details"
+              className="absolute top-4 right-4 z-[110] w-9 h-9 bg-black/60 border border-white/10 hover:bg-gold hover:border-gold text-white hover:text-black transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gold touch-manipulation"
+            >
+              <X className="w-4 h-4" aria-hidden="true" />
+            </button>
+
+            <div className="lg:w-[55%] relative h-52 sm:h-64 lg:h-auto lg:min-h-[320px] shrink-0 overflow-hidden">
+              <img src={property.image} alt={`${property.title}, ${property.location}`} className="w-full h-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0D] via-transparent to-transparent" aria-hidden="true" />
+
+              <div className="absolute bottom-6 left-6 right-6">
+                {property.tag && (
+                  <span className="inline-block px-4 py-1 bg-gold text-black text-[9px] font-bold uppercase tracking-[0.3em] mb-3">
+                    {property.tag}
+                  </span>
+                )}
+                <h2 id="modal-title" className="text-xl sm:text-2xl md:text-3xl text-white font-playfair font-light leading-snug">
+                  {property.title}
+                </h2>
+              </div>
+            </div>
+
+            <div className="lg:w-[45%] flex-1 overflow-y-auto bg-[#080808] border-l border-gold/8 custom-scrollbar min-h-0">
+              <div className="p-6 md:p-8 space-y-6 pb-10">
+                <div>
+                  <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-3">
+                    <p className="text-2xl sm:text-3xl text-gold font-playfair tabular-nums">{property.formattedPrice}</p>
+                    <address className="flex items-center gap-1.5 text-gray-500 not-italic text-[10px] uppercase tracking-[0.2em]">
+                      <MapPin className="w-3.5 h-3.5 text-gold/50 shrink-0" aria-hidden="true" />
+                      <span className="break-words">{property.location}, Malta</span>
+                    </address>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-3 py-4 border-y border-gold/8" aria-label="Property specifications">
+                    {[
+                      { Icon: Bed, val: property.beds, label: 'Beds' },
+                      { Icon: Bath, val: property.baths, label: 'Baths' },
+                      { Icon: Maximize, val: `${property.sqft}m²`, label: 'Area' },
+                    ].map(({ Icon, val, label }) => (
+                      <div key={label} className="text-center group">
+                        <Icon className="w-4 h-4 text-gold/50 group-hover:text-gold mx-auto mb-2 transition-colors" aria-hidden="true" />
+                        <p className="text-white text-sm sm:text-base font-light">{val}</p>
+                        <p className="text-[9px] text-gray-600 uppercase tracking-widest">{label}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-2">Overview</p>
+                  <p className="text-gray-400 text-sm font-light leading-relaxed">{property.description}</p>
+                </div>
+
+                {property.features?.length ? (
+                  <div>
+                    <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-3">Highlights</p>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {property.features.map((f) => (
+                        <li key={f} className="flex items-center gap-2.5">
+                          <span className="w-4 h-4 rounded-full bg-gold/8 border border-gold/20 flex items-center justify-center shrink-0" aria-hidden="true">
+                            <Check className="w-2.5 h-2.5 text-gold" />
+                          </span>
+                          <span className="text-gray-400 text-xs font-light">{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+
+                <div className="border-t border-gold/8 pt-6">
+                  <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-4">Request a private viewing</p>
+
+                  {formState === 'success' ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.96 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="text-center py-6 border border-gold/15 bg-gold/4 px-4"
+                    >
+                      <CheckCircle2 className="w-10 h-10 text-gold mx-auto mb-4" aria-hidden="true" />
+                      <p className="text-white font-playfair text-lg mb-2">Request received</p>
+                      <p className="text-gray-500 text-sm font-light break-words">{successMessage}</p>
+                      <button
+                        type="button"
+                        onClick={() => setFormState('idle')}
+                        className="mt-5 text-gold text-[10px] uppercase font-bold tracking-[0.3em] hover:text-white transition-colors touch-manipulation"
+                      >
+                        Send another request
+                      </button>
+                    </motion.div>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-3" aria-label="Request a viewing">
+                      <div className="relative group">
+                        <label htmlFor="modal-name" className="sr-only">
+                          Full name
+                        </label>
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gold/30 group-focus-within:text-gold transition-colors" aria-hidden="true" />
+                        <input
+                          id="modal-name"
+                          type="text"
+                          required
+                          autoComplete="name"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          placeholder="Full name"
+                          className={inputCls}
+                        />
+                      </div>
+                      <div className="relative group">
+                        <label htmlFor="modal-email" className="sr-only">
+                          Email
+                        </label>
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gold/30 group-focus-within:text-gold transition-colors" aria-hidden="true" />
+                        <input
+                          id="modal-email"
+                          type="email"
+                          required
+                          autoComplete="email"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="Email address"
+                          className={inputCls}
+                        />
+                      </div>
+                      <div className="relative group">
+                        <label htmlFor="modal-phone" className="sr-only">
+                          Phone
+                        </label>
+                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gold/30 group-focus-within:text-gold transition-colors" aria-hidden="true" />
+                        <input
+                          id="modal-phone"
+                          type="tel"
+                          required
+                          autoComplete="tel"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="Phone number"
+                          className={inputCls}
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        disabled={formState === 'submitting'}
+                        className="w-full flex items-center justify-center gap-2.5 bg-gold hover:bg-white text-black text-[10px] font-bold uppercase tracking-[0.3em] py-4 transition-all disabled:opacity-50 group touch-manipulation min-h-[48px]"
+                      >
+                        {formState === 'submitting' ? (
+                          'Sending…'
+                        ) : (
+                          <>
+                            Submit request
+                            <Send className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" />
+                          </>
+                        )}
+                      </button>
+                      {formState === 'error' && (
+                        <p className="text-[11px] text-red-300 text-center break-words" role="alert">
+                          {successMessage}
+                        </p>
+                      )}
+                      <p className="text-[9px] text-white/25 text-center break-words">We respond discreetly — no obligation.</p>
+                    </form>
+                  )}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}

@@ -1,0 +1,10 @@
+# Netlify — https://docs.netlify.com/configure-builds/file-based-configuration/
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# SPA + client-side routes (e.g. /crm/*): serve index.html for non-file paths
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
