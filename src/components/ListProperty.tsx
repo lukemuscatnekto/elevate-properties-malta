@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ShieldCheck, Target, Camera, Key, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import { useState, FormEvent } from 'react';
 import { useLocation } from 'react-router-dom';
 import { submitForm, FORM_HONEYPOT_FIELD } from '../utils/formSubmission';
@@ -7,28 +7,24 @@ import FormHoneypot from './FormHoneypot';
 import { formDiscretionFootnote, formTechnicalFailureHint } from '../content/formFootnotes';
 import { anchorHref } from '../utils/routeAnchors';
 
-const pillars = [
+const sellerBenefits = [
   {
-    Icon: Camera,
-    title: 'Cinematic Presentation',
-    desc: 'Professional HDR photography and cinematic drone footage that captures the true character of your home.',
+    title: 'Private Representation',
+    body: 'Selective exposure, carefully handled introductions, and a process shaped around discretion.',
   },
   {
-    Icon: ShieldCheck,
-    title: 'Vetted Buyers Only',
-    desc: 'Every prospective buyer is discreetly qualified before a single viewing is arranged.',
+    title: 'Qualified Buyers',
+    body: 'Enquiries are filtered carefully so viewings are purposeful and aligned with your positioning.',
   },
   {
-    Icon: Target,
-    title: 'Global Reach',
-    desc: 'Your property placed before a curated network of international high-net-worth buyers and investors.',
+    title: 'Presentation Strategy',
+    body: 'Photography, marketing materials, and property narrative are prepared to reflect the home properly.',
   },
   {
-    Icon: Key,
-    title: 'End-to-End Service',
-    desc: 'From first consultation through to legal completion — we manage every detail on your behalf.',
+    title: 'End-to-End Coordination',
+    body: 'From first briefing through negotiation and onward coordination, every step is handled with structure.',
   },
-];
+] as const;
 
 export default function ListProperty() {
   const { pathname } = useLocation();
@@ -47,16 +43,14 @@ export default function ListProperty() {
 
   return (
     <section id="list-property" className="scroll-anchor-target py-10 sm:py-12 px-4 sm:px-8 bg-[#070707] relative overflow-hidden border-t border-gold/20" aria-labelledby="list-heading">
-      {/* Subtle texture overlay */}
       <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
         style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/dark-leather.png')" }}
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+      <div className="max-w-7xl mx-auto relative grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-stretch">
 
-        {/* ── Left: copy + pillars + form ── */}
-        <div>
+        <div className="flex flex-col min-w-0">
           <motion.p
             initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -91,31 +85,8 @@ export default function ListProperty() {
             bespoke selling experience looks like. We do not advertise widely — we represent selectively.
           </motion.p>
 
-          {/* Pillars */}
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8" aria-label="Our selling approach">
-            {pillars.map((p, i) => (
-              <motion.li
-                key={p.title}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.06 * i }}
-                className="flex gap-4"
-              >
-                <div className="w-10 h-10 rounded-full bg-gold/6 border border-gold/15 flex items-center justify-center shrink-0" aria-hidden="true">
-                  <p.Icon className="w-4 h-4 text-gold" />
-                </div>
-                <div>
-                  <h3 className="text-white text-sm font-semibold mb-1">{p.title}</h3>
-                  <p className="text-white/35 text-xs leading-relaxed font-light">{p.desc}</p>
-                </div>
-              </motion.li>
-            ))}
-          </ul>
-
-          {/* Express enquiry form */}
-          <div className="bg-[#0D0D0D] border border-gold/15 p-5 sm:p-6">
-            <div className="h-[1px] w-12 bg-gold/40 mb-6" aria-hidden="true" />
+          <div className="bg-[#0D0D0D] border border-gold/15 p-5 sm:p-6 flex-1 flex flex-col">
+            <div className="h-[1px] w-12 bg-gold/40 mb-6 shrink-0" aria-hidden="true" />
             <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-5">Request a Confidential Valuation</p>
 
             {formState === 'success' ? (
@@ -127,7 +98,7 @@ export default function ListProperty() {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-3 relative" aria-label="Confidential valuation request">
+              <form onSubmit={handleSubmit} className="space-y-3 relative flex-1 flex flex-col" aria-label="Confidential valuation request">
                 <FormHoneypot idSuffix="list" value={honeypot} onChange={setHoneypot} />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
@@ -194,7 +165,7 @@ export default function ListProperty() {
                 <button
                   type="submit"
                   disabled={formState === 'submitting'}
-                  className="w-full min-h-[48px] bg-gold hover:bg-white text-black py-4 font-bold uppercase tracking-[0.3em] text-[10px] transition-all disabled:opacity-50 touch-manipulation"
+                  className="w-full min-h-[48px] bg-gold hover:bg-white text-black py-4 font-bold uppercase tracking-[0.3em] text-[10px] transition-all disabled:opacity-50 touch-manipulation mt-auto"
                 >
                   {formState === 'submitting' ? 'Sending…' : 'Submit confidential briefing'}
                 </button>
@@ -210,49 +181,43 @@ export default function ListProperty() {
           </div>
         </div>
 
-        {/* ── Right: image + testimonial ── */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+        <motion.aside
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative group lg:sticky lg:top-28"
+          transition={{ duration: 0.75 }}
+          aria-labelledby="seller-panel-kicker"
+          className="lg:sticky lg:top-28 self-start border border-gold/20 bg-[#0A0A0A] p-6 sm:p-8 flex flex-col h-fit min-h-0 w-full"
         >
-          <div className="relative aspect-[4/5] overflow-hidden border border-white/5">
-            <img
-              src="/images/new-hero.png"
-              alt="Elevate Properties Malta — distinctive Malta residence"
-              className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
-              loading="lazy"
-              width={800}
-              height={1000}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" aria-hidden="true" />
-
-            <aside className="absolute bottom-6 left-4 right-4 sm:bottom-8 sm:left-6 sm:right-6 bg-black/84 backdrop-blur-md border border-gold/15 p-5 sm:p-6 max-h-[52vh] sm:max-h-none overflow-y-auto shadow-2xl">
-              <p className="text-[9px] text-gold/75 uppercase tracking-[0.28em] font-bold mb-3">Selling in Malta?</p>
-              <ul className="text-[11px] sm:text-xs text-white/65 font-light leading-relaxed space-y-2 list-disc list-inside">
-                <li>Valuations consider micro-location, covenant strength, tenancy (if applicable), capex allowances, comparable evidence, not algorithmic guesses.</li>
-                <li>Buyers introduced only after prudent qualification — safeguarding your diary and doorstep.</li>
-                <li>Materials and tours follow your approvals; nothing broadcasts without consent.</li>
-              </ul>
-              <p className="mt-4 text-[10px] text-white/38 leading-relaxed">
-                Professional legal, tax, and structuring advice stays with licensed practitioners you nominate — Elevate concentrates on transactional representation and marketing choreography.
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2 justify-end">
-                <a
-                  href={anchorHref(pathname, '#contact')}
-                  className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 border border-gold/35 text-[9px] font-bold uppercase tracking-[0.2em] text-gold hover:bg-gold hover:text-black transition-colors touch-manipulation"
-                >
-                  Speak with us first
-                </a>
+          <p id="seller-panel-kicker" className="text-[10px] text-gold font-bold uppercase tracking-[0.32em] mb-4">
+            What sellers can expect
+          </p>
+          <h3 className="text-lg sm:text-xl font-playfair text-white/95 leading-snug mb-6">
+            Quiet representation with disciplined execution.
+          </h3>
+          <div className="space-y-0 flex-1">
+            {sellerBenefits.map(({ title, body }, i) => (
+              <div
+                key={title}
+                className={`py-4 ${i > 0 ? 'border-t border-white/[0.07]' : ''}`}
+              >
+                <p className="text-[11px] sm:text-xs font-semibold text-white/88 tracking-wide mb-1.5">{title}</p>
+                <p className="text-[11px] sm:text-sm text-white/42 font-light leading-relaxed">{body}</p>
               </div>
-            </aside>
+            ))}
           </div>
-
-          {/* Corner accents */}
-          <div className="absolute -top-3 -right-3 w-16 h-16 border-t-2 border-r-2 border-gold/30 pointer-events-none" aria-hidden="true" />
-          <div className="absolute -bottom-3 -left-3 w-16 h-16 border-b-2 border-l-2 border-gold/30 pointer-events-none" aria-hidden="true" />
-        </motion.div>
+          <p className="mt-6 pt-6 border-t border-gold/15 text-[11px] sm:text-xs text-white/38 font-light leading-relaxed">
+            We do not rely on mass-market noise when a more considered route better protects the asset.
+          </p>
+          <p className="mt-5 text-center">
+            <a
+              href={anchorHref(pathname, '#contact')}
+              className="inline-flex items-center justify-center min-h-[44px] px-5 w-full sm:w-auto border border-gold/35 text-[9px] font-bold uppercase tracking-[0.2em] text-gold hover:bg-gold hover:text-black transition-colors touch-manipulation"
+            >
+              Speak with us first
+            </a>
+          </p>
+        </motion.aside>
       </div>
     </section>
   );
