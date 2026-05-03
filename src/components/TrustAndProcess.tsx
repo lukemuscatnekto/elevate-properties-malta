@@ -38,8 +38,8 @@ export default function TrustAndProcess() {
           How we work with you
         </h2>
         <p className="text-sm text-white/45 font-light leading-relaxed max-w-2xl mb-8">
-          Explore featured residences, inspect details in-depth, lodge a discreet viewing enquiry when you&apos;re comfortable, escalate to concierge search if you wish, then briefing us formally when instructing an off-market valuation or sale mandate.
-          Add verified accolades or regulatory references manually when legally issued.
+          Explore featured residences, inspect details in-depth, lodge a discreet viewing enquiry when you&apos;re comfortable, escalate to a
+          concierge search if you wish, then brief us formally when instructing an off-market valuation or sale mandate.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

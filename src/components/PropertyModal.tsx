@@ -87,7 +87,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
               type="button"
               onClick={onClose}
               aria-label="Close property details"
-              className="absolute top-4 right-4 z-[110] w-9 h-9 bg-black/60 border border-white/10 hover:bg-gold hover:border-gold text-white hover:text-black transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gold touch-manipulation"
+              className="absolute top-4 right-4 z-[110] min-h-[44px] min-w-[44px] flex items-center justify-center bg-black/60 border border-white/10 hover:bg-gold hover:border-gold text-white hover:text-black transition-all focus:outline-none focus:ring-2 focus:ring-gold touch-manipulation"
             >
               <X className="w-4 h-4" aria-hidden="true" />
             </button>
@@ -158,7 +158,8 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 <div className="border-t border-gold/8 pt-6">
                   <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-2">Request a private viewing</p>
                   <p className="text-white/38 text-[11px] font-light leading-relaxed mb-5">
-                    There is no obligation to proceed — we coordinate times that respect sellers and neighbours, typically within one-to-two working days subject to confirmations.
+                    There is no obligation to proceed. We coordinate times that respect sellers and neighbours, typically within one to two
+                    working days, subject to confirmations.
                   </p>
 
                   {formState === 'success' ? (
@@ -173,7 +174,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                       <button
                         type="button"
                         onClick={() => setFormState('idle')}
-                        className="mt-5 text-gold text-[10px] uppercase font-bold tracking-[0.3em] hover:text-white transition-colors touch-manipulation"
+                        className="mt-5 inline-flex min-h-[44px] items-center justify-center px-4 text-gold text-[10px] uppercase font-bold tracking-[0.3em] hover:text-white transition-colors touch-manipulation"
                       >
                         Send another request
                       </button>
@@ -239,7 +240,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                           value={formData.message}
                           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                           placeholder="Preferred days or times — or questions before we confirm the viewing."
-                          className={`${inputCls} min-h-[88px] py-3 pl-4 resize-y`}
+                          className={`${inputCls} min-h-[88px] py-3 pl-4 resize-none`}
                           autoComplete="off"
                         />
                       </div>

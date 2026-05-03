@@ -2,16 +2,21 @@
 // NOTE: This is a frontend-only prototype. No real auth, no backend.
 //   - Data is mocked + persisted in localStorage.
 //   - "Login" is a mock screen, not a security boundary.
-//   - TODO (later phase): website enquiries (ContactForm) could be converted into CRM leads.
+//   - Public-site forms (ContactForm, ListProperty) mirror to CRM leads via
+//     src/crm/utils/publicIntake.ts — see src/utils/formSubmission.ts for the
+//     mirror call site. This is the only bridge between public site and CRM.
 
 import { Routes, Route, Navigate } from 'react-router-dom';
 import CRMLayout from './CRMLayout';
 import Dashboard from './pages/Dashboard';
 import Leads from './pages/Leads';
+import LeadDetail from './pages/LeadDetail';
+import LeadEdit from './pages/LeadEdit';
 import Tasks from './pages/Tasks';
 import Properties from './pages/Properties';
 import AddProperty from './pages/AddProperty';
 import PropertyDetail from './pages/PropertyDetail';
+import PropertyEdit from './pages/PropertyEdit';
 import Contacts from './pages/Contacts';
 import Directory from './pages/Directory';
 import Viewings from './pages/Viewings';
@@ -31,10 +36,13 @@ export default function CRMApp() {
         <Route index element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="leads" element={<Leads />} />
+        <Route path="leads/:id" element={<LeadDetail />} />
+        <Route path="leads/:id/edit" element={<LeadEdit />} />
         <Route path="tasks" element={<Tasks />} />
         <Route path="properties" element={<Properties />} />
         <Route path="properties/add" element={<AddProperty />} />
         <Route path="properties/:id" element={<PropertyDetail />} />
+        <Route path="properties/:id/edit" element={<PropertyEdit />} />
         <Route path="contacts" element={<Contacts />} />
         <Route path="directory" element={<Directory />} />
         <Route path="viewings" element={<Viewings />} />

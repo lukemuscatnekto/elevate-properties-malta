@@ -6,6 +6,7 @@ import CRMTable, { type CRMTableColumn } from '../components/CRMTable';
 import CRMStatusBadge from '../components/CRMStatusBadge';
 import CRMFilterPanel from '../components/CRMFilterPanel';
 import { generateId, getTasks, saveTasks } from '../utils/storage';
+import { useUrlFilter } from '../utils/useUrlFilter';
 import type { CRMTask, TaskPriority, TaskStatus, TaskType } from '../types';
 
 const TASK_TYPES: TaskType[] = [
@@ -32,13 +33,16 @@ function formatDateTime(iso: string): string {
 
 export default function Tasks() {
   const [tasks, setTasks] = useState<CRMTask[]>([]);
-  const [tab, setTab] = useState<'pending' | 'completed'>('pending');
-  const [typeFilter, setTypeFilter] = useState<TaskType | 'All'>('All');
-  const [agentFilter, setAgentFilter] = useState<string>('All');
-  const [from, setFrom] = useState<string>('');
-  const [to, setTo] = useState<string>('');
   const [showForm, setShowForm] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { get, set, clearAll, hasAny } = useUrlFilter();
+
+  // URL-backed filters
+  const tab = (get('tab', 'pending') as 'pending' | 'completed');
+  const typeFilter = get('type', 'All') as TaskType | 'All';
+  const agentFilter = get('agent', 'All');
+  const from = get('from');
+  const to = get('to');
 
   useEffect(() => {
     setTasks(getTasks());
@@ -47,8 +51,9 @@ export default function Tasks() {
   useEffect(() => {
     if (searchParams.get('new') === '1') {
       setShowForm(true);
-      searchParams.delete('new');
-      setSearchParams(searchParams, { replace: true });
+      const next = new URLSearchParams(searchParams);
+      next.delete('new');
+      setSearchParams(next, { replace: true });
     }
   }, [searchParams, setSearchParams]);
 
@@ -139,28 +144,39 @@ export default function Tasks() {
       </header>
 
       {/* Tabs */}
-      <div className="border-b border-slate-200 flex gap-4">
-        {(['pending', 'completed'] as const).map((t) => (
+      <div className="border-b border-slate-200 flex gap-4 items-center justify-between">
+        <div className="flex gap-4">
+          {(['pending', 'completed'] as const).map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => set('tab', t === 'pending' ? '' : t)}
+              className={`px-1 pb-2 text-sm font-medium border-b-2 transition-colors ${
+                tab === t ? 'border-teal-600 text-teal-700' : 'border-transparent text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              {t === 'pending' ? 'Pending Tasks' : 'Completed Tasks'}
+            </button>
+          ))}
+        </div>
+        {hasAny(['type', 'agent', 'from', 'to', 'tab']) && (
           <button
-            key={t}
             type="button"
-            onClick={() => setTab(t)}
-            className={`px-1 pb-2 text-sm font-medium border-b-2 transition-colors ${
-              tab === t ? 'border-teal-600 text-teal-700' : 'border-transparent text-slate-500 hover:text-slate-700'
-            }`}
+            onClick={() => clearAll(['new'])}
+            className="text-xs text-slate-500 hover:text-slate-800 inline-flex items-center gap-1 pb-2"
           >
-            {t === 'pending' ? 'Pending Tasks' : 'Completed Tasks'}
+            <X className="w-3 h-3" /> Clear filters
           </button>
-        ))}
+        )}
       </div>
 
-      <CRMFilterPanel title="Task Search & Filter Options">
+      <CRMFilterPanel title="Task Search & Filter Options" defaultOpen={hasAny(['type', 'agent', 'from', 'to'])}>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-2">
           <label className="text-sm">
             <span className="text-xs text-slate-500 block mb-1">Type</span>
             <select
               value={typeFilter}
-              onChange={(e) => setTypeFilter(e.target.value as TaskType | 'All')}
+              onChange={(e) => set('type', e.target.value)}
               className="w-full border border-slate-200 rounded-md px-2 py-2 text-sm bg-white"
             >
               <option value="All">All</option>
@@ -171,7 +187,7 @@ export default function Tasks() {
             <span className="text-xs text-slate-500 block mb-1">Assigned To</span>
             <select
               value={agentFilter}
-              onChange={(e) => setAgentFilter(e.target.value)}
+              onChange={(e) => set('agent', e.target.value)}
               className="w-full border border-slate-200 rounded-md px-2 py-2 text-sm bg-white"
             >
               <option value="All">All</option>
@@ -183,7 +199,7 @@ export default function Tasks() {
             <input
               type="date"
               value={from}
-              onChange={(e) => setFrom(e.target.value)}
+              onChange={(e) => set('from', e.target.value)}
               className="w-full border border-slate-200 rounded-md px-2 py-2 text-sm bg-white"
             />
           </label>
@@ -192,7 +208,7 @@ export default function Tasks() {
             <input
               type="date"
               value={to}
-              onChange={(e) => setTo(e.target.value)}
+              onChange={(e) => set('to', e.target.value)}
               className="w-full border border-slate-200 rounded-md px-2 py-2 text-sm bg-white"
             />
           </label>

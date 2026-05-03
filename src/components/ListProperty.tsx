@@ -185,7 +185,7 @@ export default function ListProperty() {
                     value={formData.message}
                     onChange={e => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Anything we should know — timing, tenure, rough guide price…"
-                    className="w-full min-h-[88px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors resize-y"
+                    className="w-full min-h-[88px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors resize-none"
                   />
                 </div>
                 <button

@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Plus, Search } from 'lucide-react';
+import { Plus, Search, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import CRMCard from '../components/CRMCard';
 import CRMTable, { type CRMTableColumn } from '../components/CRMTable';
 import CRMStatusBadge from '../components/CRMStatusBadge';
 import CRMFilterPanel from '../components/CRMFilterPanel';
 import { getProperties } from '../utils/storage';
+import { useUrlFilter } from '../utils/useUrlFilter';
 import type { CRMProperty, CRMPropertyCategory, CRMPropertyStatus, SaleOrLet } from '../types';
 
 const CATEGORIES: CRMPropertyCategory[] = [
@@ -30,10 +31,14 @@ const STATUSES: CRMPropertyStatus[] = [
 export default function Properties() {
   const navigate = useNavigate();
   const [properties, setProperties] = useState<CRMProperty[]>([]);
-  const [search, setSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState<CRMPropertyStatus | 'All'>('All');
-  const [categoryFilter, setCategoryFilter] = useState<CRMPropertyCategory | 'All'>('All');
-  const [salFilter, setSalFilter] = useState<SaleOrLet | 'All'>('All');
+  const { get, set, clearAll, hasAny } = useUrlFilter();
+
+  // URL-backed filters
+  const search = get('q');
+  const statusFilter = get('status', 'All') as CRMPropertyStatus | 'All';
+  const categoryFilter = get('type', 'All') as CRMPropertyCategory | 'All';
+  const salFilter = get('sl', 'All') as SaleOrLet | 'All';
+  const localityFilter = get('locality');
 
   useEffect(() => {
     setProperties(getProperties());
@@ -44,6 +49,9 @@ export default function Properties() {
       if (statusFilter !== 'All' && p.status !== statusFilter) return false;
       if (categoryFilter !== 'All' && p.category !== categoryFilter) return false;
       if (salFilter !== 'All' && p.saleOrLet !== salFilter) return false;
+      if (localityFilter && !p.location.locality.toLowerCase().includes(localityFilter.toLowerCase())) {
+        return false;
+      }
       if (search) {
         const q = search.toLowerCase();
         const blob = `${p.reference} ${p.title} ${p.location.locality} ${p.location.address}`.toLowerCase();
@@ -51,7 +59,7 @@ export default function Properties() {
       }
       return true;
     });
-  }, [properties, search, statusFilter, categoryFilter, salFilter]);
+  }, [properties, search, statusFilter, categoryFilter, salFilter, localityFilter]);
 
   const columns: CRMTableColumn<CRMProperty>[] = [
     {
@@ -138,25 +146,36 @@ export default function Properties() {
         </button>
       </header>
 
-      <div className="relative max-w-md">
-        <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-        <input
-          type="search"
-          aria-label="Search properties"
-          placeholder="Search by reference, title or locality…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full bg-white border border-slate-200 rounded-md pl-9 pr-3 py-2 text-sm text-slate-700"
-        />
+      <div className="flex items-center gap-3 flex-wrap">
+        <div className="relative max-w-md flex-1 min-w-[220px]">
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="search"
+            aria-label="Search properties"
+            placeholder="Search by reference, title or locality…"
+            value={search}
+            onChange={(e) => set('q', e.target.value)}
+            className="w-full bg-white border border-slate-200 rounded-md pl-9 pr-3 py-2 text-sm text-slate-700"
+          />
+        </div>
+        {hasAny(['q', 'status', 'type', 'sl', 'locality']) && (
+          <button
+            type="button"
+            onClick={() => clearAll()}
+            className="text-xs text-slate-500 hover:text-slate-800 inline-flex items-center gap-1"
+          >
+            <X className="w-3 h-3" /> Clear filters
+          </button>
+        )}
       </div>
 
-      <CRMFilterPanel title="Property Search & Filter Options">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+      <CRMFilterPanel title="Property Search & Filter Options" defaultOpen={hasAny(['status', 'type', 'sl', 'locality'])}>
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-2">
           <label className="text-sm">
             <span className="text-xs text-slate-500 block mb-1">Status</span>
             <select
               value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value as CRMPropertyStatus | 'All')}
+              onChange={(e) => set('status', e.target.value)}
               className="w-full border border-slate-200 rounded-md px-2 py-2 text-sm bg-white"
             >
               <option value="All">All</option>
@@ -167,7 +186,7 @@ export default function Properties() {
             <span className="text-xs text-slate-500 block mb-1">Type</span>
             <select
               value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value as CRMPropertyCategory | 'All')}
+              onChange={(e) => set('type', e.target.value)}
               className="w-full border border-slate-200 rounded-md px-2 py-2 text-sm bg-white"
             >
               <option value="All">All</option>
@@ -178,13 +197,23 @@ export default function Properties() {
             <span className="text-xs text-slate-500 block mb-1">Sale / Rental</span>
             <select
               value={salFilter}
-              onChange={(e) => setSalFilter(e.target.value as SaleOrLet | 'All')}
+              onChange={(e) => set('sl', e.target.value)}
               className="w-full border border-slate-200 rounded-md px-2 py-2 text-sm bg-white"
             >
               <option value="All">All</option>
               <option value="Sale">Sale</option>
               <option value="Rental">Rental</option>
             </select>
+          </label>
+          <label className="text-sm">
+            <span className="text-xs text-slate-500 block mb-1">Locality</span>
+            <input
+              type="text"
+              value={localityFilter}
+              onChange={(e) => set('locality', e.target.value)}
+              placeholder="e.g. Sliema"
+              className="w-full border border-slate-200 rounded-md px-2 py-2 text-sm bg-white"
+            />
           </label>
         </div>
       </CRMFilterPanel>

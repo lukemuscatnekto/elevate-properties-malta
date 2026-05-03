@@ -56,8 +56,8 @@ export default function ContactForm() {
                 Start a private conversation
               </h2>
               <p className="text-white/40 text-sm font-light leading-relaxed max-w-md mb-6">
-                Message our advisors for Malta buying, leasing, divestment timing, portfolio expansion, pricing context, introductions to professional partners you appoint —
-                whatever stage you are at today.
+                Message our advisers for Malta buying, leasing, divestment timing, portfolio expansion, pricing context, and introductions to
+                professional partners you appoint — at whatever stage you are at today.
               </p>
             </motion.div>
 
@@ -120,7 +120,8 @@ export default function ContactForm() {
 
             <div className="border-t border-white/5 pt-5 max-w-md">
               <p className="text-white/42 text-[12px] font-light leading-relaxed">
-                Nico Dalton and Luke Muscat field inbound enquiries alongside the team — after hours WhatsApp reaches Nico primarily; escalate viewing windows or sensitive matters discreetly whenever required.
+                Nico Dalton and Luke Muscat field inbound enquiries alongside the team. After hours, WhatsApp reaches Nico primarily; for viewing
+                windows or sensitive matters, escalate discreetly whenever required.
               </p>
             </div>
           </div>

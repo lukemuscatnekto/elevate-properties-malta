@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Plus, Search, X } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import CRMCard from '../components/CRMCard';
 import CRMTable, { type CRMTableColumn } from '../components/CRMTable';
 import CRMStatusBadge from '../components/CRMStatusBadge';
 import CRMFilterPanel from '../components/CRMFilterPanel';
 import { generateId, getLeads, saveLeads } from '../utils/storage';
+import { useUrlFilter } from '../utils/useUrlFilter';
 import type { Lead, LeadSource, LeadStatus, PropertyInterest } from '../types';
 
 const STATUSES: LeadStatus[] = [
@@ -36,13 +37,17 @@ function formatDate(iso: string): string {
 }
 
 export default function Leads() {
+  const navigate = useNavigate();
   const [leads, setLeads] = useState<Lead[]>([]);
-  const [search, setSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState<LeadStatus | 'All'>('All');
-  const [sourceFilter, setSourceFilter] = useState<LeadSource | 'All'>('All');
-  const [agentFilter, setAgentFilter] = useState<string>('All');
   const [showForm, setShowForm] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { get, set, clearAll, hasAny } = useUrlFilter();
+
+  // URL-backed filter state
+  const search = get('q');
+  const statusFilter = (get('status', 'All') as LeadStatus | 'All');
+  const sourceFilter = (get('source', 'All') as LeadSource | 'All');
+  const agentFilter = get('agent', 'All');
 
   useEffect(() => {
     setLeads(getLeads());
@@ -51,8 +56,9 @@ export default function Leads() {
   useEffect(() => {
     if (searchParams.get('new') === '1') {
       setShowForm(true);
-      searchParams.delete('new');
-      setSearchParams(searchParams, { replace: true });
+      const next = new URLSearchParams(searchParams);
+      next.delete('new');
+      setSearchParams(next, { replace: true });
     }
   }, [searchParams, setSearchParams]);
 
@@ -154,25 +160,36 @@ export default function Leads() {
         </button>
       </header>
 
-      <div className="relative max-w-md">
-        <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-        <input
-          type="search"
-          placeholder="Search leads…"
-          aria-label="Search leads"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full bg-white border border-slate-200 rounded-md pl-9 pr-3 py-2 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-        />
+      <div className="flex items-center gap-3 flex-wrap">
+        <div className="relative max-w-md flex-1 min-w-[220px]">
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="search"
+            placeholder="Search leads…"
+            aria-label="Search leads"
+            value={search}
+            onChange={(e) => set('q', e.target.value)}
+            className="w-full bg-white border border-slate-200 rounded-md pl-9 pr-3 py-2 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+          />
+        </div>
+        {hasAny(['q', 'status', 'source', 'agent']) && (
+          <button
+            type="button"
+            onClick={() => clearAll(['new'])}
+            className="text-xs text-slate-500 hover:text-slate-800 inline-flex items-center gap-1"
+          >
+            <X className="w-3 h-3" /> Clear filters
+          </button>
+        )}
       </div>
 
-      <CRMFilterPanel title="Lead Search & Filter Options" defaultOpen={false}>
+      <CRMFilterPanel title="Lead Search & Filter Options" defaultOpen={hasAny(['status', 'source', 'agent'])}>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
           <label className="text-sm">
             <span className="text-xs text-slate-500 block mb-1">Status</span>
             <select
               value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value as LeadStatus | 'All')}
+              onChange={(e) => set('status', e.target.value)}
               className="w-full border border-slate-200 rounded-md px-2 py-2 text-sm bg-white"
             >
               <option value="All">All</option>
@@ -183,7 +200,7 @@ export default function Leads() {
             <span className="text-xs text-slate-500 block mb-1">Source</span>
             <select
               value={sourceFilter}
-              onChange={(e) => setSourceFilter(e.target.value as LeadSource | 'All')}
+              onChange={(e) => set('source', e.target.value)}
               className="w-full border border-slate-200 rounded-md px-2 py-2 text-sm bg-white"
             >
               <option value="All">All</option>
@@ -194,7 +211,7 @@ export default function Leads() {
             <span className="text-xs text-slate-500 block mb-1">Assigned Agent</span>
             <select
               value={agentFilter}
-              onChange={(e) => setAgentFilter(e.target.value)}
+              onChange={(e) => set('agent', e.target.value)}
               className="w-full border border-slate-200 rounded-md px-2 py-2 text-sm bg-white"
             >
               <option value="All">All</option>
@@ -209,6 +226,7 @@ export default function Leads() {
           columns={columns}
           rows={filtered}
           rowKey={(l) => l.id}
+          onRowClick={(l) => navigate(`/crm/leads/${l.id}`)}
           emptyMessage="No leads match the current filters."
         />
       </CRMCard>

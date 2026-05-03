@@ -51,7 +51,7 @@ export default function Footer() {
               href={siteConfig.primaryWhatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 min-h-[42px] border border-gold/35 px-5 text-[10px] font-bold uppercase tracking-[0.2em] text-gold hover:bg-gold hover:text-black transition-colors touch-manipulation mt-3"
+              className="inline-flex items-center justify-center gap-2 min-h-[48px] border border-gold/35 px-5 text-[10px] font-bold uppercase tracking-[0.2em] text-gold hover:bg-gold hover:text-black transition-colors touch-manipulation mt-3"
               aria-label="Open WhatsApp with Nico Dalton (primary WhatsApp)"
             >
               <MessageCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
@@ -67,7 +67,7 @@ export default function Footer() {
             <div className="pt-3 border-t border-white/10 space-y-1.5">
               <div className="flex items-start gap-2">
                 <Mail className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5 opacity-75" aria-hidden="true" />
-                <a href={siteConfig.emailHref} className="hover:text-gold transition-colors break-all">
+                <a href={siteConfig.emailHref} className="text-[11px] sm:text-xs hover:text-gold transition-colors break-all leading-snug">
                   {siteConfig.emailDisplay}
                 </a>
               </div>

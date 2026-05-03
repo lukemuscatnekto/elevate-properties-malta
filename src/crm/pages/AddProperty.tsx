@@ -2,6 +2,8 @@ import { useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import CRMCard from '../components/CRMCard';
+import CRMImageUploader from '../components/CRMImageUploader';
+import CRMMapPreview from '../components/CRMMapPreview';
 import { generateId, getProperties, saveProperties } from '../utils/storage';
 import type {
   CRMProperty,
@@ -343,22 +345,26 @@ export default function AddProperty() {
         )}
 
         {tab === 'media' && (
-          <div className="grid grid-cols-1 gap-3">
-            <Input label="Featured Image URL" value={form.featuredImageUrl} onChange={(v) => update('featuredImageUrl', v)} />
-            <TextArea
-              label="Gallery Image URLs (one per line)"
-              value={form.galleryUrlsRaw}
-              onChange={(v) => update('galleryUrlsRaw', v)}
+          <div className="space-y-4">
+            <CRMImageUploader
+              featuredImageUrl={form.featuredImageUrl}
+              galleryUrls={form.galleryUrlsRaw
+                .split(/\r?\n/)
+                .map((u) => u.trim())
+                .filter(Boolean)}
+              onChange={(next) => {
+                update('featuredImageUrl', next.featuredImageUrl);
+                update('galleryUrlsRaw', next.galleryUrls.join('\n'));
+              }}
             />
-            <div className="flex items-center justify-center bg-slate-100 border-2 border-dashed border-slate-300 rounded-md p-8 text-sm text-slate-500">
-              Drag &amp; drop image upload (placeholder — wired in Phase 2)
-            </div>
-            {form.featuredImageUrl && (
-              <div>
-                <p className="text-xs text-slate-500 mb-1">Featured preview</p>
-                <img src={form.featuredImageUrl} alt="Featured" className="w-full max-w-md rounded border border-slate-200" />
-              </div>
-            )}
+            <details className="text-xs text-slate-500">
+              <summary className="cursor-pointer">Or paste image URLs (one per line)</summary>
+              <TextArea
+                label=""
+                value={form.galleryUrlsRaw}
+                onChange={(v) => update('galleryUrlsRaw', v)}
+              />
+            </details>
           </div>
         )}
 
@@ -370,8 +376,13 @@ export default function AddProperty() {
             <Input label="Latitude" value={form.latitude} onChange={(v) => update('latitude', v)} />
             <Input label="Longitude" value={form.longitude} onChange={(v) => update('longitude', v)} />
             <TextArea label="Directions / Notes" value={form.directionsNotes} onChange={(v) => update('directionsNotes', v)} className="sm:col-span-2" />
-            <div className="sm:col-span-2 h-48 bg-gradient-to-br from-sky-50 via-white to-emerald-50 border border-dashed border-slate-300 rounded-md flex items-center justify-center text-sm text-slate-500">
-              Map preview (Malta) — Google Maps integration in Phase 2
+            <div className="sm:col-span-2 rounded-md overflow-hidden border border-slate-200">
+              <CRMMapPreview
+                latitude={form.latitude ? Number(form.latitude) : undefined}
+                longitude={form.longitude ? Number(form.longitude) : undefined}
+                label={form.title || 'New listing'}
+                height={240}
+              />
             </div>
           </div>
         )}
