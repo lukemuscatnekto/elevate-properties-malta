@@ -23,17 +23,28 @@ Edit `.env.local` before launch (forms + optional URL). **All `VITE_*` vars are 
 
 | Variable | Values | Purpose |
 |---------|--------|--------|
-| `VITE_SITE_URL` | `https://www.yoursite.mt` | Optional reference URL (documented here for ops consistency). |
-| `VITE_FORM_PROVIDER` | **`none`** (local demo success), **`formspree`** (recommended first production path), **`netlify`**, **`emailjs`** | Selects outbound handler inside `submitForm()` — see `.env.example`. |
-| `VITE_FORMSPREE_ENDPOINT` | `https://formspree.io/f/xxxxxxx` | **Required** when provider is `formspree`; one endpoint can distinguish contact vs valuation vs viewing using the emitted `formType` field inside the payload. |
+| `VITE_SITE_URL` | `https://elevateproperties.com` (see `.env.example`) | Optional reference URL (documented here for ops consistency). |
+| `VITE_FORM_PROVIDER` | **`formspree`** (production), **`none`** (browser demo only), **`netlify`**, **`emailjs`** | Wired in `src/utils/formSubmission.ts`. |
+| `VITE_FORMSPREE_ENDPOINT` | `https://formspree.io/f/xxxxxxx` | **Required** when `VITE_FORM_PROVIDER=formspree`. Placeholders like `PASTE_FORMSPREE…` are rejected until replaced. |
 
 ```env
-VITE_SITE_URL=https://your-production-domain.example
-VITE_FORM_PROVIDER=none
-# Production with Formspree:
-# VITE_FORM_PROVIDER=formspree
-# VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/yourFormId
+VITE_SITE_URL=https://elevateproperties.com
+VITE_FORM_PROVIDER=formspree
+VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/xxxxxxxx
 ```
+
+### Create `.env.local` (local machine)
+
+1. From the project root: `cp .env.example .env.local` (Windows: `copy .env.example .env.local`).
+2. Edit **`.env.local`** (never commit it — it should stay in `.gitignore`).
+3. Set **`VITE_FORM_PROVIDER=formspree`** and paste your real **`VITE_FORMSPREE_ENDPOINT`** from Formspree.
+4. **Restart** `npm run dev` so Vite reloads env vars.
+
+### Test forms locally
+
+1. With **Formspree** env set, run `npm run dev`, open the site, submit **Contact**, **List property**, and a **Viewing** from a featured listing modal.
+2. Confirm the submission appears in your Formspree dashboard / notification inbox. Payloads include **`formType`**, **`pageUrl`**, and (when the browser sends it) **`referrer`**.
+3. With **`VITE_FORM_PROVIDER=none`**, submits succeed in-browser only (no email) — useful for layout checks without burning Formspree quota.
 
 ## Scripts
 
@@ -52,19 +63,31 @@ npm run dev -- --port 5173 --host 0.0.0.0
 
 ## Forms (production)
 
-All public submissions go through `src/utils/formSubmission.ts`.
+All public submissions go through **`src/utils/formSubmission.ts`** (`submitForm`). Three flows share one optional **Formspree** endpoint:
 
-### Recommended: Formspree
+| `formType` | UI | Typical fields POSTed |
+|------------|-----|----------------------|
+| `contact` | `#contact` enquiry | `name`, `email`, `phone`, `type`, `budget`, `message`, `pageUrl`, optional `referrer`, `subject`, timestamps |
+| `valuation` | `#list-property` confidential briefing | `name`, `email`, `phone`, `location`, `message`, `pageUrl`, optional `referrer`, `subject`, timestamps |
+| `viewing` | Property modal — private viewing | `name`, `email`, `phone`, `message`, `propertyTitle`, `propertyId`, `propertyPrice`, `propertyLocation`, `pageUrl`, optional `referrer`, `subject`, timestamps |
 
-1. Create a form at [Formspree](https://formspree.io) and copy the form endpoint.
-2. Set:
+`message` is always a string (auto-filled when the visitor leaves the notes box empty on valuation/viewing). Spam: honeypot **`_gotcha`** (must stay empty). Tripped honeypots are dropped client-side without CRM mirroring.
+
+### Formspree (recommended)
+
+1. Sign up at [Formspree](https://formspree.io), create **one** form, open **Installation** → use the **endpoint URL** (`https://formspree.io/f/xxxxxxxx`).
+2. **Netlify / Vercel** — add environment variables (**Production**, and Preview if needed), then **redeploy**:
 
 ```env
 VITE_FORM_PROVIDER=formspree
-VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/yourFormId
+VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/xxxxxxxx
 ```
 
-3. Deploy. Payloads include `formType` (`contact`, `valuation`, etc.), timestamps, and field data.
+   (`VITE_*` are inlined by Vite at **build time** — a config-only change requires a new build.)
+
+3. In Formspree, enable spam filtering / notification email as needed. Incoming JSON includes `subject` (human-readable summary) plus `formType` for inbox rules.
+
+4. Smoke-test **all three forms** after deploy (especially the listing modal viewing flow).
 
 ### Netlify Forms
 
@@ -74,9 +97,9 @@ Netlify expects **`data-netlify`** HTML forms at build time. This SPA submits vi
 
 Set env vars from `.env.example` and implement `submitToEmailJs` in `formSubmission.ts` using the EmailJS SDK (keys stay out of git).
 
-### Demo mode
+### Demo mode (`VITE_FORM_PROVIDER=none`)
 
-With `VITE_FORM_PROVIDER=none`, submissions succeed locally after a short delay. **Do not ship production like this.** UI copy reminds editors to configure env vars.
+Submissions resolve in the browser only (no outbound email). **Do not ship production like this.** The dev toolbar may still hint to configure env vars.
 
 ### CRM mirror (optional)
 
@@ -114,8 +137,8 @@ Repo includes:
 
 | Variable | Required | Purpose |
 |----------|----------|---------|
-| `VITE_FORM_PROVIDER` | Recommended | `none` (demo), `formspree`, `netlify`, or `emailjs` |
-| `VITE_FORMSPREE_ENDPOINT` | If using Formspree | e.g. `https://formspree.io/f/xxxxx` |
+| `VITE_FORM_PROVIDER` | Recommended | `formspree` (live), `none` (local demo), `netlify`, or `emailjs` |
+| `VITE_FORMSPREE_ENDPOINT` | If using Formspree | `https://formspree.io/f/xxxxx` (must be HTTPS on `formspree.io` / `formspree.com`) |
 | `VITE_SITE_URL` | Optional | Canonical site URL for future use / docs |
 | `VITE_EMAILJS_*` | If using EmailJS | See `.env.example` |
 
@@ -145,17 +168,14 @@ npm run preview
 
 ## Launch checklist
 
-- [ ] Replace placeholders in `src/config/site.ts`.
-- [ ] Fix **social URLs** removing `TODO` segments or Footer hides live icons until valid.
-- [ ] Replace **`+356 9999 0101`** and WhatsApp stubs with audited business numbers when known.
-- [ ] Set production `VITE_FORM_PROVIDER` + `VITE_FORMSPREE_ENDPOINT` (or alternate provider docs).
-- [ ] Replace example URLs in `index.html`, `robots.txt`, and `sitemap.xml`.
+- [x] Business email **`info@elevateproperties.com`** is set in `src/config/site.ts` and `index.html` JSON-LD (`email`).
+- [ ] Add **`instagramUrl`**, **`facebookUrl`**, **`linkedinUrl`** HTTPS URLs to `site.ts`, or leave empty to keep icons hidden with the documented note.
+- [ ] Set **`VITE_FORM_PROVIDER=formspree`** + **`VITE_FORMSPREE_ENDPOINT`** on the host, redeploy; verify contact, valuation, and viewing emails in Formspree.
+- [ ] Audit **`address`** in `site.ts` / JSON-LD for accurate disclosure rules.
 - [ ] Run `npm run lint` and `npm run build`.
 - [ ] Smoke-test mobile / tablet / desktop and anchors: `#hero`, `#properties`, `#about`, `#services`, `#trust`, `#contact`, `#list-property`.
 
-### Still placeholders after this repo snapshot
-
-Canonical + OG URLs use `elevate-properties-malta.example.com`. `siteConfig` retains TODO social URLs. JSON-LD `telephone` in `index.html` should match operational lines in `site.ts`.
+Public domain is **`elevateproperties.com`** in `index.html`, `robots.txt`, `sitemap.xml`, and `site.ts` (`domainUrl`). Primary phone (**Nico Dalton**) **`+356 9981 6646`** is in JSON-LD and `siteConfig`. Internal CRM fixtures under `src/crm/data/*` remain fictitious demo data only.
 
 ## Internal CRM
 

@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://elevate-properties-malta.example.com/</loc>
+    <loc>https://elevateproperties.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://elevate-properties-malta.example.com/#properties</loc>
+    <loc>https://elevateproperties.com/#properties</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://elevate-properties-malta.example.com/#list-property</loc>
+    <loc>https://elevateproperties.com/#list-property</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://elevate-properties-malta.example.com/#about</loc>
+    <loc>https://elevateproperties.com/#about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://elevate-properties-malta.example.com/#services</loc>
+    <loc>https://elevateproperties.com/#services</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://elevate-properties-malta.example.com/#trust</loc>
+    <loc>https://elevateproperties.com/#trust</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://elevate-properties-malta.example.com/#contact</loc>
+    <loc>https://elevateproperties.com/#contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>

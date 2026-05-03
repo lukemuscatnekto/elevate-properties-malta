@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://elevate-properties-malta.example.com/sitemap.xml
+Sitemap: https://elevateproperties.com/sitemap.xml

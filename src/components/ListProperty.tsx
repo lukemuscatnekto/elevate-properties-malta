@@ -1,7 +1,8 @@
 import { motion } from 'motion/react';
 import { ShieldCheck, Target, Camera, Key, CheckCircle2 } from 'lucide-react';
 import { useState, FormEvent } from 'react';
-import { submitForm } from '../utils/formSubmission';
+import { submitForm, FORM_HONEYPOT_FIELD } from '../utils/formSubmission';
+import FormHoneypot from './FormHoneypot';
 import { formDiscretionFootnote, formTechnicalFailureHint } from '../content/formFootnotes';
 
 const pillars = [
@@ -29,13 +30,14 @@ const pillars = [
 
 export default function ListProperty() {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [formData, setFormData] = useState({ name: '', email: '', location: '' });
+  const [honeypot, setHoneypot] = useState('');
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', location: '', message: '' });
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setFormState('submitting');
-    const result = await submitForm('valuation', formData);
+    const result = await submitForm('valuation', { ...formData, [FORM_HONEYPOT_FIELD]: honeypot });
     setSuccessMessage(result.message);
     setFormState(result.success ? 'success' : 'error');
   };
@@ -122,8 +124,9 @@ export default function ListProperty() {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-3" aria-label="Confidential valuation request">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <form onSubmit={handleSubmit} className="space-y-3 relative" aria-label="Confidential valuation request">
+                <FormHoneypot idSuffix="list" value={honeypot} onChange={setHoneypot} />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label htmlFor="lp-name" className="sr-only">Your name</label>
                     <input
@@ -149,17 +152,41 @@ export default function ListProperty() {
                       className="w-full min-h-[44px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors"
                     />
                   </div>
-                  <div>
-                    <label htmlFor="lp-location" className="sr-only">Property location</label>
-                    <input
-                      id="lp-location"
-                      required
-                      value={formData.location}
-                      onChange={e => setFormData({ ...formData, location: e.target.value })}
-                      placeholder="Property Location"
-                      className="w-full min-h-[44px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors"
-                    />
-                  </div>
+                </div>
+                <div>
+                  <label htmlFor="lp-phone" className="sr-only">Phone</label>
+                  <input
+                    id="lp-phone"
+                    required
+                    type="tel"
+                    autoComplete="tel"
+                    value={formData.phone}
+                    onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="Phone (incl. country code)"
+                    className="w-full min-h-[44px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="lp-location" className="sr-only">Property location</label>
+                  <input
+                    id="lp-location"
+                    required
+                    value={formData.location}
+                    onChange={e => setFormData({ ...formData, location: e.target.value })}
+                    placeholder="Property locality or address (area-level is fine)"
+                    className="w-full min-h-[44px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="lp-message" className="sr-only">Message</label>
+                  <textarea
+                    id="lp-message"
+                    rows={3}
+                    value={formData.message}
+                    onChange={e => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Anything we should know — timing, tenure, rough guide price…"
+                    className="w-full min-h-[88px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors resize-y"
+                  />
                 </div>
                 <button
                   type="submit"

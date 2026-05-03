@@ -77,6 +77,7 @@ export interface ListPropertyIntake {
   email: string;
   propertyLocation: string;
   phone?: string;
+  message?: string;
 }
 
 export function createLeadFromListProperty(input: ListPropertyIntake): Lead {
@@ -92,7 +93,8 @@ export function createLeadFromListProperty(input: ListPropertyIntake): Lead {
     locationInterest: input.propertyLocation,
     notes:
       `List Property Form — owner enquiry.\n` +
-      `Property location: ${input.propertyLocation || '—'}`,
+      `Property location: ${input.propertyLocation || '—'}\n\n` +
+      (input.message?.trim() || '—'),
   });
 }
 

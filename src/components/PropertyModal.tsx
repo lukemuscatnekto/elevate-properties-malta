@@ -2,7 +2,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, Bed, Bath, Maximize, MapPin, Check, Send, Phone, Mail, User, CheckCircle2 } from 'lucide-react';
 import type { Property } from '../types';
 import { useState, FormEvent, useEffect } from 'react';
-import { submitForm } from '../utils/formSubmission';
+import { submitForm, FORM_HONEYPOT_FIELD } from '../utils/formSubmission';
+import FormHoneypot from './FormHoneypot';
 import { formDiscretionFootnote, formTechnicalFailureHint } from '../content/formFootnotes';
 
 interface PropertyModalProps {
@@ -12,7 +13,8 @@ interface PropertyModalProps {
 
 export default function PropertyModal({ property, onClose }: PropertyModalProps) {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+  const [honeypot, setHoneypot] = useState('');
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
@@ -30,7 +32,8 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
   useEffect(() => {
     if (!property) {
       setFormState('idle');
-      setFormData({ name: '', email: '', phone: '' });
+      setFormData({ name: '', email: '', phone: '', message: '' });
+      setHoneypot('');
       setSuccessMessage('');
     }
   }, [property]);
@@ -41,8 +44,11 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
     setFormState('submitting');
     const result = await submitForm('viewing', {
       ...formData,
+      [FORM_HONEYPOT_FIELD]: honeypot,
       propertyTitle: property.title,
       propertyId: property.id,
+      propertyPrice: property.formattedPrice,
+      propertyLocation: property.location,
     });
     setSuccessMessage(result.message);
     setFormState(result.success ? 'success' : 'error');
@@ -173,7 +179,8 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                       </button>
                     </motion.div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-3" aria-label="Request a private viewing for this property">
+                    <form onSubmit={handleSubmit} className="space-y-3 relative" aria-label="Request a private viewing for this property">
+                      <FormHoneypot idSuffix="modal" value={honeypot} onChange={setHoneypot} />
                       <div className="relative group">
                         <label htmlFor="modal-name" className="sr-only">
                           Full name
@@ -220,6 +227,20 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder="Phone number"
                           className={inputCls}
+                        />
+                      </div>
+                      <div className="relative group">
+                        <label htmlFor="modal-message" className="text-[10px] text-white/38 uppercase tracking-widest font-bold mb-2 block sr-only">
+                          Notes (optional)
+                        </label>
+                        <textarea
+                          id="modal-message"
+                          rows={3}
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          placeholder="Preferred days or times — or questions before we confirm the viewing."
+                          className={`${inputCls} min-h-[88px] py-3 pl-4 resize-y`}
+                          autoComplete="off"
                         />
                       </div>
                       <button

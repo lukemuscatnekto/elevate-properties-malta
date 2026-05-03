@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { siteConfig } from '../config/site';
 
@@ -122,19 +122,37 @@ export default function Navbar() {
             </nav>
 
             <div className="mt-auto pt-8 border-t border-white/5">
-              <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-6 font-bold">Contact Concierge</p>
-              <div className="space-y-4 mb-10">
-                <a href={siteConfig.phoneHref} className="block text-white text-lg font-light touch-manipulation">
-                  {siteConfig.phoneDisplay}
-                </a>
-                <a href={siteConfig.emailHref} className="block text-white text-lg font-light break-all hyphens-auto touch-manipulation">
-                  {siteConfig.emailDisplay}
-                </a>
+              <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-6 font-bold">Concierge Lines</p>
+              <div className="space-y-5 mb-6">
+                <div>
+                  <p className="text-[9px] text-gold/70 uppercase tracking-widest mb-1">{siteConfig.contacts.primary.name}</p>
+                  <a href={siteConfig.contacts.primary.phoneHref} className="block text-white text-lg font-light touch-manipulation">
+                    {siteConfig.contacts.primary.phoneDisplay}
+                  </a>
+                </div>
+                <div>
+                  <p className="text-[9px] text-gray-600 uppercase tracking-widest mb-1">{siteConfig.contacts.secondary.name}</p>
+                  <a href={siteConfig.contacts.secondary.phoneHref} className="block text-white text-lg font-light touch-manipulation opacity-95">
+                    {siteConfig.contacts.secondary.phoneDisplay}
+                  </a>
+                </div>
               </div>
-              <a 
+              <a href={siteConfig.emailHref} className="block text-white text-base font-light mb-8 break-all touch-manipulation">
+                {siteConfig.emailDisplay}
+              </a>
+              <a
+                href={siteConfig.primaryWhatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full mb-6 border border-gold/35 text-gold py-4 flex items-center justify-center gap-2 font-bold uppercase tracking-[0.2em] text-[10px] touch-manipulation hover:bg-gold hover:text-black transition-colors"
+              >
+                <MessageCircle className="w-5 h-5" aria-hidden="true" />
+                WhatsApp {siteConfig.contacts.primary.name.split(' ')[0]}
+              </a>
+              <a
                 href="#contact"
                 onClick={() => setIsOpen(false)}
-                className="w-full bg-gold text-black py-6 flex items-center justify-center font-bold uppercase tracking-[0.2em] text-[10px]"
+                className="w-full bg-gold text-black py-6 flex items-center justify-center font-bold uppercase tracking-[0.2em] text-[10px] touch-manipulation"
               >
                 Book a Private Consultation
               </a>

@@ -1,15 +1,18 @@
 import { motion } from 'motion/react';
-import { Phone, Mail, Clock, MessageSquare, CheckCircle2 } from 'lucide-react';
+import { Phone, Mail, Clock, MessageSquare, CheckCircle2, MessageCircle } from 'lucide-react';
 import { useState, FormEvent } from 'react';
 import { siteConfig } from '../config/site';
-import { submitForm } from '../utils/formSubmission';
+import { submitForm, FORM_HONEYPOT_FIELD } from '../utils/formSubmission';
 import { formDiscretionFootnote, formTechnicalFailureHint } from '../content/formFootnotes';
+import FormHoneypot from './FormHoneypot';
 
 export default function ContactForm() {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [honeypot, setHoneypot] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     type: 'buying',
     budget: '1-3',
     message: '',
@@ -19,7 +22,7 @@ export default function ContactForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setFormState('submitting');
-    const result = await submitForm('contact', formData);
+    const result = await submitForm('contact', { ...formData, [FORM_HONEYPOT_FIELD]: honeypot });
     setSuccessMessage(result.message);
     setFormState(result.success ? 'success' : 'error');
   };
@@ -58,49 +61,66 @@ export default function ContactForm() {
               </p>
             </motion.div>
 
-            {/* Contact details */}
-            <div className="space-y-4 mb-6">
-              {[
-                {
-                  Icon: Mail,
-                  label: 'Direct Enquiry',
-                  value: siteConfig.emailDisplay,
-                  href: siteConfig.emailHref,
-                },
-                {
-                  Icon: Phone,
-                  label: 'Private Line',
-                  value: siteConfig.phoneDisplay,
-                  href: siteConfig.phoneHref,
-                },
-                {
-                  Icon: Clock,
-                  label: 'Consultation Hours',
-                  value: siteConfig.openingHours,
-                  href: null,
-                },
-              ].map(({ Icon, label, value, href }) => (
-                <div key={label} className="flex items-start gap-5 group">
+            {/* Contact details — dual advisers */}
+            <div className="space-y-6 mb-6">
+              {[siteConfig.contacts.primary, siteConfig.contacts.secondary].map((c) => (
+                <div key={c.name} className="flex items-start gap-5 group">
                   <div className="w-12 h-12 rounded-full border border-white/8 flex items-center justify-center group-hover:border-gold/40 group-hover:bg-gold/5 transition-all duration-400 shrink-0">
-                    <Icon className="w-5 h-5 text-gold" aria-hidden="true" />
+                    <Phone className="w-5 h-5 text-gold" aria-hidden="true" />
                   </div>
-                  <div>
-                    <p className="text-[10px] text-gold/60 uppercase tracking-[0.3em] font-bold mb-1">{label}</p>
-                    {href ? (
-                      <a href={href} className="text-white text-base font-light hover:text-gold transition-colors tracking-wide">
-                        {value}
-                      </a>
-                    ) : (
-                      <p className="text-white text-base font-light">{value}</p>
-                    )}
+                  <div className="min-w-0">
+                    <p className="text-[10px] text-gold/60 uppercase tracking-[0.3em] font-bold mb-1">{c.name}</p>
+                    <a href={c.phoneHref} className="text-white text-base font-light hover:text-gold transition-colors tracking-wide block truncate">
+                      {c.phoneDisplay}
+                    </a>
                   </div>
                 </div>
               ))}
+
+              <div className="flex flex-wrap items-start gap-x-6 gap-y-3">
+                <a
+                  href={siteConfig.primaryWhatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 border border-gold/35 px-5 min-h-[48px] text-[10px] font-bold uppercase tracking-[0.25em] text-gold hover:bg-gold hover:text-black transition-colors touch-manipulation shrink-0"
+                >
+                  <MessageCircle className="w-4 h-4" aria-hidden="true" />
+                  WhatsApp — {siteConfig.contacts.primary.name}
+                </a>
+                <span className="text-[11px] text-white/48 font-light self-center max-w-[200px]">
+                  Or WhatsApp{' '}
+                  <a href={siteConfig.contacts.secondary.whatsappHref} className="text-gold hover:underline underline-offset-4" target="_blank" rel="noopener noreferrer">
+                    {siteConfig.contacts.secondary.name}
+                  </a>
+                </span>
+              </div>
+
+              <div className="flex items-start gap-5 group pt-3 border-t border-white/10">
+                <div className="w-12 h-12 rounded-full border border-white/8 flex items-center justify-center group-hover:border-gold/40 shrink-0">
+                  <Mail className="w-5 h-5 text-gold" aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[10px] text-gold/60 uppercase tracking-[0.3em] font-bold mb-1">Direct email</p>
+                  <a href={siteConfig.emailHref} className="text-white text-base font-light hover:text-gold transition-colors tracking-wide break-all">
+                    {siteConfig.emailDisplay}
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-5 group">
+                <div className="w-12 h-12 rounded-full border border-white/8 flex items-center justify-center group-hover:border-gold/40 shrink-0">
+                  <Clock className="w-5 h-5 text-gold" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-[10px] text-gold/60 uppercase tracking-[0.3em] font-bold mb-1">Consultation hours</p>
+                  <p className="text-white text-base font-light">{siteConfig.openingHours}</p>
+                </div>
+              </div>
             </div>
 
             <div className="border-t border-white/5 pt-5 max-w-md">
               <p className="text-white/42 text-[12px] font-light leading-relaxed">
-                Responses are routed to a senior adviser during working hours CET. For urgency, use the phone line — we escalate property-specific matters discreetly when required.
+                Nico Dalton and Luke Muscat field inbound enquiries alongside the team — after hours WhatsApp reaches Nico primarily; escalate viewing windows or sensitive matters discreetly whenever required.
               </p>
             </div>
           </div>
@@ -146,7 +166,8 @@ export default function ContactForm() {
                     <h3 className="text-2xl font-playfair text-white">Tell our advisers what matters</h3>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-3" aria-label="Property enquiry form">
+                  <form onSubmit={handleSubmit} className="space-y-3 relative" aria-label="Property enquiry form">
+                    <FormHoneypot idSuffix="contact" value={honeypot} onChange={setHoneypot} />
                     {/* Name + Email */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
@@ -175,6 +196,20 @@ export default function ContactForm() {
                           className={inputCls}
                         />
                       </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label htmlFor="cf-phone" className="text-[9px] text-gold/60 uppercase tracking-[0.25em] font-bold block">Phone</label>
+                      <input
+                        id="cf-phone"
+                        required
+                        type="tel"
+                        autoComplete="tel"
+                        value={formData.phone}
+                        onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="+356 ..."
+                        className={inputCls}
+                      />
                     </div>
 
                     {/* Type + Budget */}

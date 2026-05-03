@@ -4,6 +4,8 @@ import {
   createLeadFromRequestViewing,
 } from '../crm/utils/publicIntake';
 
+export const FORM_HONEYPOT_FIELD = '_gotcha' as const;
+
 type FormProvider = 'formspree' | 'netlify' | 'emailjs' | 'none';
 
 interface FormSubmissionResult {
@@ -12,6 +14,9 @@ interface FormSubmissionResult {
 }
 
 type FormPayload = Record<string, string | number | boolean | null | undefined>;
+
+const FALLBACK_CHANNELS =
+  'You may also reach us directly on +356 9981 6646, WhatsApp (see the contact section on this page), or at info@elevateproperties.com — we will handle your enquiry manually.';
 
 // Mirror successful public-form submissions into the internal CRM (localStorage).
 // Public visitors never see CRM wording — this is silent.
@@ -32,6 +37,7 @@ function mirrorToCRM(formType: string, data: FormPayload): void {
         email: String(data.email ?? ''),
         propertyLocation: String(data.location ?? ''),
         phone: data.phone != null ? String(data.phone) : undefined,
+        message: data.message != null ? String(data.message) : undefined,
       });
     } else if (formType === 'viewing') {
       createLeadFromRequestViewing({
@@ -45,7 +51,6 @@ function mirrorToCRM(formType: string, data: FormPayload): void {
       });
     }
   } catch (err) {
-    // Never let an intake failure surface to the public visitor.
     console.warn('[CRM intake] failed to mirror public submission:', err);
   }
 }
@@ -53,26 +58,84 @@ function mirrorToCRM(formType: string, data: FormPayload): void {
 const FORM_PROVIDER = (import.meta.env.VITE_FORM_PROVIDER ?? 'none').toLowerCase() as FormProvider;
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined;
 
-const defaultSuccessMessage =
-  'Thank you — your enquiry is in. Our team will respond discreetly via your preferred route. If your matter is time-sensitive, call the private line.';
+export const SPAM_HONEYPOT_RESPONSE: FormSubmissionResult = {
+  success: true,
+  message:
+    'Thank you. If your enquiry requires a reply, our concierge will be in touch through the details you provided.',
+};
 
-const buildPayload = (formType: string, data: FormPayload) => ({
-  formType,
-  website: 'Elevate Properties Malta',
-  submittedAt: new Date().toISOString(),
-  ...data,
-});
+function formspreeEndpointReady(raw: string | undefined): boolean {
+  const u = (raw ?? '').trim();
+  if (!u) return false;
+  if (/PASTE_FORMSPREE|YOUR_FORM|xxxxxxxx/i.test(u)) return false;
+  try {
+    const url = new URL(u);
+    if (url.protocol !== 'https:') return false;
+    return url.hostname === 'formspree.io' || url.hostname === 'formspree.com';
+  } catch {
+    return false;
+  }
+}
+
+/** Ensures every Formspree JSON body includes a non-empty `message` string. */
+function normalizeMessage(formType: string, data: FormPayload): string {
+  const raw = String(data.message ?? '').trim();
+  if (raw) return raw;
+  if (formType === 'viewing') {
+    const title = String(data.propertyTitle ?? 'Selected listing');
+    const loc = String(data.propertyLocation ?? '').trim();
+    return `[Private viewing] ${title}${loc ? ` — ${loc}` : ''}. (No additional notes were entered in the form.)`;
+  }
+  if (formType === 'valuation') {
+    const loc = String(data.location ?? '').trim();
+    return `[Confidential valuation / list property]${loc ? ` Locality: ${loc}.` : ''} No free-text message was added — see name, email, and phone above.`;
+  }
+  return '[Website contact] (Message field was empty in payload — please refer to other fields.)';
+}
+
+function buildPayload(formType: string, fields: FormPayload) {
+  const subject =
+    formType === 'contact'
+      ? `Elevate — website contact (${String(fields.type ?? 'enquiry')})`
+      : formType === 'valuation'
+        ? 'Elevate — confidential valuation / list property'
+        : `Elevate — private viewing (${String(fields.propertyTitle ?? 'listing')})`;
+
+  return {
+    ...fields,
+    formType,
+    subject,
+    website: 'Elevate Properties Malta',
+    submittedAt: new Date().toISOString(),
+  };
+}
+
+export function defaultSuccessForFormType(formType: string): string {
+  switch (formType) {
+    case 'contact':
+      return 'Your message is with us. A director will respond personally — discreetly — typically within one business day, using the email or telephone you supplied.';
+    case 'valuation':
+      return 'Your confidential seller briefing is on file. Expect a discreet call from our advisory desk once the particulars have been reviewed.';
+    case 'viewing':
+      return 'Your private viewing request is in our queue. We will align diary windows with the vendor and return with proposed times as soon as practicable.';
+    default:
+      return 'Thank you — your submission was received.';
+  }
+}
+
+function isHoneypotTripped(data: FormPayload): boolean {
+  return String(data[FORM_HONEYPOT_FIELD] ?? '').trim() !== '';
+}
 
 const submitToFormspree = async (payload: ReturnType<typeof buildPayload>): Promise<FormSubmissionResult> => {
-  if (!FORMSPREE_ENDPOINT) {
+  if (!formspreeEndpointReady(FORMSPREE_ENDPOINT)) {
     return {
       success: false,
-      message:
-        'Outbound email is not configured yet. Ask your administrator to add VITE_FORMSPREE_ENDPOINT, or reach us directly by phone or email below.',
+      message: `Form delivery is not configured yet. Set VITE_FORMSPREE_ENDPOINT to your live https://formspree.io/f/… URL (replace any placeholder), rebuild, and redeploy. ${FALLBACK_CHANNELS}`,
     };
   }
 
-  const response = await fetch(FORMSPREE_ENDPOINT, {
+  const response = await fetch(FORMSPREE_ENDPOINT!.trim(), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -81,69 +144,91 @@ const submitToFormspree = async (payload: ReturnType<typeof buildPayload>): Prom
     body: JSON.stringify(payload),
   });
 
-  if (!response.ok) {
+  let body: { error?: string; errors?: string[]; message?: string } | null = null;
+  try {
+    body = (await response.json()) as typeof body;
+  } catch {
+    /* non-JSON body */
+  }
+
+  if (response.ok) {
     return {
-      success: false,
-      message:
-        'The form service declined this submission (network or quota). Retry in a minute, email us directly, or use the phone — we apologise for the interruption.',
+      success: true,
+      message: defaultSuccessForFormType(String(payload.formType)),
     };
   }
 
+  const remote =
+    (body?.errors && body.errors.join('; ')) ||
+    body?.error ||
+    body?.message ||
+    `HTTP ${response.status}`;
+
   return {
-    success: true,
-    message: defaultSuccessMessage,
+    success: false,
+    message: `We could not deliver this submission (${remote}). ${FALLBACK_CHANNELS}`,
   };
 };
 
 const submitToNetlify = async (): Promise<FormSubmissionResult> => {
-  // Netlify Forms requires static HTML form markup and will not work through this runtime utility alone.
   return {
     success: false,
-    message:
-      'Netlify Forms is not wired for this SPA build yet — see README, or temporarily switch VITE_FORM_PROVIDER to formspree in your environment.',
+    message: `This project is set up for Formspree. Switch VITE_FORM_PROVIDER to formspree and add your endpoint, then rebuild. ${FALLBACK_CHANNELS}`,
   };
 };
 
 const submitToEmailJs = async (): Promise<FormSubmissionResult> => {
-  // EmailJS setup is intentionally documented in README to keep this frontend deployable without embedding keys.
   return {
     success: false,
-    message:
-      'EmailJS is selected but incomplete — configure service, template, and keys per README. Meanwhile you may still submit via phone or mailto.',
+    message: `EmailJS is not wired in this build. Use Formspree for production forms. ${FALLBACK_CHANNELS}`,
   };
 };
 
-const fallbackLocalSubmission = async (): Promise<FormSubmissionResult> =>
+const fallbackLocalSubmission = async (formType: string): Promise<FormSubmissionResult> =>
   new Promise((resolve) => {
     setTimeout(() => {
       resolve({
         success: true,
-        message: `${defaultSuccessMessage} [Demo intake only — deploy with VITE_FORM_PROVIDER=formspree and endpoint for production.]`,
+        message: `${defaultSuccessForFormType(formType)} [Browser demo only — no email was sent. Add Formspree env vars and rebuild to go live.]`,
       });
-    }, 700);
+    }, 600);
   });
 
 export const submitForm = async (formType: string, data: FormPayload): Promise<FormSubmissionResult> => {
-  const payload = buildPayload(formType, data);
+  if (isHoneypotTripped(data)) {
+    return SPAM_HONEYPOT_RESPONSE;
+  }
+
+  const { [FORM_HONEYPOT_FIELD]: _honeypot, ...rest } = data;
+
+  const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const referrer =
+    typeof document !== 'undefined' && document.referrer?.trim() ? document.referrer.trim() : undefined;
+
+  const enriched: FormPayload = {
+    ...rest,
+    pageUrl,
+    ...(referrer ? { referrer } : {}),
+    message: normalizeMessage(formType, rest),
+  };
+
+  const providerPayload = buildPayload(formType, enriched);
 
   try {
     let result: FormSubmissionResult;
 
     if (FORM_PROVIDER === 'formspree') {
-      result = await submitToFormspree(payload);
+      result = await submitToFormspree(providerPayload);
     } else if (FORM_PROVIDER === 'netlify') {
       result = await submitToNetlify();
     } else if (FORM_PROVIDER === 'emailjs') {
       result = await submitToEmailJs();
     } else {
-      result = await fallbackLocalSubmission();
+      result = await fallbackLocalSubmission(formType);
     }
 
-    if (
-      result.success &&
-      (formType === 'contact' || formType === 'valuation' || formType === 'viewing')
-    ) {
-      mirrorToCRM(formType, data);
+    if (result.success && (formType === 'contact' || formType === 'valuation' || formType === 'viewing')) {
+      mirrorToCRM(formType, enriched);
     }
 
     return result;
@@ -151,8 +236,7 @@ export const submitForm = async (formType: string, data: FormPayload): Promise<F
     console.error('Form submission error:', error);
     return {
       success: false,
-      message:
-        'A network error blocked delivery. Please check your connection, try again shortly, or call / email Elevate Properties Malta.',
+      message: `A network error interrupted delivery. Please try again in a moment. ${FALLBACK_CHANNELS}`,
     };
   }
 };

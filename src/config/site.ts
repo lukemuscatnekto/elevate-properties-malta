@@ -1,22 +1,55 @@
+export type SiteTeamMember = {
+  name: string;
+  phoneDisplay: string;
+  phoneHref: string;
+  whatsappHref: string;
+};
+
+const primaryContact = {
+  name: 'Nico Dalton',
+  phoneDisplay: '+356 9981 6646',
+  phoneHref: 'tel:+35699816646',
+  whatsappHref: 'https://wa.me/35699816646',
+} satisfies SiteTeamMember;
+
+const secondaryContact = {
+  name: 'Luke Muscat',
+  phoneDisplay: '+356 7742 4141',
+  phoneHref: 'tel:+35677424141',
+  whatsappHref: 'https://wa.me/35677424141',
+} satisfies SiteTeamMember;
+
+/** Public marketing site configuration. Social URLs remain empty until you add real profiles (Footer hides icons automatically). */
+
 export const siteConfig = {
-  companyName: "Elevate Properties Malta",
-  tagline: "Defining the standard of Maltese luxury.",
-  // TODO(REPLACE_BEFORE_LAUNCH): real Malta business phone
-  phoneDisplay: "+356 9999 0101",
-  phoneHref: "tel:+35699990101",
-  // TODO(REPLACE_BEFORE_LAUNCH): real WhatsApp business number
-  whatsappDisplay: "+356 9999 0101",
-  whatsappHref: "https://wa.me/35699990101",
-  // TODO(REPLACE_BEFORE_LAUNCH): verified business inbox
-  emailDisplay: "hello@elevateproperties.mt",
-  emailHref: "mailto:hello@elevateproperties.mt",
-  // TODO(REPLACE_BEFORE_LAUNCH): actual registered office address
-  address: "Valletta, Malta",
-  openingHours: "Mon-Fri: 9:00 AM - 6:00 PM (CET)",
-  // TODO(REPLACE_BEFORE_LAUNCH): live social profile URLs
-  instagramUrl: "https://instagram.com/TODO_elevatepropertiesmalta",
-  facebookUrl: "https://facebook.com/TODO_elevatepropertiesmalta",
-  linkedinUrl: "https://linkedin.com/company/TODO-elevate-properties-malta",
-  // TODO(REPLACE_BEFORE_LAUNCH): production website domain
-  domainUrl: "https://elevate-properties-malta.example.com"
+  companyName: 'Elevate Properties Malta',
+  tagline: 'Defining the standard of Maltese luxury.',
+
+  domainUrl: 'https://elevateproperties.com',
+
+  emailDisplay: 'info@elevateproperties.com',
+  emailHref: 'mailto:info@elevateproperties.com',
+
+  contacts: {
+    primary: primaryContact,
+    secondary: secondaryContact,
+  },
+
+  /** One primary WhatsApp CTA (matches Nico) — Luke’s link is listed in contact blocks. */
+  primaryWhatsappHref: primaryContact.whatsappHref,
+
+  /** Mirrors primary dial line for legacy callers (navbar, structured data uses this separately). */
+  phoneDisplay: primaryContact.phoneDisplay,
+  phoneHref: primaryContact.phoneHref,
+
+  whatsappHref: primaryContact.whatsappHref,
+  whatsappDisplay: primaryContact.phoneDisplay,
+
+  address: 'Valletta, Malta',
+  openingHours: 'Mon-Fri: 9:00 AM - 6:00 PM (CET)',
+
+  /** TODO_SOCIAL — paste full https URLs here when live; leaving invalid keeps icons hidden in Footer */
+  instagramUrl: '',
+  facebookUrl: '',
+  linkedinUrl: '',
 };
