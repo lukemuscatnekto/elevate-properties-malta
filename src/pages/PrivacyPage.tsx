@@ -1,9 +1,38 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { siteConfig } from '../config/site';
 
+const PRIVACY_TITLE = 'Privacy & Data Handling | Elevate Properties Malta';
+const PRIVACY_DESCRIPTION =
+  'How Elevate Properties Malta handles contact details, viewing requests, and seller enquiries submitted through this website — Malta and EU visitors.';
+
 export default function PrivacyPage() {
+  useEffect(() => {
+    const prevTitle = document.title;
+    const canonical = document.querySelector('link[rel="canonical"]');
+    const prevCanonicalHref = canonical?.getAttribute('href') ?? null;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const prevDescContent = metaDesc?.getAttribute('content') ?? null;
+
+    const base = siteConfig.domainUrl.replace(/\/$/, '');
+    document.title = PRIVACY_TITLE;
+    canonical?.setAttribute('href', `${base}/privacy`);
+    metaDesc?.setAttribute('content', PRIVACY_DESCRIPTION);
+
+    return () => {
+      document.title = prevTitle;
+      if (canonical) {
+        if (prevCanonicalHref) canonical.setAttribute('href', prevCanonicalHref);
+        else canonical.setAttribute('href', `${base}/`);
+      }
+      if (metaDesc) {
+        if (prevDescContent != null) metaDesc.setAttribute('content', prevDescContent);
+      }
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white selection:bg-gold selection:text-black scroll-smooth overflow-x-hidden font-sans">
       <Navbar />

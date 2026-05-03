@@ -23,12 +23,12 @@ Edit `.env.local` before launch (forms + optional URL). **All `VITE_*` vars are 
 
 | Variable | Values | Purpose |
 |---------|--------|--------|
-| `VITE_SITE_URL` | `https://elevateproperties.com` (see `.env.example`) | Optional reference URL (documented here for ops consistency). |
+| `VITE_SITE_URL` | `https://elevatepropertiesmalta.com` (see `.env.example`) | Optional reference URL (documented here for ops consistency). |
 | `VITE_FORM_PROVIDER` | **`formspree`** (production), **`none`** (browser demo only), **`netlify`**, **`emailjs`** | Wired in `src/utils/formSubmission.ts`. |
 | `VITE_FORMSPREE_ENDPOINT` | `https://formspree.io/f/xxxxxxx` | **Required** when `VITE_FORM_PROVIDER=formspree`. Placeholders like `PASTE_FORMSPREE…` are rejected until replaced. |
 
 ```env
-VITE_SITE_URL=https://elevateproperties.com
+VITE_SITE_URL=https://elevatepropertiesmalta.com
 VITE_FORM_PROVIDER=formspree
 VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/xxxxxxxx
 ```
@@ -168,14 +168,14 @@ npm run preview
 
 ## Launch checklist
 
-- [x] Business email **`info@elevateproperties.com`** is set in `src/config/site.ts` and `index.html` JSON-LD (`email`).
+- [x] Business email **`info@elevatepropertiesmalta.com`** is set in `src/config/site.ts` and `index.html` JSON-LD (`email`).
 - [ ] Add **`instagramUrl`**, **`facebookUrl`**, **`linkedinUrl`** HTTPS URLs to `site.ts`, or leave empty to keep icons hidden with the documented note.
 - [ ] Set **`VITE_FORM_PROVIDER=formspree`** + **`VITE_FORMSPREE_ENDPOINT`** on the host, redeploy; verify contact, valuation, and viewing emails in Formspree.
 - [ ] Audit **`address`** in `site.ts` / JSON-LD for accurate disclosure rules.
 - [ ] Run `npm run lint` and `npm run build`.
 - [ ] Smoke-test mobile / tablet / desktop and anchors: `#hero`, `#properties`, `#about`, `#services`, `#trust`, `#contact`, `#list-property`.
 
-Public domain is **`elevateproperties.com`** in `index.html`, `robots.txt`, `sitemap.xml`, and `site.ts` (`domainUrl`). Primary phone (**Nico Dalton**) **`+356 9981 6646`** is in JSON-LD and `siteConfig`. Internal CRM fixtures under `src/crm/data/*` remain fictitious demo data only.
+Public domain is **`elevatepropertiesmalta.com`** in `index.html`, `robots.txt`, `sitemap.xml`, and `site.ts` (`domainUrl`). Primary phone (**Nico Dalton**) **`+356 9981 6646`** is in JSON-LD and `siteConfig`. Internal CRM fixtures under `src/crm/data/*` remain fictitious demo data only.
 
 ## Internal CRM
 

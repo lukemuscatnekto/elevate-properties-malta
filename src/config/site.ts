@@ -25,10 +25,10 @@ export const siteConfig = {
   companyName: 'Elevate Properties Malta',
   tagline: 'Defining the standard of Maltese luxury.',
 
-  domainUrl: 'https://elevateproperties.com',
+  domainUrl: 'https://elevatepropertiesmalta.com',
 
-  emailDisplay: 'info@elevateproperties.com',
-  emailHref: 'mailto:info@elevateproperties.com',
+  emailDisplay: 'info@elevatepropertiesmalta.com',
+  emailHref: 'mailto:info@elevatepropertiesmalta.com',
 
   contacts: {
     primary: primaryContact,

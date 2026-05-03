@@ -95,10 +95,15 @@ export default function Navbar() {
             className="fixed inset-0 top-0 bg-black z-40 flex flex-col p-10 lg:hidden overflow-y-auto"
           >
             <div className="flex justify-between items-center mb-16">
-              <div className="flex flex-col items-start translate-x-[-8px]">
+              <a
+                href={anchorHref(pathname, '#hero')}
+                className="flex flex-col items-start translate-x-[-8px] outline-none focus:ring-1 focus:ring-gold touch-manipulation"
+                aria-label="Elevate Properties Home"
+                onClick={() => setIsOpen(false)}
+              >
                 <span className="text-xl font-serif tracking-[0.2em] text-white">E L E V A T E</span>
                 <span className="text-[10px] tracking-[0.3em] text-gold mt-1 uppercase">Properties Malta</span>
-              </div>
+              </a>
               <button 
                 onClick={() => setIsOpen(false)} 
                 className="text-white border border-white/10 p-3 outline-none focus:ring-1 focus:ring-gold"

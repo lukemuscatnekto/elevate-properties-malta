@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://elevateproperties.com/</loc>
+    <loc>https://elevatepropertiesmalta.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://elevateproperties.com/privacy</loc>
+    <loc>https://elevatepropertiesmalta.com/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://elevateproperties.com/#properties</loc>
+    <loc>https://elevatepropertiesmalta.com/#properties</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://elevateproperties.com/#list-property</loc>
+    <loc>https://elevatepropertiesmalta.com/#list-property</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://elevateproperties.com/#about</loc>
+    <loc>https://elevatepropertiesmalta.com/#about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://elevateproperties.com/#services</loc>
+    <loc>https://elevatepropertiesmalta.com/#services</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://elevateproperties.com/#trust</loc>
+    <loc>https://elevatepropertiesmalta.com/#trust</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://elevateproperties.com/#contact</loc>
+    <loc>https://elevatepropertiesmalta.com/#contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>

@@ -16,7 +16,7 @@ interface FormSubmissionResult {
 type FormPayload = Record<string, string | number | boolean | null | undefined>;
 
 const FALLBACK_CHANNELS =
-  'You may also reach us directly on +356 9981 6646, WhatsApp (see the contact section on this page), or at info@elevateproperties.com — we will handle your enquiry manually.';
+  'You may also reach us directly on +356 9981 6646, WhatsApp (see the contact section on this page), or at info@elevatepropertiesmalta.com — we will handle your enquiry manually.';
 
 // Mirror successful public-form submissions into the internal CRM (localStorage).
 // Public visitors never see CRM wording — this is silent.
