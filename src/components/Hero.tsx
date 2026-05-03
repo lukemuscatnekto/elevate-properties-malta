@@ -75,12 +75,12 @@ export default function Hero() {
             <h1 className="font-playfair text-white leading-[0.88] tracking-tight drop-shadow-2xl mb-4 text-[clamp(3.1rem,6.5vw,5.7rem)]">
               ELEVATE YOUR
               <br />
-              <span className="text-gold">MALTA LIFESTYLE</span>
+              <span className="text-gold">LIFESTYLE</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-white/82 text-base md:text-[1.04rem] max-w-[390px] mb-6 font-light leading-snug tracking-normal">
-              Luxury villas, penthouses, and investment properties in Malta.
+            <p className="text-white/82 text-base md:text-[1.04rem] max-w-[420px] mb-6 font-light leading-snug tracking-normal">
+              From first homes to standout residences and investment opportunities — carefully guided across Malta.
             </p>
 
             {/* CTAs */}

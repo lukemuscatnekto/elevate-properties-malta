@@ -45,10 +45,10 @@ export const siteConfig = {
   whatsappHref: primaryContact.whatsappHref,
   whatsappDisplay: primaryContact.phoneDisplay,
 
-  address: 'Valletta, Malta',
+  address: 'Żebbuġ, Malta',
   openingHours: 'Mon-Fri: 9:00 AM - 6:00 PM (CET)',
 
-  /** TODO_SOCIAL — paste full https URLs here when live; leaving invalid keeps icons hidden in Footer */
+  /** Optional social profile URLs (https). Leave empty to omit social icons on the public site. */
   instagramUrl: '',
   facebookUrl: '',
   linkedinUrl: '',

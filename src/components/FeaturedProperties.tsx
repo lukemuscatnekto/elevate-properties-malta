@@ -1,11 +1,14 @@
 import { Bed, Bath, Maximize, MapPin } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import type { Property } from '../types';
 import { featuredHomepageProperties } from '../data/featuredHomepage';
 import PropertyModal from './PropertyModal';
+import { anchorHref } from '../utils/routeAnchors';
 
 export default function FeaturedProperties() {
+  const { pathname } = useLocation();
   const [selected, setSelected] = useState<Property | null>(null);
 
   const open = useCallback((p: Property) => setSelected(p), []);
@@ -15,22 +18,22 @@ export default function FeaturedProperties() {
     <>
       <section
         id="properties"
-        className="scroll-anchor-target pt-8 pb-6 px-4 sm:px-8 bg-[#070707] border-t border-gold/20"
+        className="scroll-anchor-target pt-10 pb-8 px-4 sm:px-8 bg-[#070707] border-t border-gold/20"
         aria-labelledby="properties-heading"
       >
         <div className="max-w-7xl mx-auto">
-          <h2 id="properties-heading" className="text-[2rem] md:text-[2.2rem] font-playfair text-white mb-4 text-center">
+          <h2 id="properties-heading" className="text-[2rem] md:text-[2.2rem] font-playfair text-white mb-3 text-center">
             Featured Properties
           </h2>
           <p className="text-xs sm:text-sm text-white/45 font-light leading-relaxed text-center max-w-2xl mx-auto mb-2">
-            A curated spotlight from our Malta portfolio — open any card for specifications, narrative, and highlights. When you wish to inspect in person,
-            request a confidential viewing directly from that screen.
+            A curated spotlight from our Malta portfolio — open any card for specifications, narrative, and highlights. When you are ready to
+            inspect in person, request a confidential viewing from that screen.
           </p>
-          <p className="text-[10px] text-white/30 uppercase tracking-[0.22em] text-center mb-6">
+          <p className="text-[10px] text-white/30 uppercase tracking-[0.22em] text-center mb-7">
             Featured selection · Availability subject to confirmation
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pb-10 border-b border-white/6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-10 border-b border-white/6">
             {featuredHomepageProperties.map((property, i) => (
               <motion.article
                 key={property.id}
@@ -113,10 +116,10 @@ export default function FeaturedProperties() {
               Want broader options than this spotlight — or bespoke shortlists?
             </span>
             <a
-              href="#contact"
+              href={anchorHref(pathname, '#contact')}
               className="inline-flex items-center justify-center min-h-[48px] w-full sm:w-auto px-8 bg-gold text-black text-[10px] font-bold uppercase tracking-[0.22em] hover:bg-white transition-colors touch-manipulation whitespace-nowrap"
             >
-              Contact an advisor
+              Contact an adviser
             </a>
           </nav>
         </div>

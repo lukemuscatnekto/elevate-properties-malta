@@ -2,9 +2,9 @@ import { useLayoutEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /**
- * Privacy and CRM always open at the top. Marketing home scrolls to a section when the
- * location includes a hash (e.g. after client navigation from /privacy to /#contact).
- * When landing on / from another in-app route without a hash, reset scroll to the top.
+ * `/privacy` always opens at the top. The marketing homepage scrolls to a section when the
+ * location includes a hash (e.g. after client navigation from `/privacy` to `/#contact`).
+ * When landing on `/` from another in-app route without a hash, reset scroll to the top.
  */
 export default function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -14,7 +14,7 @@ export default function ScrollToTop() {
     const previous = prevPathname.current;
     prevPathname.current = pathname;
 
-    if (pathname === '/privacy' || pathname.startsWith('/crm')) {
+    if (pathname === '/privacy') {
       window.scrollTo(0, 0);
       return;
     }

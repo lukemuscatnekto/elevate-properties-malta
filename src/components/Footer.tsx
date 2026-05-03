@@ -79,7 +79,10 @@ export default function Footer() {
             </div>
           </div>
 
-          <nav className="flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.2em] text-white/70 lg:col-span-2" aria-label="Footer">
+          <nav
+            className={`flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.2em] text-white/70 ${anySocialConfigured ? 'lg:col-span-2' : 'lg:col-span-4'}`}
+            aria-label="Footer"
+          >
             <a href={anchorHref(pathname, '#hero')} className="hover:text-gold py-1 touch-manipulation">
               Home
             </a>
@@ -103,8 +106,8 @@ export default function Footer() {
             </Link>
           </nav>
 
-          <div className="flex flex-col gap-3 justify-start lg:items-end lg:text-right lg:col-span-2">
-            {anySocialConfigured ? (
+          {anySocialConfigured ? (
+            <div className="flex flex-col gap-3 justify-start lg:items-end lg:text-right lg:col-span-2">
               <div className="flex items-center gap-3 lg:justify-end">
                 {socials.map(({ Icon, url, label }) =>
                   isConfiguredExternalUrl(url) ? (
@@ -121,14 +124,8 @@ export default function Footer() {
                   ) : null,
                 )}
               </div>
-            ) : (
-              <p className="text-[10px] text-white/35 leading-relaxed max-w-[240px] lg:ml-auto text-left lg:text-right">
-                {/* TODO_SOCIAL in site.ts */}
-                LinkedIn · Instagram · Facebook URLs not published yet — add <code className="text-gold/50 text-[9px]">https://…</code> links in{' '}
-                <code className="text-gold/50 text-[9px]">site.ts</code> when profiles are ready.
-              </p>
-            )}
-          </div>
+            </div>
+          ) : null}
         </div>
 
         <div className="mt-8 pt-6 border-t border-white/5 space-y-2">

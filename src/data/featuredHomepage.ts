@@ -1,6 +1,9 @@
 import type { Property } from '../types';
 
-/** Curated Malta listings shown on the homepage — update from your authoritative inventory when launching. Do not inflate beyond what your team represents. */
+/**
+ * Homepage featured listings — replace this static array with data from your CRM, Zanzi, QuickLets, or API when ready.
+ * Keep the same `Property` shape (or map server fields into it) so `FeaturedProperties` and `PropertyModal` stay unchanged.
+ */
 export const featuredHomepageProperties: Property[] = [
   {
     id: 'mosta-villa-f',

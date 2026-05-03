@@ -1,9 +1,11 @@
 import { motion } from 'motion/react';
 import { ShieldCheck, Target, Camera, Key, CheckCircle2 } from 'lucide-react';
 import { useState, FormEvent } from 'react';
+import { useLocation } from 'react-router-dom';
 import { submitForm, FORM_HONEYPOT_FIELD } from '../utils/formSubmission';
 import FormHoneypot from './FormHoneypot';
 import { formDiscretionFootnote, formTechnicalFailureHint } from '../content/formFootnotes';
+import { anchorHref } from '../utils/routeAnchors';
 
 const pillars = [
   {
@@ -29,6 +31,7 @@ const pillars = [
 ];
 
 export default function ListProperty() {
+  const { pathname } = useLocation();
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [honeypot, setHoneypot] = useState('');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', location: '', message: '' });
@@ -204,12 +207,6 @@ export default function ListProperty() {
               </form>
             )}
             <p className="text-[10px] text-white/38 text-center leading-relaxed mt-5 pt-4 border-t border-white/6">{formDiscretionFootnote}</p>
-            {import.meta.env.DEV && (
-              <p className="text-[9px] text-white/25 text-center mt-4 leading-relaxed break-words border-t border-white/5 pt-3">
-                Dev: set <code className="text-gold/60">VITE_FORM_PROVIDER</code> and endpoint in <code className="text-gold/60">.env</code> — see README
-                (Formspree / Netlify / EmailJS).
-              </p>
-            )}
           </div>
         </div>
 
@@ -222,8 +219,8 @@ export default function ListProperty() {
         >
           <div className="relative aspect-[4/5] overflow-hidden border border-white/5">
             <img
-              src="https://images.unsplash.com/photo-1628592102751-ba83b03bc995?auto=format&fit=crop&q=80&w=1200"
-              alt="Elegantly appointed luxury interior — high ceilings, natural stone, bespoke finishes"
+              src="/images/new-hero.png"
+              alt="Elevate Properties Malta — distinctive Malta residence"
               className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
               loading="lazy"
               width={800}
@@ -239,12 +236,12 @@ export default function ListProperty() {
                 <li>Materials and tours follow your approvals; nothing broadcasts without consent.</li>
               </ul>
               <p className="mt-4 text-[10px] text-white/38 leading-relaxed">
-                Professional legal tax and structuring advice stays with licensed practitioners you nominate — Elevate concentrates on transactional representation plus marketing choreography.
+                Professional legal, tax, and structuring advice stays with licensed practitioners you nominate — Elevate concentrates on transactional representation and marketing choreography.
               </p>
               <div className="mt-5 flex flex-wrap gap-2 justify-end">
                 <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center min-h-[40px] px-4 py-2 border border-gold/35 text-[9px] font-bold uppercase tracking-[0.2em] text-gold hover:bg-gold hover:text-black transition-colors touch-manipulation"
+                  href={anchorHref(pathname, '#contact')}
+                  className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 border border-gold/35 text-[9px] font-bold uppercase tracking-[0.2em] text-gold hover:bg-gold hover:text-black transition-colors touch-manipulation"
                 >
                   Speak with us first
                 </a>

@@ -39,7 +39,7 @@ export default function ContactForm() {
       </div>
 
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
 
           {/* ── Left: contact info ── */}
           <div>
@@ -132,7 +132,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-[#0D0D0D] border border-gold/18 p-5 md:p-6 relative"
+              className="bg-[#0D0D0D] border border-gold/18 p-5 sm:p-6 md:p-7 relative"
             >
               {/* Corner accents */}
               <div className="absolute top-0 left-0 w-16 h-16 border-t border-l border-gold/30 pointer-events-none" aria-hidden="true" />
@@ -276,12 +276,6 @@ export default function ContactForm() {
                     </motion.button>
 
                     <p className="text-[10px] text-white/42 text-center leading-relaxed px-2 max-w-md mx-auto">{formDiscretionFootnote}</p>
-                    {import.meta.env.DEV && (
-                      <p className="text-[9px] text-white/25 text-center leading-relaxed break-words border border-white/5 rounded px-3 py-2 bg-white/[0.02]">
-                        Dev: configure <code className="text-gold/60">VITE_FORM_PROVIDER</code>,{' '}
-                        <code className="text-gold/60">VITE_FORMSPREE_ENDPOINT</code>, or EmailJS — see README.
-                      </p>
-                    )}
                     {formState === 'error' && (
                       <div className="text-[11px] text-red-200 text-center break-words space-y-2 px-2" role="alert">
                         <p>{successMessage}</p>

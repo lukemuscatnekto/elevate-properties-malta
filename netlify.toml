@@ -3,7 +3,7 @@
   command = "npm run build"
   publish = "dist"
 
-# SPA + client-side routes (e.g. /crm/*): serve index.html for non-file paths
+# SPA: serve index.html for non-file paths (e.g. /privacy direct visits)
 [[redirects]]
   from = "/*"
   to = "/index.html"

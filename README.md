@@ -71,7 +71,7 @@ All public submissions go through **`src/utils/formSubmission.ts`** (`submitForm
 | `valuation` | `#list-property` confidential briefing | `name`, `email`, `phone`, `location`, `message`, `pageUrl`, optional `referrer`, `subject`, timestamps |
 | `viewing` | Property modal — private viewing | `name`, `email`, `phone`, `message`, `propertyTitle`, `propertyId`, `propertyPrice`, `propertyLocation`, `pageUrl`, optional `referrer`, `subject`, timestamps |
 
-`message` is always a string (auto-filled when the visitor leaves the notes box empty on valuation/viewing). Spam: honeypot **`_gotcha`** (must stay empty). Tripped honeypots are dropped client-side without CRM mirroring.
+`message` is always a string (auto-filled when the visitor leaves the notes box empty on valuation/viewing). Spam: honeypot **`_gotcha`** (must stay empty). Tripped honeypots are dropped client-side without submitting the enquiry.
 
 ### Formspree (recommended)
 
@@ -101,10 +101,6 @@ Set env vars from `.env.example` and implement `submitToEmailJs` in `formSubmiss
 
 Submissions resolve in the browser only (no outbound email). **Do not ship production like this.** The dev toolbar may still hint to configure env vars.
 
-### CRM mirror (optional)
-
-On successful `contact`, `valuation`, or `viewing` submissions, the app may mirror a lead into browser **`localStorage`** for the internal `/crm/*` demo (`mirrorToCRM` in `formSubmission.ts`). This is **not** shared across devices or with real agents until you add a real backend.
-
 ## SEO before launch
 
 Update these to your **live** domain and verified contact details:
@@ -128,7 +124,7 @@ Favicon: `public/favicon.svg` (referenced from `index.html`).
 
 Repo includes:
 
-- **`netlify.toml`** — Netlify build + SPA fallback to `index.html` (needed for direct visits to `/crm/...`).
+- **`netlify.toml`** — Netlify build + SPA fallback to `index.html` (needed for direct visits to routes like `/privacy`).
 - **`vercel.json`** — SPA rewrite so client-side routes resolve after refresh.
 
 ### Environment variables (dashboard)
@@ -155,7 +151,7 @@ See **Forms** above and `.env.example` for full list.
 
 1. **Add New → Project** → import repo.  
 2. Framework **Vite** is auto-detected; build **`npm run build`**, output **`dist`**.  
-3. **`vercel.json`** adds SPA rewrites for `/crm/*` refreshes.  
+3. **`vercel.json`** adds SPA rewrites so client-side routes resolve after refresh.  
 4. **Settings → Environment Variables**: add the same `VITE_*` keys.  
 5. Redeploy. Optional: **Domains** → add production domain.
 
@@ -175,8 +171,4 @@ npm run preview
 - [ ] Run `npm run lint` and `npm run build`.
 - [ ] Smoke-test mobile / tablet / desktop and anchors: `#hero`, `#properties`, `#about`, `#services`, `#trust`, `#contact`, `#list-property`.
 
-Public domain is **`elevatepropertiesmalta.com`** in `index.html`, `robots.txt`, `sitemap.xml`, and `site.ts` (`domainUrl`). Primary phone (**Nico Dalton**) **`+356 9981 6646`** is in JSON-LD and `siteConfig`. Internal CRM fixtures under `src/crm/data/*` remain fictitious demo data only.
-
-## Internal CRM
-
-The `/crm/*` routes provide a separate demo CRM shell (lazy-loaded). It is optional for launch and does not affect the public homepage.
+Public domain is **`elevatepropertiesmalta.com`** in `index.html`, `robots.txt`, `sitemap.xml`, and `site.ts` (`domainUrl`). Primary phone (**Nico Dalton**) **`+356 9981 6646`** is in JSON-LD and `siteConfig`.

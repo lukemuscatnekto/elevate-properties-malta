@@ -1,5 +1,7 @@
 import { motion } from 'motion/react';
 import { Landmark, Eye, Briefcase, LineChart } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+import { anchorHref } from '../utils/routeAnchors';
 
 /** Factual commitments only — no quotes, numerical claims, awards, or credentials. */
 
@@ -12,12 +14,12 @@ const pillars = [
   {
     Icon: Eye,
     title: 'Private viewings',
-    body: 'Viewings are arranged personally, quietly, and with advance context on the residence and locality so your time on site is purposeful — including after-hours appointments when sensible.',
+    body: 'Viewings are arranged personally and quietly, with useful context on the residence and locality so your time on site feels purposeful — including after-hours appointments when that makes sense.',
   },
   {
     Icon: Briefcase,
     title: 'Discreet seller representation',
-    body: 'For exceptional homes we favour controlled exposure: qualified introductions, orderly access, and materials that honour the property rather than volume listing noise.',
+    body: 'For exceptional homes we favour controlled exposure: qualified introductions, orderly access, and materials that honour the property rather than volume-market noise.',
   },
   {
     Icon: LineChart,
@@ -27,6 +29,8 @@ const pillars = [
 ];
 
 export default function TrustAndProcess() {
+  const { pathname } = useLocation();
+
   return (
     <section
       id="trust"
@@ -38,8 +42,8 @@ export default function TrustAndProcess() {
           How we work with you
         </h2>
         <p className="text-sm text-white/45 font-light leading-relaxed max-w-2xl mb-8">
-          Explore featured residences, inspect details in-depth, lodge a discreet viewing enquiry when you&apos;re comfortable, escalate to a
-          concierge search if you wish, then brief us formally when instructing an off-market valuation or sale mandate.
+          Explore featured residences, review details at your own pace, and lodge a discreet viewing enquiry when you are ready. If you need a
+          broader search, ask — then brief us formally when you wish to instruct an off-market valuation or sale mandate.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -67,10 +71,10 @@ export default function TrustAndProcess() {
 
         <p className="mt-8 text-center">
           <a
-            href="#contact"
+            href={anchorHref(pathname, '#contact')}
             className="inline-flex items-center justify-center min-h-[48px] px-8 border border-gold/40 text-gold text-[10px] font-bold uppercase tracking-[0.28em] hover:bg-gold hover:text-black transition-colors touch-manipulation"
           >
-            Speak with an advisor
+            Speak with an adviser
           </a>
         </p>
       </div>

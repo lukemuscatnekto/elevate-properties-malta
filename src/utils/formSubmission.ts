@@ -1,9 +1,3 @@
-import {
-  createLeadFromContactForm,
-  createLeadFromListProperty,
-  createLeadFromRequestViewing,
-} from '../crm/utils/publicIntake';
-
 export const FORM_HONEYPOT_FIELD = '_gotcha' as const;
 
 type FormProvider = 'formspree' | 'netlify' | 'emailjs' | 'none';
@@ -17,43 +11,6 @@ type FormPayload = Record<string, string | number | boolean | null | undefined>;
 
 const FALLBACK_CHANNELS =
   'You may also reach us directly on +356 9981 6646, WhatsApp (see the contact section on this page), or at info@elevatepropertiesmalta.com — we will handle your enquiry manually.';
-
-// Mirror successful public-form submissions into the internal CRM (localStorage).
-// Public visitors never see CRM wording — this is silent.
-function mirrorToCRM(formType: string, data: FormPayload): void {
-  try {
-    if (formType === 'contact') {
-      createLeadFromContactForm({
-        fullName: String(data.name ?? ''),
-        email: String(data.email ?? ''),
-        enquiryType: String(data.type ?? 'buying'),
-        budgetRange: data.budget != null ? String(data.budget) : undefined,
-        message: String(data.message ?? ''),
-        phone: data.phone != null ? String(data.phone) : undefined,
-      });
-    } else if (formType === 'valuation') {
-      createLeadFromListProperty({
-        fullName: String(data.name ?? ''),
-        email: String(data.email ?? ''),
-        propertyLocation: String(data.location ?? ''),
-        phone: data.phone != null ? String(data.phone) : undefined,
-        message: data.message != null ? String(data.message) : undefined,
-      });
-    } else if (formType === 'viewing') {
-      createLeadFromRequestViewing({
-        fullName: String(data.name ?? ''),
-        email: String(data.email ?? ''),
-        phone: data.phone != null ? String(data.phone) : undefined,
-        propertyTitle: data.propertyTitle != null ? String(data.propertyTitle) : undefined,
-        propertyId: data.propertyId != null ? String(data.propertyId) : undefined,
-        preferredDate: data.preferredDate != null ? String(data.preferredDate) : undefined,
-        message: data.message != null ? String(data.message) : undefined,
-      });
-    }
-  } catch (err) {
-    console.warn('[CRM intake] failed to mirror public submission:', err);
-  }
-}
 
 const FORM_PROVIDER = (import.meta.env.VITE_FORM_PROVIDER ?? 'none').toLowerCase() as FormProvider;
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined;
@@ -225,10 +182,6 @@ export const submitForm = async (formType: string, data: FormPayload): Promise<F
       result = await submitToEmailJs();
     } else {
       result = await fallbackLocalSubmission(formType);
-    }
-
-    if (result.success && (formType === 'contact' || formType === 'valuation' || formType === 'viewing')) {
-      mirrorToCRM(formType, enriched);
     }
 
     return result;
