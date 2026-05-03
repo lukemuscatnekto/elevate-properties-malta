@@ -1,9 +1,12 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, MessageCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { siteConfig } from '../config/site';
+import { anchorHref } from '../utils/routeAnchors';
 
 export default function Navbar() {
+  const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -43,7 +46,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 flex justify-between items-center gap-3">
         {/* Logo */}
         <motion.a
-          href="#hero"
+          href={anchorHref(pathname, '#hero')}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="flex flex-col items-start group cursor-pointer outline-none focus:ring-1 focus:ring-gold pl-0 pr-2 min-w-0"
@@ -60,7 +63,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <a 
                 key={link.name} 
-                href={link.href}
+                href={anchorHref(pathname, link.href)}
                 className="text-[11px] uppercase tracking-[0.14em] font-medium text-white/80 hover:text-gold transition-all relative group outline-none focus:text-gold"
               >
                 {link.name}
@@ -112,7 +115,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 + idx * 0.05 }}
                   key={link.name} 
-                  href={link.href}
+                  href={anchorHref(pathname, link.href)}
                   className="text-3xl font-serif text-white hover:text-gold transition-colors outline-none focus:text-gold"
                   onClick={() => setIsOpen(false)}
                 >
@@ -150,7 +153,7 @@ export default function Navbar() {
                 WhatsApp {siteConfig.contacts.primary.name.split(' ')[0]}
               </a>
               <a
-                href="#contact"
+                href={anchorHref(pathname, '#contact')}
                 onClick={() => setIsOpen(false)}
                 className="w-full bg-gold text-black py-6 flex items-center justify-center font-bold uppercase tracking-[0.2em] text-[10px] touch-manipulation"
               >

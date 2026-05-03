@@ -1,9 +1,12 @@
 import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { siteConfig } from '../config/site';
+import { anchorHref } from '../utils/routeAnchors';
 
 const isConfiguredExternalUrl = (value: string) => value.startsWith('http') && !value.includes('TODO');
 
 export default function Footer() {
+  const { pathname } = useLocation();
   const socials = [
     { Icon: Facebook, url: siteConfig.facebookUrl, label: 'Elevate Properties Malta on Facebook' },
     { Icon: Instagram, url: siteConfig.instagramUrl, label: 'Elevate Properties Malta on Instagram' },
@@ -77,24 +80,27 @@ export default function Footer() {
           </div>
 
           <nav className="flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.2em] text-white/70 lg:col-span-2" aria-label="Footer">
-            <a href="#hero" className="hover:text-gold py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#hero')} className="hover:text-gold py-1 touch-manipulation">
               Home
             </a>
-            <a href="#properties" className="hover:text-gold py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#properties')} className="hover:text-gold py-1 touch-manipulation">
               Buy
             </a>
-            <a href="#list-property" className="hover:text-gold py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#list-property')} className="hover:text-gold py-1 touch-manipulation">
               Sell
             </a>
-            <a href="#services" className="hover:text-gold py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#services')} className="hover:text-gold py-1 touch-manipulation">
               Services
             </a>
-            <a href="#trust" className="hover:text-gold py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#trust')} className="hover:text-gold py-1 touch-manipulation">
               How we work
             </a>
-            <a href="#contact" className="hover:text-gold py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#contact')} className="hover:text-gold py-1 touch-manipulation">
               Contact
             </a>
+            <Link to="/privacy" className="hover:text-gold py-1 touch-manipulation">
+              Privacy
+            </Link>
           </nav>
 
           <div className="flex flex-col gap-3 justify-start lg:items-end lg:text-right lg:col-span-2">
