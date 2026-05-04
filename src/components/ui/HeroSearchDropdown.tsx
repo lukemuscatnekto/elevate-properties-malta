@@ -80,7 +80,9 @@ export default function HeroSearchDropdown({
     }
     const r = t.getBoundingClientRect();
     const pad = 8;
+    const gap = 4;
     const vw = typeof window !== 'undefined' ? window.innerWidth : r.width;
+    const vh = typeof window !== 'undefined' ? window.innerHeight : 600;
     let width = r.width;
     let left = r.left;
     if (left + width > vw - pad) {
@@ -88,13 +90,44 @@ export default function HeroSearchDropdown({
     }
     left = Math.max(pad, left);
     width = Math.min(width, vw - pad * 2);
-    setMenuStyle({
-      position: 'fixed',
-      top: r.bottom + 4,
-      left,
-      width,
-      zIndex: 200,
-    });
+
+    const idealMax = Math.min(vh * 0.5, 280);
+    const availBelow = vh - pad - r.bottom - gap;
+    const availAbove = r.top - gap - pad;
+
+    let openAbove = false;
+    let maxH: number;
+    if (availBelow >= idealMax) {
+      maxH = idealMax;
+    } else if (availAbove > availBelow) {
+      openAbove = true;
+      maxH = Math.min(idealMax, availAbove);
+    } else {
+      maxH = Math.min(idealMax, Math.max(0, availBelow));
+    }
+    maxH = Math.max(40, Math.floor(maxH));
+
+    if (openAbove) {
+      setMenuStyle({
+        position: 'fixed',
+        left,
+        width,
+        zIndex: 200,
+        top: 'auto',
+        bottom: vh - r.top + gap,
+        maxHeight: maxH,
+      });
+    } else {
+      setMenuStyle({
+        position: 'fixed',
+        top: r.bottom + gap,
+        left,
+        width,
+        zIndex: 200,
+        bottom: 'auto',
+        maxHeight: maxH,
+      });
+    }
   }, [isOpen]);
 
   useLayoutEffect(() => {

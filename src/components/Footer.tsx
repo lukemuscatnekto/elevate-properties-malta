@@ -83,28 +83,28 @@ export default function Footer() {
             className={`flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.2em] text-brand-sand ${anySocialConfigured ? 'lg:col-span-2' : 'lg:col-span-4'}`}
             aria-label="Footer"
           >
-            <a href={anchorHref(pathname, '#hero')} className="hover:text-brand-champagne py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#hero')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
               Home
             </a>
-            <a href={anchorHref(pathname, '#properties')} className="hover:text-brand-champagne py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#properties')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
               Buy
             </a>
-            <a href={anchorHref(pathname, '#list-property')} className="hover:text-brand-champagne py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#list-property')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
               Sell
             </a>
-            <a href={anchorHref(pathname, '#services')} className="hover:text-brand-champagne py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#services')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
               Services
             </a>
-            <a href={anchorHref(pathname, '#trust')} className="hover:text-brand-champagne py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#trust')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
               How we work
             </a>
-            <a href={anchorHref(pathname, '#agents')} className="hover:text-brand-champagne py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#agents')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
               Advisors
             </a>
-            <a href={anchorHref(pathname, '#contact')} className="hover:text-brand-champagne py-1 touch-manipulation">
+            <a href={anchorHref(pathname, '#contact')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
               Contact
             </a>
-            <Link to="/privacy" className="hover:text-brand-champagne py-1 touch-manipulation">
+            <Link to="/privacy" className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
               Privacy
             </Link>
           </nav>
@@ -119,7 +119,7 @@ export default function Footer() {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-9 min-h-[36px] min-w-[36px] border border-brand-bronze-dark/35 hover:border-brand-copper text-brand-metal hover:text-brand-champagne transition-all flex items-center justify-center touch-manipulation"
+                      className="min-h-[44px] min-w-[44px] w-11 border border-brand-bronze-dark/35 hover:border-brand-copper text-brand-metal hover:text-brand-champagne transition-all flex items-center justify-center touch-manipulation"
                       aria-label={label}
                     >
                       <Icon className="w-3.5 h-3.5" aria-hidden="true" />
