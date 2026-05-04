@@ -109,24 +109,24 @@ export default function Hero({ onSearch }: HeroProps) {
             className="max-w-[580px] md:pl-1 min-w-0 w-full"
           >
             {/* Eyebrow */}
-            <h1 className="font-playfair text-brand-ivory leading-[0.88] tracking-tight drop-shadow-2xl mb-4 text-[clamp(3.1rem,6.5vw,5.7rem)]">
+            <h1 className="font-playfair text-brand-ivory leading-[0.88] tracking-tight drop-shadow-2xl mb-3 text-[clamp(2.72rem,5.6vw,5rem)]">
               ELEVATE YOUR
               <br />
               <span className="text-brand-copper">LIFESTYLE</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-brand-sand text-base md:text-[1.04rem] max-w-[420px] mb-6 font-light leading-snug tracking-normal">
+            <p className="text-brand-sand text-[0.9375rem] md:text-[0.995rem] max-w-[420px] mb-4 md:mb-5 font-light leading-snug tracking-normal">
               From first homes to standout residences and investment opportunities — carefully guided across Malta.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3 sm:gap-4">
               <motion.a
                 href="#properties"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="epm-btn-primary px-8 py-3 group"
+                className="epm-btn-primary px-7 py-2.5 sm:px-8 sm:py-3 group"
               >
                 View Properties
                 <ChevronRight
@@ -137,7 +137,7 @@ export default function Hero({ onSearch }: HeroProps) {
             </div>
 
             {/* Est. badge */}
-            <div className="flex items-center gap-3 mt-3">
+            <div className="flex items-center gap-3 mt-2 sm:mt-2.5">
               <div className="w-6 h-px bg-gold/50" aria-hidden="true" />
               <span className="text-brand-metal text-[10px] uppercase tracking-[0.4em] font-medium">
                 Est. 2026
