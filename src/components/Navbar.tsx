@@ -32,6 +32,7 @@ export default function Navbar() {
     { name: 'Sell', href: '#list-property' },
     { name: 'Rent', href: '#contact' },
     { name: 'Invest', href: '#contact' },
+    { name: 'Advisors', href: '#agents' },
     { name: 'Contact', href: '#contact' },
   ];
 

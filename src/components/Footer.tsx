@@ -98,6 +98,9 @@ export default function Footer() {
             <a href={anchorHref(pathname, '#trust')} className="hover:text-gold py-1 touch-manipulation">
               How we work
             </a>
+            <a href={anchorHref(pathname, '#agents')} className="hover:text-gold py-1 touch-manipulation">
+              Advisors
+            </a>
             <a href={anchorHref(pathname, '#contact')} className="hover:text-gold py-1 touch-manipulation">
               Contact
             </a>

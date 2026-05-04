@@ -4,6 +4,7 @@ import FeaturedProperties from './components/FeaturedProperties';
 import ListProperty from './components/ListProperty';
 import AboutServices from './components/AboutServices';
 import TrustAndProcess from './components/TrustAndProcess';
+import Agents from './components/Agents';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import { AnimatePresence } from 'motion/react';
@@ -19,6 +20,7 @@ export default function App() {
           <FeaturedProperties />
           <AboutServices />
           <TrustAndProcess />
+          <Agents />
           <ContactForm />
           <ListProperty />
         </main>
