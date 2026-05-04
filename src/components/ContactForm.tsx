@@ -32,7 +32,7 @@ export default function ContactForm() {
   const selectCls = `${inputCls} appearance-none cursor-pointer`;
 
   return (
-    <section id="contact" className="scroll-anchor-target py-8 px-4 sm:px-8 bg-brand-brown-dark relative overflow-hidden border-t border-brand-bronze-dark/25" aria-labelledby="contact-heading">
+    <section id="contact" className="scroll-anchor-target py-10 px-4 sm:px-8 bg-brand-brown-dark relative overflow-hidden border-t border-brand-bronze-dark/25" aria-labelledby="contact-heading">
       {/* Glow */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(188,136,92,0.06),transparent_65%)]" />
@@ -52,7 +52,7 @@ export default function ContactForm() {
                 <span className="w-8 h-px bg-brand-copper/55 inline-block" aria-hidden="true" />
                 Concierge access
               </p>
-              <h2 id="contact-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-4 leading-tight">
+              <h2 id="contact-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-3 leading-tight">
                 Start a private conversation
               </h2>
               <p className="text-brand-sand text-sm font-light leading-relaxed max-w-md mb-6">
@@ -66,7 +66,7 @@ export default function ContactForm() {
               {[siteConfig.contacts.primary, siteConfig.contacts.secondary].map((c) => (
                 <div key={c.name} className="flex items-start gap-5 group">
                   <div className="w-12 h-12 rounded-full border border-brand-bronze-dark/25 flex items-center justify-center group-hover:border-brand-copper/45 group-hover:bg-brand-bronze-dark/10 transition-all duration-400 shrink-0">
-                    <Phone className="w-5 h-5 text-gold" aria-hidden="true" />
+                    <Phone className="w-5 h-5 text-brand-copper" aria-hidden="true" />
                   </div>
                   <div className="min-w-0">
                     <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-1">{c.name}</p>
@@ -97,7 +97,7 @@ export default function ContactForm() {
 
               <div className="flex items-start gap-5 group pt-3 border-t border-brand-bronze-dark/18">
                 <div className="w-12 h-12 rounded-full border border-brand-bronze-dark/25 flex items-center justify-center group-hover:border-brand-copper/45 shrink-0">
-                  <Mail className="w-5 h-5 text-gold" aria-hidden="true" />
+                  <Mail className="w-5 h-5 text-brand-copper" aria-hidden="true" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-1">Direct email</p>
@@ -109,7 +109,7 @@ export default function ContactForm() {
 
               <div className="flex items-start gap-5 group">
                 <div className="w-12 h-12 rounded-full border border-brand-bronze-dark/25 flex items-center justify-center group-hover:border-brand-copper/45 shrink-0">
-                  <Clock className="w-5 h-5 text-gold" aria-hidden="true" />
+                  <Clock className="w-5 h-5 text-brand-copper" aria-hidden="true" />
                 </div>
                 <div>
                   <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-1">Consultation hours</p>
@@ -145,8 +145,8 @@ export default function ContactForm() {
                   className="py-16 text-center"
                   role="status"
                 >
-                  <div className="w-16 h-16 rounded-full bg-gold/8 border border-gold/20 flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle2 className="w-8 h-8 text-gold" aria-hidden="true" />
+                  <div className="w-16 h-16 rounded-full bg-brand-copper/10 border border-brand-copper/25 flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle2 className="w-8 h-8 text-brand-copper" aria-hidden="true" />
                   </div>
                   <h3 className="text-2xl font-playfair text-brand-ivory mb-4">We have your enquiry</h3>
                   <p className="text-brand-sand font-light leading-relaxed max-w-sm mx-auto text-sm">
@@ -155,7 +155,7 @@ export default function ContactForm() {
                   <button
                     type="button"
                     onClick={() => setFormState('idle')}
-                    className="mt-8 text-brand-champagne text-[10px] font-bold uppercase tracking-[0.35em] hover:text-brand-ivory transition-colors min-h-[44px] touch-manipulation"
+                    className="mt-8 inline-flex items-center justify-center min-h-[48px] px-8 border border-brand-bronze-dark/45 bg-brand-taupe/30 text-brand-champagne text-[10px] font-bold uppercase tracking-[0.28em] hover:bg-brand-muted hover:border-brand-copper/50 hover:text-brand-ivory transition-colors touch-manipulation"
                   >
                     Send another enquiry
                   </button>

@@ -45,7 +45,7 @@ export default function ListProperty() {
   };
 
   return (
-    <section id="list-property" className="scroll-anchor-target py-10 sm:py-12 px-4 sm:px-8 bg-brand-brown-dark relative overflow-hidden border-t border-brand-bronze-dark/25" aria-labelledby="list-heading">
+    <section id="list-property" className="scroll-anchor-target py-10 px-4 sm:px-8 bg-brand-brown-dark relative overflow-hidden border-t border-brand-bronze-dark/25" aria-labelledby="list-heading">
       <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
         style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/dark-leather.png')" }}
         aria-hidden="true"

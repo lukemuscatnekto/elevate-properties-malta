@@ -17,7 +17,7 @@ export default function Footer() {
   const { primary, secondary } = siteConfig.contacts;
 
   return (
-    <footer className="bg-brand-brown-dark border-t border-brand-bronze-dark/25 py-8 px-4 sm:px-8" role="contentinfo">
+    <footer className="bg-brand-brown-dark border-t border-brand-bronze-dark/25 py-10 px-4 sm:px-8" role="contentinfo">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           <div className="lg:col-span-3">
@@ -36,13 +36,13 @@ export default function Footer() {
               <div className="space-y-1.5 border-l border-brand-bronze-dark/30 pl-4">
                 <p className="text-[10px] text-brand-champagne/85 uppercase tracking-widest">{primary.name}</p>
                 <a href={primary.phoneHref} className="flex items-center gap-2 hover:text-brand-champagne transition-colors touch-manipulation font-light text-brand-ivory">
-                  <Phone className="w-3.5 h-3.5 text-gold shrink-0" aria-hidden="true" /> {primary.phoneDisplay}
+                  <Phone className="w-3.5 h-3.5 text-brand-copper shrink-0" aria-hidden="true" /> {primary.phoneDisplay}
                 </a>
               </div>
               <div className="space-y-1.5 border-l border-brand-bronze-dark/22 pl-4">
                 <p className="text-[10px] text-brand-metal uppercase tracking-widest">{secondary.name}</p>
                 <a href={secondary.phoneHref} className="flex items-center gap-2 hover:text-brand-champagne transition-colors touch-manipulation font-light text-brand-ivory">
-                  <Phone className="w-3.5 h-3.5 text-gold shrink-0 opacity-75" aria-hidden="true" /> {secondary.phoneDisplay}
+                  <Phone className="w-3.5 h-3.5 text-brand-copper shrink-0 opacity-75" aria-hidden="true" /> {secondary.phoneDisplay}
                 </a>
               </div>
             </div>
@@ -66,13 +66,13 @@ export default function Footer() {
 
             <div className="pt-3 border-t border-brand-bronze-dark/18 space-y-1.5">
               <div className="flex items-start gap-2">
-                <Mail className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5 opacity-75" aria-hidden="true" />
+                <Mail className="w-3.5 h-3.5 text-brand-copper shrink-0 mt-0.5 opacity-75" aria-hidden="true" />
                 <a href={siteConfig.emailHref} className="text-[11px] sm:text-xs text-brand-ivory hover:text-brand-champagne transition-colors break-all leading-snug">
                   {siteConfig.emailDisplay}
                 </a>
               </div>
               <p className="flex items-start gap-2 text-brand-sand text-[11px]">
-                <MapPin className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" aria-hidden="true" />
+                <MapPin className="w-3.5 h-3.5 text-brand-copper shrink-0 mt-0.5" aria-hidden="true" />
                 <span>{siteConfig.address}</span>
               </p>
               <p className="text-[10px] uppercase tracking-[0.2em] text-brand-metal pl-6">{siteConfig.openingHours}</p>

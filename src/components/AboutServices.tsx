@@ -52,7 +52,7 @@ export default function AboutServices() {
               <span className="w-8 h-px bg-brand-copper/60 inline-block" aria-hidden="true" />
               Who We Are
             </p>
-            <h2 id="about-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory leading-tight mb-5">
+            <h2 id="about-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory leading-tight mb-3">
               About Elevate Properties Malta
             </h2>
 
@@ -73,7 +73,7 @@ export default function AboutServices() {
 
             <a
               href={anchorHref(pathname, '#contact')}
-              className="inline-flex items-center gap-2 min-h-[44px] mt-auto text-brand-champagne text-[10px] font-bold uppercase tracking-[0.25em] touch-manipulation hover:text-brand-copper transition-colors"
+              className="inline-flex items-center justify-center gap-2 min-h-[48px] mt-auto px-8 border border-brand-bronze-dark/45 bg-brand-taupe/40 text-brand-champagne text-[10px] font-bold uppercase tracking-[0.28em] hover:bg-brand-muted hover:border-brand-copper/50 hover:text-brand-ivory transition-colors touch-manipulation"
             >
               Book a confidential consultation <ArrowRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             </a>
@@ -136,7 +136,7 @@ export default function AboutServices() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
                 viewport={{ once: true }}
-                className="group bg-brand-panel border border-brand-bronze-dark/25 hover:border-brand-copper/50 min-w-0 p-4 sm:p-5 flex flex-col min-h-[158px] sm:min-h-[168px] lg:min-h-0 transition-all duration-500 outline-none focus:ring-1 focus:ring-gold touch-manipulation"
+                className="group bg-brand-panel border border-brand-bronze-dark/25 hover:border-brand-copper/50 min-w-0 p-4 sm:p-5 flex flex-col min-h-[158px] sm:min-h-[168px] lg:min-h-0 transition-all duration-500 outline-none focus:ring-1 focus:ring-brand-copper/55 touch-manipulation"
               >
                 <div className="w-9 h-9 rounded-full border border-brand-bronze-dark/30 flex items-center justify-center mb-3 group-hover:border-brand-copper/55 group-hover:bg-brand-bronze-dark/15 transition-all duration-500">
                   <svc.Icon className="w-4 h-4 text-brand-copper" aria-hidden="true" />

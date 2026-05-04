@@ -34,7 +34,7 @@ export default function TrustAndProcess() {
   return (
     <section
       id="trust"
-      className="scroll-anchor-target py-8 px-4 sm:px-8 bg-brand-charcoal border-t border-brand-bronze-dark/25"
+      className="scroll-anchor-target py-10 px-4 sm:px-8 bg-brand-charcoal border-t border-brand-bronze-dark/25"
       aria-labelledby="trust-heading"
     >
       <div className="max-w-7xl mx-auto">

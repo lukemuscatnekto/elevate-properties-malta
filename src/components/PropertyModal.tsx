@@ -87,7 +87,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
               type="button"
               onClick={onClose}
               aria-label="Close property details"
-              className="absolute top-4 right-4 z-[110] min-h-[44px] min-w-[44px] flex items-center justify-center bg-brand-espresso/80 border border-brand-bronze-dark/35 hover:bg-gold hover:border-gold text-brand-ivory hover:text-charcoal transition-all focus:outline-none focus:ring-2 focus:ring-gold touch-manipulation"
+              className="absolute top-4 right-4 z-[110] min-h-[44px] min-w-[44px] flex items-center justify-center bg-brand-espresso/80 border border-brand-bronze-dark/35 hover:bg-gold hover:border-gold text-brand-ivory hover:text-charcoal transition-all focus:outline-none focus:ring-2 focus:ring-brand-copper/55 touch-manipulation"
             >
               <X className="w-4 h-4" aria-hidden="true" />
             </button>
@@ -112,9 +112,9 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
               <div className="p-6 md:p-8 space-y-6 pb-10">
                 <div>
                   <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-3">
-                    <p className="text-2xl sm:text-3xl text-gold font-playfair tabular-nums">{property.formattedPrice}</p>
+                    <p className="text-2xl sm:text-3xl text-brand-copper font-playfair tabular-nums">{property.formattedPrice}</p>
                     <address className="flex items-center gap-1.5 text-brand-metal not-italic text-[10px] uppercase tracking-[0.2em]">
-                      <MapPin className="w-3.5 h-3.5 text-gold/50 shrink-0" aria-hidden="true" />
+                      <MapPin className="w-3.5 h-3.5 text-brand-copper/55 shrink-0" aria-hidden="true" />
                       <span className="break-words">{property.location}, Malta</span>
                     </address>
                   </div>
@@ -126,7 +126,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                       { Icon: Maximize, val: `${property.sqft}m²`, label: 'Area' },
                     ].map(({ Icon, val, label }) => (
                       <div key={label} className="text-center group">
-                        <Icon className="w-4 h-4 text-gold/50 group-hover:text-gold mx-auto mb-2 transition-colors" aria-hidden="true" />
+                        <Icon className="w-4 h-4 text-brand-copper/55 group-hover:text-brand-champagne mx-auto mb-2 transition-colors" aria-hidden="true" />
                         <p className="text-brand-ivory text-sm sm:text-base font-light">{val}</p>
                         <p className="text-[9px] text-brand-metal uppercase tracking-widest">{label}</p>
                       </div>
@@ -135,18 +135,18 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 </div>
 
                 <div>
-                  <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-2">Overview</p>
+                  <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-2">Overview</p>
                   <p className="text-brand-sand text-sm font-light leading-relaxed">{property.description}</p>
                 </div>
 
                 {property.features?.length ? (
                   <div>
-                    <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-3">Highlights</p>
+                    <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-3">Highlights</p>
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {property.features.map((f) => (
                         <li key={f} className="flex items-center gap-2.5">
-                          <span className="w-4 h-4 rounded-full bg-gold/8 border border-gold/20 flex items-center justify-center shrink-0" aria-hidden="true">
-                            <Check className="w-2.5 h-2.5 text-gold" />
+                          <span className="w-4 h-4 rounded-full bg-brand-copper/10 border border-brand-copper/25 flex items-center justify-center shrink-0" aria-hidden="true">
+                            <Check className="w-2.5 h-2.5 text-brand-copper" />
                           </span>
                           <span className="text-brand-sand text-xs font-light">{f}</span>
                         </li>
@@ -156,7 +156,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 ) : null}
 
                 <div className="border-t border-brand-bronze-dark/22 pt-6">
-                  <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-2">Request a private viewing</p>
+                  <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-2">Request a private viewing</p>
                   <p className="text-brand-metal text-[11px] font-light leading-relaxed mb-5">
                     There is no obligation to proceed. We coordinate times that respect sellers and neighbours, typically within one to two
                     working days, subject to confirmations.
@@ -168,13 +168,13 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                       animate={{ opacity: 1, scale: 1 }}
                       className="text-center py-6 border border-brand-bronze-dark/30 bg-brand-panel/50 px-4"
                     >
-                      <CheckCircle2 className="w-10 h-10 text-gold mx-auto mb-4" aria-hidden="true" />
+                      <CheckCircle2 className="w-10 h-10 text-brand-copper mx-auto mb-4" aria-hidden="true" />
                       <p className="text-brand-ivory font-playfair text-xl mb-2">Viewing enquiry received</p>
                       <p className="text-brand-sand text-sm font-light break-words max-w-xs mx-auto">{successMessage}</p>
                       <button
                         type="button"
                         onClick={() => setFormState('idle')}
-                        className="mt-5 inline-flex min-h-[44px] items-center justify-center px-4 text-brand-champagne text-[10px] uppercase font-bold tracking-[0.3em] hover:text-brand-ivory transition-colors touch-manipulation"
+                        className="mt-5 inline-flex min-h-[48px] items-center justify-center px-8 border border-brand-bronze-dark/45 bg-brand-taupe/30 text-brand-champagne text-[10px] uppercase font-bold tracking-[0.28em] hover:bg-brand-muted hover:border-brand-copper/50 hover:text-brand-ivory transition-colors touch-manipulation"
                       >
                         Send another request
                       </button>
@@ -186,7 +186,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                         <label htmlFor="modal-name" className="sr-only">
                           Full name
                         </label>
-                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gold/30 group-focus-within:text-gold transition-colors" aria-hidden="true" />
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-brand-copper/35 group-focus-within:text-brand-copper transition-colors" aria-hidden="true" />
                         <input
                           id="modal-name"
                           type="text"
@@ -202,7 +202,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                         <label htmlFor="modal-email" className="sr-only">
                           Email
                         </label>
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gold/30 group-focus-within:text-gold transition-colors" aria-hidden="true" />
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-brand-copper/35 group-focus-within:text-brand-copper transition-colors" aria-hidden="true" />
                         <input
                           id="modal-email"
                           type="email"
@@ -218,7 +218,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                         <label htmlFor="modal-phone" className="sr-only">
                           Phone
                         </label>
-                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gold/30 group-focus-within:text-gold transition-colors" aria-hidden="true" />
+                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-brand-copper/35 group-focus-within:text-brand-copper transition-colors" aria-hidden="true" />
                         <input
                           id="modal-phone"
                           type="tel"

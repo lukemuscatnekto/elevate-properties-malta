@@ -58,11 +58,11 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
     <>
       <section
         id="properties"
-        className="scroll-anchor-target pt-10 pb-8 px-4 sm:px-8 bg-brand-brown-dark border-t border-brand-bronze-dark/25"
+        className="scroll-anchor-target py-10 px-4 sm:px-8 bg-brand-brown-dark border-t border-brand-bronze-dark/25"
         aria-labelledby="properties-heading"
       >
         <div className="max-w-7xl mx-auto">
-          <h2 id="properties-heading" className="text-[2rem] md:text-[2.2rem] font-playfair text-brand-ivory mb-3 text-center">
+          <h2 id="properties-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-3 text-center">
             Featured Properties
           </h2>
           <p className="text-xs sm:text-sm text-brand-sand font-light leading-relaxed text-center max-w-2xl mx-auto mb-2">
@@ -78,7 +78,7 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
               {heroBanner.textBefore}
               <a
                 href={anchorHref(pathname, '#contact')}
-                className="text-gold/90 underline-offset-2 hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-gold"
+                className="text-brand-champagne underline-offset-2 hover:text-brand-copper hover:underline focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-copper/60"
               >
                 {heroBanner.linkLabel}
               </a>
@@ -88,7 +88,7 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
 
           {filtered.length === 0 ? (
             <div
-              className="py-12 sm:py-14 px-4 text-center border border-brand-bronze-dark/30 bg-brand-taupe/90 rounded-sm pb-10 mb-0 border-b border-brand-bronze-dark/20"
+              className="py-10 sm:py-11 px-4 text-center border border-brand-bronze-dark/30 bg-brand-taupe/90 rounded-sm pb-10 mb-0 border-b border-brand-bronze-dark/20"
               role="status"
               aria-live="polite"
             >
@@ -107,7 +107,7 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08 }}
                   viewport={{ once: true }}
-                  className="group bg-brand-panel border border-brand-bronze-dark/30 hover:border-brand-copper/55 transition-colors rounded-[2px] overflow-hidden outline-none cursor-pointer focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-brand-brown-dark"
+                  className="group bg-brand-panel border border-brand-bronze-dark/30 hover:border-brand-copper/55 transition-colors rounded-[2px] overflow-hidden outline-none cursor-pointer focus-visible:ring-2 focus-visible:ring-brand-copper/70 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-brown-dark"
                   tabIndex={0}
                   onClick={() => open(property)}
                   onKeyDown={(e) => {
@@ -141,28 +141,28 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
                       <div className="flex items-center gap-1.5">
                         <dt className="sr-only">Bedrooms</dt>
                         <dd className="flex items-center gap-1.5">
-                          <Bed className="w-3 h-3 text-gold/65 shrink-0" aria-hidden="true" />
+                          <Bed className="w-3 h-3 text-brand-copper/70 shrink-0" aria-hidden="true" />
                           <span>{property.beds}</span>
                         </dd>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <dt className="sr-only">Bathrooms</dt>
                         <dd className="flex items-center gap-1.5">
-                          <Bath className="w-3 h-3 text-gold/65 shrink-0" aria-hidden="true" />
+                          <Bath className="w-3 h-3 text-brand-copper/70 shrink-0" aria-hidden="true" />
                           <span>{property.baths}</span>
                         </dd>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <dt className="sr-only">Internal area</dt>
                         <dd className="flex items-center gap-1.5">
-                          <Maximize className="w-3 h-3 text-gold/65 shrink-0" aria-hidden="true" />
+                          <Maximize className="w-3 h-3 text-brand-copper/70 shrink-0" aria-hidden="true" />
                           <span>{property.sqft}m²</span>
                         </dd>
                       </div>
                       <div className="flex items-center gap-1.5 min-w-0">
                         <dt className="sr-only">Location</dt>
                         <dd className="flex items-center gap-1.5 min-w-0">
-                          <MapPin className="w-3 h-3 text-gold/65 shrink-0" aria-hidden="true" />
+                          <MapPin className="w-3 h-3 text-brand-copper/70 shrink-0" aria-hidden="true" />
                           <span className="truncate">{property.location}</span>
                         </dd>
                       </div>

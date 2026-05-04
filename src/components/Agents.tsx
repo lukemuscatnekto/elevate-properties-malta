@@ -40,7 +40,7 @@ export default function Agents() {
   return (
     <section
       id="agents"
-      className="scroll-anchor-target py-10 sm:py-12 px-4 sm:px-8 bg-brand-charcoal border-t border-brand-bronze-dark/25"
+      className="scroll-anchor-target py-10 px-4 sm:px-8 bg-brand-charcoal border-t border-brand-bronze-dark/25"
       aria-labelledby="agents-heading"
     >
       <div className="max-w-5xl mx-auto">
@@ -49,14 +49,14 @@ export default function Agents() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10 sm:mb-12"
+          className="text-center mb-9 sm:mb-10"
         >
           <p className="text-[10px] text-brand-champagne font-bold uppercase tracking-[0.35em] mb-3 flex items-center justify-center gap-3">
             <span className="w-8 h-px bg-brand-copper/50" aria-hidden="true" />
             People
             <span className="w-8 h-px bg-brand-copper/50" aria-hidden="true" />
           </p>
-          <h2 id="agents-heading" className="text-2xl sm:text-3xl md:text-[2.1rem] font-playfair text-brand-ivory leading-tight mb-3">
+          <h2 id="agents-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory leading-tight mb-3">
             Meet Your Advisors
           </h2>
           <p className="text-brand-sand text-xs sm:text-sm font-light leading-relaxed max-w-xl mx-auto">
