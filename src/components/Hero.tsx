@@ -50,7 +50,7 @@ export default function Hero({ onSearch }: HeroProps) {
     <section
       ref={ref}
       id="hero"
-      className="relative min-h-screen min-h-[100dvh] flex flex-col overflow-x-hidden border-b border-brand-bronze-dark/25"
+      className="relative flex min-h-screen min-h-[100dvh] flex-col overflow-x-clip border-b border-brand-bronze-dark/25"
       aria-label="Hero — Elevate Properties Malta"
     >
       {/* ── Parallax background ─────────────────────────────── */}
@@ -88,7 +88,7 @@ export default function Hero({ onSearch }: HeroProps) {
 
         {/* Bottom fade — only enough for the search bar to sit on */}
         <div
-          className="absolute inset-x-0 bottom-0 h-48 sm:h-56"
+          className="absolute inset-x-0 bottom-0 h-44 sm:h-48 lg:h-44"
           style={{
             background: 'linear-gradient(to top, rgba(11,11,13,0.88) 0%, transparent 100%)',
           }}
@@ -99,51 +99,95 @@ export default function Hero({ onSearch }: HeroProps) {
       {/* ── Hero text content ────────────────────────────────── */}
       <motion.div
         style={{ opacity }}
-        className="relative z-20 flex-1 flex items-center w-full pt-24 pb-6 sm:pb-8 px-4 sm:px-8 min-h-0"
+        className="relative z-20 flex min-h-0 w-full flex-1 items-center px-4 pb-4 pt-20 sm:px-8 sm:pb-5 lg:pb-5"
       >
-        <div className="max-w-7xl mx-auto w-full">
+        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-y-6 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-0 xl:gap-x-12">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-[580px] md:pl-1 min-w-0 w-full"
+            className="min-w-0 lg:col-span-7 lg:max-w-none xl:pr-2"
           >
-            {/* Eyebrow */}
-            <h1 className="font-playfair text-brand-ivory leading-[0.88] tracking-tight drop-shadow-2xl mb-3 text-[clamp(2.72rem,5.6vw,5rem)]">
-              ELEVATE YOUR
-              <br />
-              <span className="text-brand-copper">LIFESTYLE</span>
-            </h1>
+            <div className="w-full max-w-[580px] md:pl-1 lg:max-w-[520px]">
+              <h1 className="mb-2 font-playfair text-[clamp(2.72rem,5.6vw,5rem)] leading-[0.88] tracking-tight text-brand-ivory drop-shadow-2xl sm:mb-2.5">
+                ELEVATE YOUR
+                <br />
+                <span className="text-brand-copper">LIFESTYLE</span>
+              </h1>
 
-            {/* Subtitle */}
-            <p className="text-brand-sand text-[0.9375rem] md:text-[0.995rem] max-w-[420px] mb-4 md:mb-5 font-light leading-snug tracking-normal">
-              From first homes to standout residences and investment opportunities — carefully guided across Malta.
-            </p>
+              <p className="mb-3 max-w-[420px] font-light leading-snug tracking-normal text-brand-sand text-[0.9375rem] md:mb-3.5 md:text-[0.995rem]">
+                From first homes to standout residences and investment opportunities — carefully guided across Malta.
+              </p>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-3 sm:gap-4">
-              <motion.a
-                href="#properties"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className="epm-btn-primary px-7 py-2.5 sm:px-8 sm:py-3 group"
-              >
-                View Properties
-                <ChevronRight
-                  className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                  aria-hidden="true"
-                />
-              </motion.a>
-            </div>
+              <div className="flex flex-wrap gap-2.5 sm:gap-3">
+                <motion.a
+                  href="#properties"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="epm-btn-primary group px-7 py-2.5 sm:px-8 sm:py-3"
+                >
+                  View Properties
+                  <ChevronRight
+                    className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </motion.a>
+              </div>
 
-            {/* Est. badge */}
-            <div className="flex items-center gap-3 mt-2 sm:mt-2.5">
-              <div className="w-6 h-px bg-gold/50" aria-hidden="true" />
-              <span className="text-brand-metal text-[10px] uppercase tracking-[0.4em] font-medium">
-                Est. 2026
-              </span>
+              <div className="mt-1.5 flex items-center gap-3 sm:mt-2">
+                <div className="h-px w-6 bg-gold/50" aria-hidden="true" />
+                <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-brand-metal">Est. 2026</span>
+              </div>
             </div>
           </motion.div>
+
+          <aside
+            aria-labelledby="hero-quick-access-heading"
+            className="hidden lg:block mx-auto w-full max-w-md border border-brand-bronze-dark/45 bg-brand-panel/72 p-5 shadow-[0_12px_40px_rgba(17,15,12,0.55)] ring-1 ring-brand-bronze-dark/20 backdrop-blur-xl sm:p-5 lg:col-span-5 lg:mx-0 lg:max-w-none lg:self-stretch"
+          >
+            <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.38em] text-brand-champagne">Quick access</p>
+            <h2
+              id="hero-quick-access-heading"
+              className="mb-4 font-playfair text-lg leading-snug text-brand-ivory sm:text-xl"
+            >
+              Start where it suits you.
+            </h2>
+            <nav className="flex flex-col gap-1" aria-label="Quick access links">
+              <a
+                href="#properties"
+                className="group flex min-h-[44px] items-center justify-between gap-3 rounded-sm border border-transparent px-3 py-2.5 text-left text-sm font-light text-brand-sand transition-colors hover:border-brand-bronze-dark/40 hover:bg-white/[0.04] hover:text-brand-ivory focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-champagne touch-manipulation"
+              >
+                <span>Browse Properties</span>
+                <ChevronRight
+                  className="h-4 w-4 shrink-0 text-brand-bronze-dark/60 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-champagne"
+                  aria-hidden="true"
+                />
+              </a>
+              <a
+                href="#list-property"
+                className="group flex min-h-[44px] items-center justify-between gap-3 rounded-sm border border-transparent px-3 py-2.5 text-left text-sm font-light text-brand-sand transition-colors hover:border-brand-bronze-dark/40 hover:bg-white/[0.04] hover:text-brand-ivory focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-champagne touch-manipulation"
+              >
+                <span>List Your Property</span>
+                <ChevronRight
+                  className="h-4 w-4 shrink-0 text-brand-bronze-dark/60 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-champagne"
+                  aria-hidden="true"
+                />
+              </a>
+              <a
+                href="#agents"
+                className="group flex min-h-[44px] items-center justify-between gap-3 rounded-sm border border-transparent px-3 py-2.5 text-left text-sm font-light text-brand-sand transition-colors hover:border-brand-bronze-dark/40 hover:bg-white/[0.04] hover:text-brand-ivory focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-champagne touch-manipulation"
+              >
+                <span>Meet the Advisors</span>
+                <ChevronRight
+                  className="h-4 w-4 shrink-0 text-brand-bronze-dark/60 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-champagne"
+                  aria-hidden="true"
+                />
+              </a>
+            </nav>
+            <p className="mt-4 border-t border-brand-bronze-dark/20 pt-3 text-[11px] font-light leading-relaxed text-brand-metal">
+              Choose the route that matches your next step in Malta property.
+            </p>
+          </aside>
         </div>
       </motion.div>
 
@@ -152,7 +196,7 @@ export default function Hero({ onSearch }: HeroProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-20 w-full max-w-full px-4 sm:px-8 pb-8 sm:pb-10 pt-2 shrink-0"
+        className="relative z-20 w-full max-w-full shrink-0 px-4 pb-5 pt-1 sm:px-8 sm:pb-6 lg:pb-6 lg:pt-0.5"
       >
         <div className="max-w-7xl mx-auto w-full min-w-0">
           <div className="rounded-sm border border-brand-bronze-dark/45 bg-brand-panel/78 backdrop-blur-2xl shadow-[0_12px_48px_rgba(17,15,12,0.65)] ring-1 ring-brand-bronze-dark/25 overflow-hidden">
