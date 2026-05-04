@@ -34,14 +34,14 @@ export default function TrustAndProcess() {
   return (
     <section
       id="trust"
-      className="scroll-anchor-target py-8 px-4 sm:px-8 bg-[#060606] border-t border-gold/20"
+      className="scroll-anchor-target py-8 px-4 sm:px-8 bg-brand-charcoal border-t border-brand-bronze-dark/25"
       aria-labelledby="trust-heading"
     >
       <div className="max-w-7xl mx-auto">
-        <h2 id="trust-heading" className="text-2xl md:text-3xl font-playfair text-white mb-3">
+        <h2 id="trust-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-3">
           How we work with you
         </h2>
-        <p className="text-sm text-white/45 font-light leading-relaxed max-w-2xl mb-8">
+        <p className="text-sm text-brand-sand font-light leading-relaxed max-w-2xl mb-8">
           Explore featured residences, review details at your own pace, and lodge a discreet viewing enquiry when you are ready. If you need a
           broader search, ask — then brief us formally when you wish to instruct an off-market valuation or sale mandate.
         </p>
@@ -54,15 +54,15 @@ export default function TrustAndProcess() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.06 }}
               viewport={{ once: true }}
-              className="bg-[#0D0D0D] border border-gold/15 p-5 md:p-6 min-w-0"
+              className="bg-brand-panel border border-brand-bronze-dark/25 p-5 md:p-6 min-w-0"
             >
               <div className="flex gap-4">
-                <div className="w-11 h-11 rounded-full border border-gold/20 flex items-center justify-center shrink-0" aria-hidden="true">
-                  <item.Icon className="w-5 h-5 text-gold" />
+                <div className="w-11 h-11 rounded-full border border-brand-bronze-dark/35 flex items-center justify-center shrink-0" aria-hidden="true">
+                  <item.Icon className="w-5 h-5 text-brand-copper" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-lg font-playfair text-white mb-2">{item.title}</h3>
-                  <p className="text-white/40 text-xs sm:text-sm font-light leading-relaxed">{item.body}</p>
+                  <h3 className="text-lg font-playfair text-brand-ivory mb-2">{item.title}</h3>
+                  <p className="text-brand-sand text-xs sm:text-sm font-light leading-relaxed">{item.body}</p>
                 </div>
               </div>
             </motion.div>
@@ -72,7 +72,7 @@ export default function TrustAndProcess() {
         <p className="mt-8 text-center">
           <a
             href={anchorHref(pathname, '#contact')}
-            className="inline-flex items-center justify-center min-h-[48px] px-8 border border-gold/40 text-gold text-[10px] font-bold uppercase tracking-[0.28em] hover:bg-gold hover:text-black transition-colors touch-manipulation"
+            className="inline-flex items-center justify-center min-h-[48px] px-8 border border-brand-bronze-dark/45 bg-brand-taupe/40 text-brand-champagne text-[10px] font-bold uppercase tracking-[0.28em] hover:bg-brand-muted hover:border-brand-copper/50 hover:text-brand-ivory transition-colors touch-manipulation"
           >
             Speak with an adviser
           </a>

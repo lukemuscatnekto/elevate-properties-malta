@@ -6,9 +6,34 @@
   --font-playfair: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
 
-  /* Champagne Gold */
-  --color-gold: #C5A052;
-  --color-charcoal: #0B0B0D;
+  /* Hero-aligned brand palette */
+  --color-brand-espresso: #110f0c;
+  --color-brand-brown-dark: #1b1713;
+  --color-brand-charcoal: #211a16;
+  --color-brand-panel: #2b221b;
+  --color-brand-taupe: #302a24;
+  --color-brand-muted: #3a322a;
+  --color-brand-shadow: #5f5143;
+
+  --color-brand-bronze-dark: #7b593d;
+  --color-brand-gold-antique: #a26e44;
+  --color-brand-bronze: #bc885c;
+  --color-brand-copper: #d49866;
+  --color-brand-champagne: #de9f6a;
+  --color-brand-metal: #766e65;
+
+  /* Warm typography on dark grounds */
+  --color-brand-ivory: #f4f1ea;
+  --color-brand-sand: #b5ada3;
+
+  /**
+   * Primary accent — maps all legacy `gold` utilities (text-gold, border-gold, bg-gold)
+   * to the main bronze so the site stays cohesive without renaming every class.
+   */
+  --color-gold: #bc885c;
+
+  /* Page shell (maps legacy `charcoal` utilities) */
+  --color-charcoal: #110f0c;
 }
 
 @layer base {
@@ -19,11 +44,12 @@
   }
 
   body {
-    @apply bg-charcoal text-white font-sans antialiased selection:bg-gold selection:text-black;
+    @apply bg-charcoal font-sans antialiased selection:bg-gold selection:text-charcoal;
+    color: rgb(232 228 220 / 0.93);
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif tracking-tight leading-tight;
+    @apply font-serif tracking-tight leading-tight text-brand-ivory;
   }
 }
 
@@ -33,27 +59,40 @@
 }
 
 .glass {
-  @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[inset_0_0_30px_rgba(255,255,255,0.015)];
+  @apply bg-brand-muted/25 backdrop-blur-2xl border border-brand-bronze-dark/25 shadow-[inset_0_0_30px_rgba(255,255,255,0.02)];
 }
 
 .glass-card {
-  @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[inset_0_0_30px_rgba(255,255,255,0.015)] p-8;
+  @apply bg-brand-muted/25 backdrop-blur-2xl border border-brand-bronze-dark/25 shadow-[inset_0_0_30px_rgba(255,255,255,0.02)] p-8;
 }
 
 .gold-gradient {
-  background: linear-gradient(135deg, #A8864B 0%, #D4B67C 50%, #A8864B 100%);
+  background: linear-gradient(135deg, #a26e44 0%, #d49866 45%, #bc885c 100%);
 }
 
 .gold-dimmed {
-  background: linear-gradient(135deg, rgba(197, 160, 82, 0.4) 0%, rgba(212, 182, 124, 0.2) 100%);
+  background: linear-gradient(135deg, rgba(162, 110, 68, 0.45) 0%, rgba(212, 152, 102, 0.22) 100%);
 }
 
 .radial-luxury {
-  background: radial-gradient(circle at center, rgba(197, 160, 82, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle at center, rgba(188, 136, 92, 0.1) 0%, transparent 70%);
 }
 
 .divider-gold {
-  @apply h-[1px] w-full bg-gradient-to-r from-transparent via-gold/30 to-transparent my-10;
+  @apply h-[1px] w-full bg-gradient-to-r from-transparent via-brand-bronze-dark/35 to-transparent my-10;
+}
+
+/* Primary CTA — bronze gradient, champagne hover, espresso label text */
+.epm-btn-primary {
+  @apply inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-gold-antique to-brand-bronze text-charcoal font-bold uppercase tracking-[0.18em] text-[11px] transition-all outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne;
+}
+
+.epm-btn-primary:hover {
+  @apply from-brand-copper to-brand-champagne shadow-[0_0_32px_rgba(222,159,106,0.22)];
+}
+
+.epm-btn-primary-sm {
+  @apply text-[10px] tracking-[0.22em] py-4 px-6;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -61,11 +100,11 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  @apply bg-black;
+  @apply bg-brand-espresso;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-gold/20 rounded-full hover:bg-gold/40 transition-colors;
+  @apply bg-brand-bronze-dark/40 rounded-full hover:bg-gold/40 transition-colors;
 }
 
 .luxury-pattern {

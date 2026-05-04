@@ -1,12 +1,13 @@
 /**
  * Public-facing advisors — edit here to update copy, roles, or contact links.
- * Optional `photoSrc` can be added later for real headshots (keep under /public).
+ * `photoSrc` is a URL under `/public` (e.g. `/images/advisor.webp`).
  */
 export type PublicAdvisor = {
   id: string;
   initials: string;
   name: string;
   role: string;
+  photoSrc?: string;
   phoneDisplay: string;
   phoneHref: string;
   whatsappHref: string;
@@ -19,6 +20,7 @@ export const publicAdvisors: PublicAdvisor[] = [
     initials: 'ND',
     name: 'Nico Dalton',
     role: 'Property Advisor',
+    photoSrc: '/images/nico-dalton.png',
     phoneDisplay: '+356 9981 6646',
     phoneHref: 'tel:+35699816646',
     whatsappHref: 'https://wa.me/35699816646',
@@ -29,6 +31,7 @@ export const publicAdvisors: PublicAdvisor[] = [
     initials: 'LM',
     name: 'Luke Muscat',
     role: 'Property Advisor',
+    photoSrc: '/images/luke-muscat.png',
     phoneDisplay: '+356 7742 4141',
     phoneHref: 'tel:+35677424141',
     whatsappHref: 'https://wa.me/35677424141',

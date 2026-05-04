@@ -7,6 +7,9 @@ import FormHoneypot from './FormHoneypot';
 import { formDiscretionFootnote, formTechnicalFailureHint } from '../content/formFootnotes';
 import { anchorHref } from '../utils/routeAnchors';
 
+const listFieldCls =
+  'w-full min-h-[44px] bg-brand-muted/35 border border-brand-bronze-dark/22 px-4 py-3 text-xs text-brand-ivory placeholder:text-brand-metal/75 outline-none focus:border-brand-copper/50 transition-colors';
+
 const sellerBenefits = [
   {
     title: 'Private Representation',
@@ -42,7 +45,7 @@ export default function ListProperty() {
   };
 
   return (
-    <section id="list-property" className="scroll-anchor-target py-10 sm:py-12 px-4 sm:px-8 bg-[#070707] relative overflow-hidden border-t border-gold/20" aria-labelledby="list-heading">
+    <section id="list-property" className="scroll-anchor-target py-10 sm:py-12 px-4 sm:px-8 bg-brand-brown-dark relative overflow-hidden border-t border-brand-bronze-dark/25" aria-labelledby="list-heading">
       <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
         style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/dark-leather.png')" }}
         aria-hidden="true"
@@ -55,9 +58,9 @@ export default function ListProperty() {
             initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-[10px] text-gold font-bold uppercase tracking-[0.45em] mb-5 flex items-center gap-3"
+            className="text-[10px] text-brand-champagne font-bold uppercase tracking-[0.45em] mb-5 flex items-center gap-3"
           >
-            <span className="w-8 h-px bg-gold/60 inline-block" aria-hidden="true" />
+            <span className="w-8 h-px bg-brand-copper/60 inline-block" aria-hidden="true" />
             Sell with Distinction
           </motion.p>
 
@@ -67,11 +70,11 @@ export default function ListProperty() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.08 }}
-            className="text-3xl md:text-4xl font-playfair text-white leading-tight mb-4"
+            className="text-3xl md:text-4xl font-playfair text-brand-ivory leading-tight mb-4"
           >
             Private Representation
             <br />
-            <span className="italic font-light text-gold">for Exceptional Homes</span>
+            <span className="italic font-light text-brand-copper">for Exceptional Homes</span>
           </motion.h2>
 
           <motion.p
@@ -79,22 +82,22 @@ export default function ListProperty() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.12 }}
-            className="text-white/45 text-sm sm:text-base font-light leading-relaxed max-w-lg mb-8"
+            className="text-brand-sand text-sm sm:text-base font-light leading-relaxed max-w-lg mb-8"
           >
             If you own a property of distinction in Malta, we invite you to explore what a truly private,
             bespoke selling experience looks like. We do not advertise widely — we represent selectively.
           </motion.p>
 
-          <div className="bg-[#0D0D0D] border border-gold/15 p-5 sm:p-6 flex-1 flex flex-col">
-            <div className="h-[1px] w-12 bg-gold/40 mb-6 shrink-0" aria-hidden="true" />
-            <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-5">Request a Confidential Valuation</p>
+          <div className="bg-brand-panel border border-brand-bronze-dark/25 p-5 sm:p-6 flex-1 flex flex-col">
+            <div className="h-[1px] w-12 bg-brand-copper/45 mb-6 shrink-0" aria-hidden="true" />
+            <p className="text-[10px] text-brand-champagne/90 uppercase tracking-[0.3em] font-bold mb-5">Request a Confidential Valuation</p>
 
             {formState === 'success' ? (
               <div className="flex items-start gap-4 py-4" role="status">
-                <CheckCircle2 className="w-5 h-5 text-gold shrink-0 mt-0.5" aria-hidden="true" />
+                <CheckCircle2 className="w-5 h-5 text-brand-copper shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
-                  <p className="text-white text-sm font-medium mb-1">Briefing logged</p>
-                  <p className="text-gray-400 text-xs font-light leading-relaxed break-words">{successMessage}</p>
+                  <p className="text-brand-ivory text-sm font-medium mb-1">Briefing logged</p>
+                  <p className="text-brand-sand text-xs font-light leading-relaxed break-words">{successMessage}</p>
                 </div>
               </div>
             ) : (
@@ -110,7 +113,7 @@ export default function ListProperty() {
                       onChange={e => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Your Name"
                       autoComplete="name"
-                      className="w-full min-h-[44px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors"
+                      className={listFieldCls}
                     />
                   </div>
                   <div>
@@ -123,7 +126,7 @@ export default function ListProperty() {
                       onChange={e => setFormData({ ...formData, email: e.target.value })}
                       placeholder="Email"
                       autoComplete="email"
-                      className="w-full min-h-[44px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors"
+                      className={listFieldCls}
                     />
                   </div>
                 </div>
@@ -137,7 +140,7 @@ export default function ListProperty() {
                     value={formData.phone}
                     onChange={e => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="Phone (incl. country code)"
-                    className="w-full min-h-[44px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors"
+                    className={listFieldCls}
                   />
                 </div>
                 <div>
@@ -148,7 +151,7 @@ export default function ListProperty() {
                     value={formData.location}
                     onChange={e => setFormData({ ...formData, location: e.target.value })}
                     placeholder="Property locality or address (area-level is fine)"
-                    className="w-full min-h-[44px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors"
+                    className={listFieldCls}
                   />
                 </div>
                 <div>
@@ -159,25 +162,25 @@ export default function ListProperty() {
                     value={formData.message}
                     onChange={e => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Anything we should know — timing, tenure, rough guide price…"
-                    className="w-full min-h-[88px] bg-black/60 border border-white/8 px-4 py-3 text-xs text-white placeholder:text-white/20 outline-none focus:border-gold/35 transition-colors resize-none"
+                    className={`${listFieldCls} min-h-[88px] resize-none`}
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={formState === 'submitting'}
-                  className="w-full min-h-[48px] bg-gold hover:bg-white text-black py-4 font-bold uppercase tracking-[0.3em] text-[10px] transition-all disabled:opacity-50 touch-manipulation mt-auto"
+                  className="epm-btn-primary w-full min-h-[48px] py-4 tracking-[0.3em] text-[10px] disabled:opacity-50 touch-manipulation mt-auto"
                 >
                   {formState === 'submitting' ? 'Sending…' : 'Submit confidential briefing'}
                 </button>
                 {formState === 'error' && (
                   <div className="text-[11px] text-red-200 text-center break-words space-y-1" role="alert">
                     <p>{successMessage}</p>
-                    <p className="text-[10px] text-white/40 font-light">{formTechnicalFailureHint}</p>
+                    <p className="text-[10px] text-brand-metal font-light">{formTechnicalFailureHint}</p>
                   </div>
                 )}
               </form>
             )}
-            <p className="text-[10px] text-white/38 text-center leading-relaxed mt-5 pt-4 border-t border-white/6">{formDiscretionFootnote}</p>
+            <p className="text-[10px] text-brand-metal text-center leading-relaxed mt-5 pt-4 border-t border-brand-bronze-dark/18">{formDiscretionFootnote}</p>
           </div>
         </div>
 
@@ -187,32 +190,32 @@ export default function ListProperty() {
           viewport={{ once: true }}
           transition={{ duration: 0.75 }}
           aria-labelledby="seller-panel-kicker"
-          className="lg:sticky lg:top-28 self-start border border-gold/20 bg-[#0A0A0A] p-6 sm:p-8 flex flex-col h-fit min-h-0 w-full"
+          className="lg:sticky lg:top-28 self-start border border-brand-bronze-dark/30 bg-brand-taupe p-6 sm:p-8 flex flex-col h-fit min-h-0 w-full"
         >
-          <p id="seller-panel-kicker" className="text-[10px] text-gold font-bold uppercase tracking-[0.32em] mb-4">
+          <p id="seller-panel-kicker" className="text-[10px] text-brand-champagne font-bold uppercase tracking-[0.32em] mb-4">
             What sellers can expect
           </p>
-          <h3 className="text-lg sm:text-xl font-playfair text-white/95 leading-snug mb-6">
+          <h3 className="text-lg sm:text-xl font-playfair text-brand-ivory leading-snug mb-6">
             Quiet representation with disciplined execution.
           </h3>
           <div className="space-y-0 flex-1">
             {sellerBenefits.map(({ title, body }, i) => (
               <div
                 key={title}
-                className={`py-4 ${i > 0 ? 'border-t border-white/[0.07]' : ''}`}
+                className={`py-4 ${i > 0 ? 'border-t border-brand-bronze-dark/15' : ''}`}
               >
-                <p className="text-[11px] sm:text-xs font-semibold text-white/88 tracking-wide mb-1.5">{title}</p>
-                <p className="text-[11px] sm:text-sm text-white/42 font-light leading-relaxed">{body}</p>
+                <p className="text-[11px] sm:text-xs font-semibold text-brand-ivory/95 tracking-wide mb-1.5">{title}</p>
+                <p className="text-[11px] sm:text-sm text-brand-sand font-light leading-relaxed">{body}</p>
               </div>
             ))}
           </div>
-          <p className="mt-6 pt-6 border-t border-gold/15 text-[11px] sm:text-xs text-white/38 font-light leading-relaxed">
+          <p className="mt-6 pt-6 border-t border-brand-bronze-dark/20 text-[11px] sm:text-xs text-brand-metal font-light leading-relaxed">
             We do not rely on mass-market noise when a more considered route better protects the asset.
           </p>
           <p className="mt-5 text-center">
             <a
               href={anchorHref(pathname, '#contact')}
-              className="inline-flex items-center justify-center min-h-[44px] px-5 w-full sm:w-auto border border-gold/35 text-[9px] font-bold uppercase tracking-[0.2em] text-gold hover:bg-gold hover:text-black transition-colors touch-manipulation"
+              className="inline-flex items-center justify-center min-h-[44px] px-5 w-full sm:w-auto border border-brand-bronze-dark/40 bg-brand-panel/40 text-[9px] font-bold uppercase tracking-[0.2em] text-brand-champagne hover:bg-gold hover:text-charcoal transition-colors touch-manipulation"
             >
               Speak with us first
             </a>

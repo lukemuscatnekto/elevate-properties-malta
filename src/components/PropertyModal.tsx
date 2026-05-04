@@ -55,7 +55,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
   };
 
   const inputCls =
-    'w-full min-h-[48px] bg-[#111] border border-white/8 py-3 sm:py-4 pl-11 pr-4 text-white text-xs placeholder:text-white/20 focus:border-gold/50 outline-none transition-colors';
+    'w-full min-h-[48px] bg-brand-muted/35 border border-brand-bronze-dark/22 py-3 sm:py-4 pl-11 pr-4 text-brand-ivory text-xs placeholder:text-brand-metal/75 focus:border-brand-copper/50 outline-none transition-colors';
 
   return (
     <AnimatePresence>
@@ -71,7 +71,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/92 backdrop-blur-md cursor-pointer"
+            className="absolute inset-0 bg-brand-espresso/94 backdrop-blur-md cursor-pointer"
           />
 
           <motion.div
@@ -81,45 +81,45 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
             exit={{ opacity: 0, scale: 0.94, y: 16 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-5xl max-h-[min(92dvh,920px)] bg-[#0B0B0D] border border-gold/15 shadow-[0_40px_80px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col lg:flex-row"
+            className="relative w-full max-w-5xl max-h-[min(92dvh,920px)] bg-brand-charcoal border border-brand-bronze-dark/25 shadow-[0_40px_80px_rgba(17,15,12,0.75)] overflow-hidden flex flex-col lg:flex-row"
           >
             <button
               type="button"
               onClick={onClose}
               aria-label="Close property details"
-              className="absolute top-4 right-4 z-[110] min-h-[44px] min-w-[44px] flex items-center justify-center bg-black/60 border border-white/10 hover:bg-gold hover:border-gold text-white hover:text-black transition-all focus:outline-none focus:ring-2 focus:ring-gold touch-manipulation"
+              className="absolute top-4 right-4 z-[110] min-h-[44px] min-w-[44px] flex items-center justify-center bg-brand-espresso/80 border border-brand-bronze-dark/35 hover:bg-gold hover:border-gold text-brand-ivory hover:text-charcoal transition-all focus:outline-none focus:ring-2 focus:ring-gold touch-manipulation"
             >
               <X className="w-4 h-4" aria-hidden="true" />
             </button>
 
             <div className="lg:w-[55%] relative h-52 sm:h-64 lg:h-auto lg:min-h-[320px] shrink-0 overflow-hidden">
               <img src={property.image} alt={`${property.title}, ${property.location}`} className="w-full h-full object-cover" loading="lazy" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0D] via-transparent to-transparent" aria-hidden="true" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-transparent to-transparent" aria-hidden="true" />
 
               <div className="absolute bottom-6 left-6 right-6">
                 {property.tag && (
-                  <span className="inline-block px-4 py-1 bg-gold text-black text-[9px] font-bold uppercase tracking-[0.3em] mb-3">
+                  <span className="inline-block px-4 py-1 bg-gold text-charcoal text-[9px] font-bold uppercase tracking-[0.3em] mb-3">
                     {property.tag}
                   </span>
                 )}
-                <h2 id="modal-title" className="text-xl sm:text-2xl md:text-3xl text-white font-playfair font-light leading-snug">
+                <h2 id="modal-title" className="text-xl sm:text-2xl md:text-3xl text-brand-ivory font-playfair font-light leading-snug">
                   {property.title}
                 </h2>
               </div>
             </div>
 
-            <div className="lg:w-[45%] flex-1 overflow-y-auto bg-[#080808] border-l border-gold/8 custom-scrollbar min-h-0">
+            <div className="lg:w-[45%] flex-1 overflow-y-auto bg-brand-brown-dark border-l border-brand-bronze-dark/20 custom-scrollbar min-h-0">
               <div className="p-6 md:p-8 space-y-6 pb-10">
                 <div>
                   <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-3">
                     <p className="text-2xl sm:text-3xl text-gold font-playfair tabular-nums">{property.formattedPrice}</p>
-                    <address className="flex items-center gap-1.5 text-gray-500 not-italic text-[10px] uppercase tracking-[0.2em]">
+                    <address className="flex items-center gap-1.5 text-brand-metal not-italic text-[10px] uppercase tracking-[0.2em]">
                       <MapPin className="w-3.5 h-3.5 text-gold/50 shrink-0" aria-hidden="true" />
                       <span className="break-words">{property.location}, Malta</span>
                     </address>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3 py-4 border-y border-gold/8" aria-label="Property specifications">
+                  <div className="grid grid-cols-3 gap-3 py-4 border-y border-brand-bronze-dark/22" aria-label="Property specifications">
                     {[
                       { Icon: Bed, val: property.beds, label: 'Beds' },
                       { Icon: Bath, val: property.baths, label: 'Baths' },
@@ -127,8 +127,8 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                     ].map(({ Icon, val, label }) => (
                       <div key={label} className="text-center group">
                         <Icon className="w-4 h-4 text-gold/50 group-hover:text-gold mx-auto mb-2 transition-colors" aria-hidden="true" />
-                        <p className="text-white text-sm sm:text-base font-light">{val}</p>
-                        <p className="text-[9px] text-gray-600 uppercase tracking-widest">{label}</p>
+                        <p className="text-brand-ivory text-sm sm:text-base font-light">{val}</p>
+                        <p className="text-[9px] text-brand-metal uppercase tracking-widest">{label}</p>
                       </div>
                     ))}
                   </div>
@@ -136,7 +136,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
                 <div>
                   <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-2">Overview</p>
-                  <p className="text-gray-400 text-sm font-light leading-relaxed">{property.description}</p>
+                  <p className="text-brand-sand text-sm font-light leading-relaxed">{property.description}</p>
                 </div>
 
                 {property.features?.length ? (
@@ -148,16 +148,16 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                           <span className="w-4 h-4 rounded-full bg-gold/8 border border-gold/20 flex items-center justify-center shrink-0" aria-hidden="true">
                             <Check className="w-2.5 h-2.5 text-gold" />
                           </span>
-                          <span className="text-gray-400 text-xs font-light">{f}</span>
+                          <span className="text-brand-sand text-xs font-light">{f}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 ) : null}
 
-                <div className="border-t border-gold/8 pt-6">
+                <div className="border-t border-brand-bronze-dark/22 pt-6">
                   <p className="text-[10px] text-gold/70 uppercase tracking-[0.3em] font-bold mb-2">Request a private viewing</p>
-                  <p className="text-white/38 text-[11px] font-light leading-relaxed mb-5">
+                  <p className="text-brand-metal text-[11px] font-light leading-relaxed mb-5">
                     There is no obligation to proceed. We coordinate times that respect sellers and neighbours, typically within one to two
                     working days, subject to confirmations.
                   </p>
@@ -166,15 +166,15 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                     <motion.div
                       initial={{ opacity: 0, scale: 0.96 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-6 border border-gold/15 bg-gold/4 px-4"
+                      className="text-center py-6 border border-brand-bronze-dark/30 bg-brand-panel/50 px-4"
                     >
                       <CheckCircle2 className="w-10 h-10 text-gold mx-auto mb-4" aria-hidden="true" />
-                      <p className="text-white font-playfair text-xl mb-2">Viewing enquiry received</p>
-                      <p className="text-gray-400 text-sm font-light break-words max-w-xs mx-auto">{successMessage}</p>
+                      <p className="text-brand-ivory font-playfair text-xl mb-2">Viewing enquiry received</p>
+                      <p className="text-brand-sand text-sm font-light break-words max-w-xs mx-auto">{successMessage}</p>
                       <button
                         type="button"
                         onClick={() => setFormState('idle')}
-                        className="mt-5 inline-flex min-h-[44px] items-center justify-center px-4 text-gold text-[10px] uppercase font-bold tracking-[0.3em] hover:text-white transition-colors touch-manipulation"
+                        className="mt-5 inline-flex min-h-[44px] items-center justify-center px-4 text-brand-champagne text-[10px] uppercase font-bold tracking-[0.3em] hover:text-brand-ivory transition-colors touch-manipulation"
                       >
                         Send another request
                       </button>
@@ -247,7 +247,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                       <button
                         type="submit"
                         disabled={formState === 'submitting'}
-                        className="w-full flex items-center justify-center gap-2.5 bg-gold hover:bg-white text-black text-[10px] font-bold uppercase tracking-[0.3em] py-4 transition-all disabled:opacity-50 group touch-manipulation min-h-[48px]"
+                        className="epm-btn-primary w-full flex items-center justify-center gap-2.5 py-4 tracking-[0.3em] text-[10px] transition-all disabled:opacity-50 group touch-manipulation min-h-[48px]"
                       >
                         {formState === 'submitting' ? (
                           'Sending…'
@@ -261,10 +261,10 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                       {formState === 'error' && (
                         <div className="text-[11px] text-red-200/95 text-center break-words space-y-1" role="alert">
                           <p>{successMessage}</p>
-                          <p className="text-[10px] text-white/40 font-light">{formTechnicalFailureHint}</p>
+                          <p className="text-[10px] text-brand-metal font-light">{formTechnicalFailureHint}</p>
                         </div>
                       )}
-                      <p className="text-[10px] text-white/38 text-center break-words leading-relaxed">{formDiscretionFootnote}</p>
+                      <p className="text-[10px] text-brand-metal text-center break-words leading-relaxed">{formDiscretionFootnote}</p>
                     </form>
                   )}
                 </div>

@@ -39,7 +39,7 @@ export default function Navbar() {
   return (
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-black/88 backdrop-blur-xl py-3 border-b border-gold/20 shadow-2xl' : 'bg-transparent py-5'
+        scrolled ? 'bg-brand-espresso/92 backdrop-blur-xl py-3 border-b border-brand-bronze-dark/30 shadow-2xl' : 'bg-transparent py-5'
       }`}
       role="navigation"
       aria-label="Main navigation"
@@ -53,9 +53,9 @@ export default function Navbar() {
           className="flex flex-col items-start group cursor-pointer outline-none focus:ring-1 focus:ring-gold pl-0 pr-2 min-w-0"
           aria-label="Elevate Properties Home"
         >
-          <span className="text-lg sm:text-xl md:text-2xl font-serif tracking-[0.22em] sm:tracking-[0.25em] text-white group-hover:text-gold transition-colors truncate max-w-[62vw] sm:max-w-none">E L E V A T E</span>
-          <div className="w-full h-[1px] bg-gold scale-x-75 group-hover:scale-x-100 transition-transform duration-500 mt-1" />
-          <span className="text-[9px] tracking-[0.36em] text-gold mt-1 uppercase font-medium">Properties Malta</span>
+          <span className="text-lg sm:text-xl md:text-2xl font-serif tracking-[0.22em] sm:tracking-[0.25em] text-brand-ivory group-hover:text-brand-champagne transition-colors truncate max-w-[62vw] sm:max-w-none">E L E V A T E</span>
+          <div className="w-full h-[1px] bg-brand-copper scale-x-75 group-hover:scale-x-100 transition-transform duration-500 mt-1" />
+          <span className="text-[9px] tracking-[0.36em] text-brand-champagne mt-1 uppercase font-medium">Properties Malta</span>
         </motion.a>
 
         {/* Desktop Nav */}
@@ -65,10 +65,10 @@ export default function Navbar() {
               <a 
                 key={link.name} 
                 href={anchorHref(pathname, link.href)}
-                className="text-[11px] uppercase tracking-[0.14em] font-medium text-white/80 hover:text-gold transition-all relative group outline-none focus:text-gold"
+                className="text-[11px] uppercase tracking-[0.14em] font-medium text-brand-sand hover:text-brand-champagne transition-all relative group outline-none focus:text-brand-champagne"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gold transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brand-copper transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </div>
@@ -76,7 +76,7 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button 
-          className="lg:hidden text-white w-12 h-12 flex items-center justify-center border border-white/10 outline-none focus:ring-1 focus:ring-gold" 
+          className="lg:hidden text-brand-ivory w-12 h-12 flex items-center justify-center border border-brand-bronze-dark/35 outline-none focus:ring-1 focus:ring-gold" 
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
           aria-label={isOpen ? "Close menu" : "Open menu"}
@@ -93,7 +93,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed inset-0 top-0 bg-black z-40 flex flex-col p-10 lg:hidden overflow-y-auto"
+            className="fixed inset-0 top-0 bg-brand-espresso z-40 flex flex-col p-10 lg:hidden overflow-y-auto"
           >
             <div className="flex justify-between items-center mb-16">
               <a
@@ -102,12 +102,12 @@ export default function Navbar() {
                 aria-label="Elevate Properties Home"
                 onClick={() => setIsOpen(false)}
               >
-                <span className="text-xl font-serif tracking-[0.2em] text-white">E L E V A T E</span>
-                <span className="text-[10px] tracking-[0.3em] text-gold mt-1 uppercase">Properties Malta</span>
+                <span className="text-xl font-serif tracking-[0.2em] text-brand-ivory">E L E V A T E</span>
+                <span className="text-[10px] tracking-[0.3em] text-brand-champagne mt-1 uppercase">Properties Malta</span>
               </a>
               <button 
                 onClick={() => setIsOpen(false)} 
-                className="text-white border border-white/10 p-3 outline-none focus:ring-1 focus:ring-gold"
+                className="text-brand-ivory border border-brand-bronze-dark/35 p-3 outline-none focus:ring-1 focus:ring-gold"
                 aria-label="Close menu"
               >
                 <X className="w-8 h-8" />
@@ -122,7 +122,7 @@ export default function Navbar() {
                   transition={{ delay: 0.1 + idx * 0.05 }}
                   key={link.name} 
                   href={anchorHref(pathname, link.href)}
-                  className="text-3xl font-serif text-white hover:text-gold transition-colors outline-none focus:text-gold"
+                  className="text-3xl font-serif text-brand-ivory hover:text-brand-champagne transition-colors outline-none focus:text-brand-champagne"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}
@@ -130,30 +130,30 @@ export default function Navbar() {
               ))}
             </nav>
 
-            <div className="mt-auto pt-8 border-t border-white/5">
-              <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-6 font-bold">Concierge Lines</p>
+            <div className="mt-auto pt-8 border-t border-brand-bronze-dark/20">
+              <p className="text-[10px] text-brand-metal uppercase tracking-widest mb-6 font-bold">Concierge Lines</p>
               <div className="space-y-5 mb-6">
                 <div>
-                  <p className="text-[9px] text-gold/70 uppercase tracking-widest mb-1">{siteConfig.contacts.primary.name}</p>
-                  <a href={siteConfig.contacts.primary.phoneHref} className="block text-white text-lg font-light touch-manipulation">
+                  <p className="text-[9px] text-brand-champagne/85 uppercase tracking-widest mb-1">{siteConfig.contacts.primary.name}</p>
+                  <a href={siteConfig.contacts.primary.phoneHref} className="block text-brand-ivory text-lg font-light touch-manipulation">
                     {siteConfig.contacts.primary.phoneDisplay}
                   </a>
                 </div>
                 <div>
-                  <p className="text-[9px] text-gray-600 uppercase tracking-widest mb-1">{siteConfig.contacts.secondary.name}</p>
-                  <a href={siteConfig.contacts.secondary.phoneHref} className="block text-white text-lg font-light touch-manipulation opacity-95">
+                  <p className="text-[9px] text-brand-metal uppercase tracking-widest mb-1">{siteConfig.contacts.secondary.name}</p>
+                  <a href={siteConfig.contacts.secondary.phoneHref} className="block text-brand-ivory text-lg font-light touch-manipulation opacity-95">
                     {siteConfig.contacts.secondary.phoneDisplay}
                   </a>
                 </div>
               </div>
-              <a href={siteConfig.emailHref} className="block text-white text-base font-light mb-8 break-all touch-manipulation">
+              <a href={siteConfig.emailHref} className="block text-brand-sand text-base font-light mb-8 break-all touch-manipulation hover:text-brand-champagne transition-colors">
                 {siteConfig.emailDisplay}
               </a>
               <a
                 href={siteConfig.primaryWhatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full mb-6 border border-gold/35 text-gold py-4 flex items-center justify-center gap-2 font-bold uppercase tracking-[0.2em] text-[10px] touch-manipulation hover:bg-gold hover:text-black transition-colors"
+                className="w-full mb-6 border border-brand-bronze-dark/40 bg-brand-panel/40 text-brand-champagne py-4 flex items-center justify-center gap-2 font-bold uppercase tracking-[0.2em] text-[10px] touch-manipulation hover:bg-gold hover:text-charcoal transition-colors"
               >
                 <MessageCircle className="w-5 h-5" aria-hidden="true" />
                 WhatsApp {siteConfig.contacts.primary.name.split(' ')[0]}
@@ -161,7 +161,7 @@ export default function Navbar() {
               <a
                 href={anchorHref(pathname, '#contact')}
                 onClick={() => setIsOpen(false)}
-                className="w-full bg-gold text-black py-6 flex items-center justify-center font-bold uppercase tracking-[0.2em] text-[10px] touch-manipulation"
+                className="w-full epm-btn-primary py-6 flex items-center justify-center tracking-[0.2em] text-[10px] touch-manipulation"
               >
                 Book a Private Consultation
               </a>
