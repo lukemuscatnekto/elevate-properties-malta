@@ -152,71 +152,119 @@ export default function Hero({ onSearch }: HeroProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-30 w-full max-w-full px-4 sm:px-8 pb-8 sm:pb-10 pt-2 shrink-0"
+        className="relative z-20 w-full max-w-full px-4 sm:px-8 pb-8 sm:pb-10 pt-2 shrink-0"
       >
         <div className="max-w-7xl mx-auto w-full min-w-0">
-          <div className="overflow-x-hidden overflow-y-visible rounded-sm border border-brand-bronze-dark/45 bg-brand-panel/78 backdrop-blur-2xl shadow-[0_12px_48px_rgba(17,15,12,0.65)] ring-1 ring-brand-bronze-dark/25">
+          <div className="rounded-sm border border-brand-bronze-dark/45 bg-brand-panel/78 backdrop-blur-2xl shadow-[0_12px_48px_rgba(17,15,12,0.65)] ring-1 ring-brand-bronze-dark/25 overflow-hidden">
             <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-copper/50 to-transparent" aria-hidden="true" />
 
             <div className="flex flex-col lg:flex-row lg:items-stretch divide-y lg:divide-y-0 lg:divide-x divide-brand-bronze-dark/25 min-h-0">
               {/* Location */}
-              <div className="flex flex-1 min-w-0 items-stretch px-4 sm:px-5 py-3.5 sm:py-4 transition-colors hover:bg-white/[0.04]">
-                <HeroSearchDropdown
-                  label="Location"
-                  value={criteria.location}
-                  placeholder="Any Location"
-                  options={HERO_LOCATION_OPTIONS}
-                  icon={<MapPin className="h-4 w-4" aria-hidden />}
-                  isOpen={openDropdown === 'location'}
-                  onOpen={() => setOpenDropdown('location')}
-                  onClose={() => setOpenDropdown(null)}
-                  onSelect={(v) => update('location', v)}
-                />
+              <div className="flex flex-1 min-w-0 items-stretch gap-3 px-4 sm:px-5 py-3.5 sm:py-4 transition-colors hover:bg-white/[0.04]">
+                <MapPin className="w-4 h-4 text-brand-copper shrink-0 mt-1" aria-hidden="true" />
+                <div className="flex-1 min-w-0">
+                  <label
+                    id="hero-location-label"
+                    htmlFor="hero-location"
+                    className="mb-1.5 block text-[9px] font-bold uppercase tracking-[0.2em] text-brand-champagne/90"
+                  >
+                    Location
+                  </label>
+                  <div className="relative">
+                    <HeroSearchDropdown
+                      fieldId="hero-location"
+                      labelledBy="hero-location-label"
+                      value={criteria.location}
+                      placeholder="Any Location"
+                      options={HERO_LOCATION_OPTIONS}
+                      isOpen={openDropdown === 'location'}
+                      onOpen={() => setOpenDropdown('location')}
+                      onClose={() => setOpenDropdown(null)}
+                      onSelect={(v) => update('location', v)}
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Property Type */}
-              <div className="flex flex-1 min-w-0 items-stretch px-4 sm:px-5 py-3.5 sm:py-4 transition-colors hover:bg-white/[0.04]">
-                <HeroSearchDropdown
-                  label="Property Type"
-                  value={criteria.propertyType}
-                  placeholder="Any Type"
-                  options={HERO_PROPERTY_TYPE_OPTIONS}
-                  icon={<Home className="h-4 w-4" aria-hidden />}
-                  isOpen={openDropdown === 'type'}
-                  onOpen={() => setOpenDropdown('type')}
-                  onClose={() => setOpenDropdown(null)}
-                  onSelect={(v) => update('propertyType', v)}
-                />
+              <div className="flex flex-1 min-w-0 items-stretch gap-3 px-4 sm:px-5 py-3.5 sm:py-4 transition-colors hover:bg-white/[0.04]">
+                <Home className="w-4 h-4 text-brand-copper shrink-0 mt-1" aria-hidden="true" />
+                <div className="flex-1 min-w-0">
+                  <label
+                    id="hero-type-label"
+                    htmlFor="hero-type"
+                    className="mb-1.5 block text-[9px] font-bold uppercase tracking-[0.2em] text-brand-champagne/90"
+                  >
+                    Property Type
+                  </label>
+                  <div className="relative">
+                    <HeroSearchDropdown
+                      fieldId="hero-type"
+                      labelledBy="hero-type-label"
+                      value={criteria.propertyType}
+                      placeholder="Any Type"
+                      options={HERO_PROPERTY_TYPE_OPTIONS}
+                      isOpen={openDropdown === 'type'}
+                      onOpen={() => setOpenDropdown('type')}
+                      onClose={() => setOpenDropdown(null)}
+                      onSelect={(v) => update('propertyType', v)}
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Budget */}
-              <div className="flex flex-1 min-w-0 items-stretch px-4 sm:px-5 py-3.5 sm:py-4 transition-colors hover:bg-white/[0.04]">
-                <HeroSearchDropdown
-                  label="Budget"
-                  value={criteria.budget}
-                  placeholder="Any Budget"
-                  options={HERO_BUDGET_OPTIONS}
-                  icon={<Euro className="h-4 w-4" aria-hidden />}
-                  isOpen={openDropdown === 'budget'}
-                  onOpen={() => setOpenDropdown('budget')}
-                  onClose={() => setOpenDropdown(null)}
-                  onSelect={(v) => update('budget', v)}
-                />
+              <div className="flex flex-1 min-w-0 items-stretch gap-3 px-4 sm:px-5 py-3.5 sm:py-4 transition-colors hover:bg-white/[0.04]">
+                <Euro className="w-4 h-4 text-brand-copper shrink-0 mt-1" aria-hidden="true" />
+                <div className="flex-1 min-w-0">
+                  <label
+                    id="hero-budget-label"
+                    htmlFor="hero-budget"
+                    className="mb-1.5 block text-[9px] font-bold uppercase tracking-[0.2em] text-brand-champagne/90"
+                  >
+                    Budget
+                  </label>
+                  <div className="relative">
+                    <HeroSearchDropdown
+                      fieldId="hero-budget"
+                      labelledBy="hero-budget-label"
+                      value={criteria.budget}
+                      placeholder="Any Budget"
+                      options={HERO_BUDGET_OPTIONS}
+                      isOpen={openDropdown === 'budget'}
+                      onOpen={() => setOpenDropdown('budget')}
+                      onClose={() => setOpenDropdown(null)}
+                      onSelect={(v) => update('budget', v)}
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Bedrooms */}
-              <div className="flex flex-1 min-w-0 items-stretch px-4 sm:px-5 py-3.5 sm:py-4 transition-colors hover:bg-white/[0.04]">
-                <HeroSearchDropdown
-                  label="Bedrooms"
-                  value={criteria.bedrooms}
-                  placeholder="Any Bedrooms"
-                  options={HERO_BEDROOMS_OPTIONS}
-                  icon={<Bed className="h-4 w-4" aria-hidden />}
-                  isOpen={openDropdown === 'bedrooms'}
-                  onOpen={() => setOpenDropdown('bedrooms')}
-                  onClose={() => setOpenDropdown(null)}
-                  onSelect={(v) => update('bedrooms', v)}
-                />
+              <div className="flex flex-1 min-w-0 items-stretch gap-3 px-4 sm:px-5 py-3.5 sm:py-4 transition-colors hover:bg-white/[0.04]">
+                <Bed className="w-4 h-4 text-brand-copper shrink-0 mt-1" aria-hidden="true" />
+                <div className="flex-1 min-w-0">
+                  <label
+                    id="hero-beds-label"
+                    htmlFor="hero-beds"
+                    className="mb-1.5 block text-[9px] font-bold uppercase tracking-[0.2em] text-brand-champagne/90"
+                  >
+                    Bedrooms
+                  </label>
+                  <div className="relative">
+                    <HeroSearchDropdown
+                      fieldId="hero-beds"
+                      labelledBy="hero-beds-label"
+                      value={criteria.bedrooms}
+                      placeholder="Any Bedrooms"
+                      options={HERO_BEDROOMS_OPTIONS}
+                      isOpen={openDropdown === 'bedrooms'}
+                      onOpen={() => setOpenDropdown('bedrooms')}
+                      onClose={() => setOpenDropdown(null)}
+                      onSelect={(v) => update('bedrooms', v)}
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Search */}

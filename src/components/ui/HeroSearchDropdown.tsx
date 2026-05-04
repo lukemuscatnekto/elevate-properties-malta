@@ -1,56 +1,59 @@
 import {
   useCallback,
   useEffect,
-  useId,
+  useLayoutEffect,
   useRef,
   useState,
-  type ReactNode,
+  type CSSProperties,
   type KeyboardEvent as ReactKeyboardEvent,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { ChevronDown } from 'lucide-react';
 import type { HeroSearchOption } from '../../types/heroSearchDropdown';
 
 export type { HeroSearchOption };
 
 export type HeroSearchDropdownProps = {
-  label: string;
+  /** Stable id for the trigger (used with external `<label htmlFor>`). */
+  fieldId: string;
+  /** Id of the visible field label element (for `aria-labelledby`). */
+  labelledBy: string;
   value: string;
   placeholder: string;
   options: HeroSearchOption[];
-  icon?: ReactNode;
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
   onSelect: (value: string) => void;
 };
 
-const triggerBase =
-  'flex w-full min-h-[44px] items-center justify-between gap-2 rounded-sm border border-brand-bronze-dark/38 bg-brand-brown-dark/55 px-3 py-2 text-left text-brand-ivory/95 text-xs sm:text-sm font-light outline-none transition-colors hover:border-brand-copper/45 hover:bg-brand-muted/35 focus-visible:ring-2 focus-visible:ring-brand-champagne/45 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-panel';
+/** Matches the former native `<select>` trigger appearance (transparent, no boxed field). */
+const triggerLike =
+  'w-full min-h-[44px] bg-transparent text-brand-ivory/95 text-xs sm:text-sm font-light outline-none cursor-pointer truncate py-1.5 pl-0 pr-7 rounded-sm border border-transparent focus:border-brand-champagne/50 focus:ring-0 text-left';
 
 const listboxSurface =
-  'absolute left-0 right-0 top-full z-[70] mt-1 max-h-[min(50vh,280px)] overflow-y-auto overscroll-contain rounded-sm border border-brand-bronze-dark/45 bg-[#211A16] py-1 shadow-[0_16px_40px_rgba(17,15,12,0.75)]';
+  'max-h-[min(50vh,280px)] overflow-y-auto overscroll-contain rounded-sm border border-brand-bronze-dark/45 bg-[#211A16] py-1 shadow-[0_16px_40px_rgba(17,15,12,0.75)]';
 
 export default function HeroSearchDropdown({
-  label,
+  fieldId,
+  labelledBy,
   value,
   placeholder,
   options,
-  icon,
   isOpen,
   onOpen,
   onClose,
   onSelect,
 }: HeroSearchDropdownProps) {
-  const reactId = useId();
-  const fieldId = `hero-dd-${reactId.replace(/:/g, '')}`;
   const listboxId = `${fieldId}-listbox`;
-  const labelId = `${fieldId}-label`;
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const listboxRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   const selectedLabel = options.find((o) => o.value === value)?.label ?? placeholder;
+
+  const [menuStyle, setMenuStyle] = useState<CSSProperties | null>(null);
 
   const [activeIdx, setActiveIdx] = useState(() => Math.max(0, options.findIndex((o) => o.value === value)));
   const activeIdxRef = useRef(activeIdx);
@@ -69,19 +72,64 @@ export default function HeroSearchDropdown({
     [onSelect, close]
   );
 
+  const updateMenuPosition = useCallback(() => {
+    const t = triggerRef.current;
+    if (!t || !isOpen) {
+      setMenuStyle(null);
+      return;
+    }
+    const r = t.getBoundingClientRect();
+    const pad = 8;
+    const vw = typeof window !== 'undefined' ? window.innerWidth : r.width;
+    let width = r.width;
+    let left = r.left;
+    if (left + width > vw - pad) {
+      left = Math.max(pad, vw - pad - width);
+    }
+    left = Math.max(pad, left);
+    width = Math.min(width, vw - pad * 2);
+    setMenuStyle({
+      position: 'fixed',
+      top: r.bottom + 4,
+      left,
+      width,
+      zIndex: 200,
+    });
+  }, [isOpen]);
+
+  useLayoutEffect(() => {
+    if (!isOpen) {
+      setMenuStyle(null);
+      return;
+    }
+    updateMenuPosition();
+    const onScrollResize = () => updateMenuPosition();
+    window.addEventListener('scroll', onScrollResize, true);
+    window.addEventListener('resize', onScrollResize);
+    const ro = triggerRef.current ? new ResizeObserver(onScrollResize) : null;
+    if (triggerRef.current && ro) ro.observe(triggerRef.current);
+    return () => {
+      window.removeEventListener('scroll', onScrollResize, true);
+      window.removeEventListener('resize', onScrollResize);
+      ro?.disconnect();
+    };
+  }, [isOpen, updateMenuPosition]);
+
   useEffect(() => {
     if (!isOpen) return;
     const sel = options.findIndex((o) => o.value === value);
     setActiveIdx(sel >= 0 ? sel : 0);
-    const id = requestAnimationFrame(() => listboxRef.current?.focus());
+    const id = requestAnimationFrame(() => menuRef.current?.focus());
     return () => cancelAnimationFrame(id);
   }, [isOpen, value, options]);
 
   useEffect(() => {
     if (!isOpen) return;
     const onDoc = (e: MouseEvent) => {
-      const el = containerRef.current;
-      if (el && !el.contains(e.target as Node)) close();
+      const t = e.target as Node;
+      if (containerRef.current?.contains(t)) return;
+      if (menuRef.current?.contains(t)) return;
+      close();
     };
     document.addEventListener('mousedown', onDoc);
     return () => document.removeEventListener('mousedown', onDoc);
@@ -139,67 +187,64 @@ export default function HeroSearchDropdown({
     }
   };
 
+  const menu =
+    isOpen && menuStyle ? (
+      <div
+        ref={menuRef}
+        id={listboxId}
+        role="listbox"
+        tabIndex={-1}
+        aria-labelledby={labelledBy}
+        aria-activedescendant={options[activeIdx] ? `${fieldId}-opt-${activeIdx}` : undefined}
+        style={menuStyle}
+        className={listboxSurface}
+        onKeyDown={onListboxKeyDown}
+      >
+        {options.map((opt, i) => {
+          const selected = opt.value === value;
+          const active = i === activeIdx;
+          return (
+            <div
+              key={opt.value}
+              id={`${fieldId}-opt-${i}`}
+              role="option"
+              aria-selected={selected}
+              tabIndex={-1}
+              className={`cursor-pointer border-l-2 px-3 py-2.5 text-xs font-light text-brand-ivory/95 outline-none transition-colors sm:text-sm ${
+                selected ? 'border-brand-copper bg-brand-bronze-dark/25' : 'border-transparent'
+              } ${active && !selected ? 'bg-brand-bronze-dark/35' : ''} ${!active && !selected ? 'hover:bg-brand-bronze-dark/28' : ''}`}
+              onMouseEnter={() => setActiveIdx(i)}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => choose(opt.value)}
+            >
+              {opt.label}
+            </div>
+          );
+        })}
+      </div>
+    ) : null;
+
   return (
     <div ref={containerRef} className="relative min-w-0">
-      <p id={labelId} className="mb-1.5 block text-[9px] font-bold uppercase tracking-[0.2em] text-brand-champagne/90">
-        {label}
-      </p>
       <button
         ref={triggerRef}
         type="button"
         id={fieldId}
-        aria-labelledby={labelId}
+        aria-labelledby={labelledBy}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-controls={listboxId}
-        className={triggerBase}
+        className={triggerLike}
         onClick={() => (isOpen ? close() : onOpen())}
         onKeyDown={onTriggerKeyDown}
       >
-        <span className="flex min-w-0 flex-1 items-center gap-2">
-          {icon ? <span className="shrink-0 text-brand-copper">{icon}</span> : null}
-          <span className="min-w-0 truncate">{selectedLabel}</span>
-        </span>
-        <ChevronDown
-          className={`h-4 w-4 shrink-0 text-brand-bronze-dark/75 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-          aria-hidden="true"
-        />
+        <span className="min-w-0 truncate">{selectedLabel}</span>
       </button>
-
-      {isOpen ? (
-        <div
-          ref={listboxRef}
-          id={listboxId}
-          role="listbox"
-          tabIndex={-1}
-          aria-labelledby={labelId}
-          aria-activedescendant={options[activeIdx] ? `${fieldId}-opt-${activeIdx}` : undefined}
-          className={listboxSurface}
-          onKeyDown={onListboxKeyDown}
-        >
-          {options.map((opt, i) => {
-            const selected = opt.value === value;
-            const active = i === activeIdx;
-            return (
-              <div
-                key={opt.value}
-                id={`${fieldId}-opt-${i}`}
-                role="option"
-                aria-selected={selected}
-                tabIndex={-1}
-                className={`cursor-pointer border-l-2 px-3 py-2.5 text-xs font-light text-brand-ivory/95 outline-none transition-colors sm:text-sm ${
-                  selected ? 'border-brand-copper bg-brand-bronze-dark/25' : 'border-transparent'
-                } ${active && !selected ? 'bg-brand-bronze-dark/35' : ''} ${!active && !selected ? 'hover:bg-brand-bronze-dark/28' : ''}`}
-                onMouseEnter={() => setActiveIdx(i)}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => choose(opt.value)}
-              >
-                {opt.label}
-              </div>
-            );
-          })}
-        </div>
-      ) : null}
+      <ChevronDown
+        className={`pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-bronze-dark/70 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+        aria-hidden="true"
+      />
+      {typeof document !== 'undefined' && menu ? createPortal(menu, document.body) : null}
     </div>
   );
 }
