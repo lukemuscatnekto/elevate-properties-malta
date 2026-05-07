@@ -4,9 +4,9 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { siteConfig } from '../config/site';
 
-const PRIVACY_TITLE = 'Privacy & Data Handling | Elevate Properties Malta';
+const PRIVACY_TITLE = 'Privacy & Data Handling | Elevate by Zanzi';
 const PRIVACY_DESCRIPTION =
-  'How Elevate Properties Malta handles contact details, viewing requests, and seller enquiries submitted through this website — Malta and EU visitors.';
+  'How Elevate by Zanzi handles contact details, viewing requests, and seller enquiries submitted through this website — Malta and EU visitors.';
 
 export default function PrivacyPage() {
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function PrivacyPage() {
               <div className="border border-brand-bronze-dark/25 bg-brand-panel/40 p-6 sm:p-8">
                 <h2 className="text-xs uppercase tracking-[0.22em] text-brand-champagne font-semibold mb-4">What we collect</h2>
                 <p className="mb-4 text-brand-sand">
-                  When you submit a contact enquiry, request a viewing, or ask us to list a property, we may receive:
+                  When you submit a buying, selling, renting, letting, valuation, viewing, or investment enquiry, we may receive:
                 </p>
                 <ul className="list-disc pl-5 space-y-2 marker:text-brand-copper/70">
                   <li>Your name</li>

@@ -53,14 +53,14 @@ export default function Agents() {
         >
           <p className="text-[10px] text-brand-champagne font-bold uppercase tracking-[0.35em] mb-3 flex items-center justify-center gap-3">
             <span className="w-8 h-px bg-brand-copper/50" aria-hidden="true" />
-            People
+            Private Advisors
             <span className="w-8 h-px bg-brand-copper/50" aria-hidden="true" />
           </p>
           <h2 id="agents-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory leading-tight mb-3">
-            Meet Your Advisors
+            Meet the Advisors Behind Elevate by Zanzi
           </h2>
           <p className="text-brand-sand text-xs sm:text-sm font-light leading-relaxed max-w-xl mx-auto">
-            Direct access to the people handling your property conversation.
+            Local guidance, premium presentation, and a more personal real-estate experience.
           </p>
         </motion.div>
 

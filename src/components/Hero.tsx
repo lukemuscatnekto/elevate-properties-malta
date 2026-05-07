@@ -51,7 +51,7 @@ export default function Hero({ onSearch }: HeroProps) {
       ref={ref}
       id="hero"
       className="relative flex min-h-screen min-h-[100dvh] flex-col overflow-x-clip border-b border-brand-bronze-dark/25"
-      aria-label="Hero — Elevate Properties Malta"
+      aria-label="Hero — Elevate by Zanzi"
     >
       {/* ── Parallax background ─────────────────────────────── */}
       <motion.div style={{ y }} className="absolute inset-0 z-0 overflow-hidden">
@@ -109,14 +109,17 @@ export default function Hero({ onSearch }: HeroProps) {
             className="min-w-0 lg:col-span-7 lg:max-w-none xl:pr-2"
           >
             <div className="w-full max-w-[580px] md:pl-1 lg:max-w-[520px]">
-              <h1 className="mb-2 font-playfair text-[clamp(2.72rem,5.6vw,5rem)] leading-[0.88] tracking-tight text-brand-ivory drop-shadow-2xl sm:mb-2.5">
-                ELEVATE YOUR
-                <br />
-                <span className="text-brand-copper">LIFESTYLE</span>
+              <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-brand-champagne">
+                Official Zanzi Franchise · Supported by the Quicklets Network
+              </p>
+
+              <h1 className="mb-2 font-playfair text-[clamp(2.72rem,5.4vw,4.9rem)] leading-[0.9] tracking-tight text-brand-ivory drop-shadow-2xl sm:mb-2.5">
+                Elevate by Zanzi
               </h1>
 
-              <p className="mb-3 max-w-[420px] font-light leading-snug tracking-normal text-brand-sand text-[0.9375rem] md:mb-3.5 md:text-[0.995rem]">
-                From first homes to standout residences and investment opportunities — carefully guided across Malta.
+              <p className="mb-3 max-w-[540px] font-light leading-snug tracking-normal text-brand-sand text-[0.9375rem] md:mb-3.5 md:text-[0.995rem]">
+                Luxury Malta real estate, elevated through premium presentation, private advisory, and the trusted property network of Zanzi and
+                Quicklets.
               </p>
 
               <div className="flex flex-wrap gap-2.5 sm:gap-3">
@@ -132,11 +135,28 @@ export default function Hero({ onSearch }: HeroProps) {
                     aria-hidden="true"
                   />
                 </motion.a>
+                <a
+                  href="#contact"
+                  className="inline-flex min-h-[48px] items-center justify-center border border-brand-bronze-dark/45 bg-brand-taupe/40 px-7 text-[10px] font-bold uppercase tracking-[0.2em] text-brand-champagne transition-colors hover:border-brand-copper/50 hover:bg-brand-muted hover:text-brand-ivory touch-manipulation"
+                >
+                  Book a Private Consultation
+                </a>
               </div>
 
-              <div className="mt-1.5 flex items-center gap-3 sm:mt-2">
-                <div className="h-px w-6 bg-gold/50" aria-hidden="true" />
-                <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-brand-metal">Est. 2026</span>
+              <p className="mt-2 text-[10px] font-light text-brand-metal max-w-[560px]">
+                Elevate brings a sharper, more modern way to buy, sell, rent, and invest in Malta property — backed by established names in the
+                local market.
+              </p>
+
+              <div className="mt-3 flex flex-wrap gap-2">
+                {['Elevate Luxury Advisory', 'Official Zanzi Franchise', 'Supported by the Quicklets Network', 'Malta Property Network'].map((chip) => (
+                  <span
+                    key={chip}
+                    className="inline-flex min-h-[28px] items-center border border-brand-bronze-dark/40 bg-brand-panel/55 px-2.5 sm:px-3 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-brand-champagne"
+                  >
+                    {chip}
+                  </span>
+                ))}
               </div>
             </div>
           </motion.div>
@@ -201,6 +221,15 @@ export default function Hero({ onSearch }: HeroProps) {
         <div className="max-w-7xl mx-auto w-full min-w-0">
           <div className="rounded-sm border border-brand-bronze-dark/45 bg-brand-panel/78 backdrop-blur-2xl shadow-[0_12px_48px_rgba(17,15,12,0.65)] ring-1 ring-brand-bronze-dark/25 overflow-hidden">
             <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-copper/50 to-transparent" aria-hidden="true" />
+
+            <div className="px-4 sm:px-5 pt-3">
+              <p className="text-[10px] uppercase tracking-[0.26em] text-brand-champagne/90 font-bold">
+                Search verified Malta properties
+              </p>
+              <p className="text-[11px] text-brand-metal font-light mt-1 mb-3">
+                Explore selected villas, penthouses, apartments, rentals, and private opportunities.
+              </p>
+            </div>
 
             <div className="flex flex-col lg:flex-row lg:items-stretch divide-y lg:divide-y-0 lg:divide-x divide-brand-bronze-dark/25 min-h-0">
               {/* Location */}
@@ -320,7 +349,7 @@ export default function Hero({ onSearch }: HeroProps) {
                   aria-label="Search featured properties with selected filters"
                 >
                   <Search className="w-4 h-4 shrink-0" aria-hidden="true" />
-                  Search
+                  Search Properties
                 </button>
               </div>
             </div>

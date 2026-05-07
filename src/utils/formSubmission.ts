@@ -1,3 +1,12 @@
+import {
+  createLeadFromContactForm,
+  createLeadFromListProperty,
+  createLeadFromRequestViewing,
+  type ContactFormIntake,
+  type ListPropertyIntake,
+  type RequestViewingIntake,
+} from '../crm/utils/publicIntake';
+
 export const FORM_HONEYPOT_FIELD = '_gotcha' as const;
 
 type FormProvider = 'formspree' | 'netlify' | 'emailjs' | 'none';
@@ -10,7 +19,7 @@ interface FormSubmissionResult {
 type FormPayload = Record<string, string | number | boolean | null | undefined>;
 
 const FALLBACK_CHANNELS =
-  'You may also reach us directly on +356 9981 6646, WhatsApp (see the contact section on this page), or at info@elevatepropertiesmalta.com — we will handle your enquiry manually.';
+  'You may also reach us directly on +356 9981 6646, WhatsApp (see the contact section on this page), or at info@elevatepropertiesmalta.com — an Elevate by Zanzi advisor will handle your enquiry manually.';
 
 const FORM_PROVIDER = (import.meta.env.VITE_FORM_PROVIDER ?? 'none').toLowerCase() as FormProvider;
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined;
@@ -53,16 +62,16 @@ function normalizeMessage(formType: string, data: FormPayload): string {
 function buildPayload(formType: string, fields: FormPayload) {
   const subject =
     formType === 'contact'
-      ? `Elevate — website contact (${String(fields.type ?? 'enquiry')})`
+      ? `Elevate by Zanzi — website contact (${String(fields.type ?? 'enquiry')})`
       : formType === 'valuation'
-        ? 'Elevate — confidential valuation / list property'
-        : `Elevate — private viewing (${String(fields.propertyTitle ?? 'listing')})`;
+        ? 'Elevate by Zanzi — confidential valuation / list property'
+        : `Elevate by Zanzi — private viewing (${String(fields.propertyTitle ?? 'listing')})`;
 
   return {
     ...fields,
     formType,
     subject,
-    website: 'Elevate Properties Malta',
+    website: 'Elevate by Zanzi',
     submittedAt: new Date().toISOString(),
   };
 }
@@ -70,11 +79,11 @@ function buildPayload(formType: string, fields: FormPayload) {
 export function defaultSuccessForFormType(formType: string): string {
   switch (formType) {
     case 'contact':
-      return 'Your message is with us. A director will respond personally — discreetly — typically within one business day, using the email or telephone you supplied.';
+      return 'Thank you. Your enquiry has been received by Elevate by Zanzi. An advisor will follow up shortly.';
     case 'valuation':
-      return 'Your confidential seller briefing is on file. Expect a discreet call from our advisory desk once the particulars have been reviewed.';
+      return 'Your confidential valuation request has been received. An advisor from Elevate by Zanzi will follow up shortly.';
     case 'viewing':
-      return 'Your private viewing request is in our queue. We will align diary windows with the vendor and return with proposed times as soon as practicable.';
+      return 'Viewing request received. Our team will contact you shortly.';
     default:
       return 'Thank you — your submission was received.';
   }
@@ -84,6 +93,28 @@ function isHoneypotTripped(data: FormPayload): boolean {
   return String(data[FORM_HONEYPOT_FIELD] ?? '').trim() !== '';
 }
 
+// ─── CRM mirror ───────────────────────────────────────────────────────────────
+/**
+ * Silently mirrors a successful public-form submission into the CRM.
+ * Wrapped in try/catch so a CRM error never surfaces to the public visitor.
+ * All writes go through crmIntakeApi.ts — swap that file for a real API later.
+ */
+async function mirrorToCRM(formType: string, data: FormPayload): Promise<void> {
+  try {
+    if (formType === 'contact') {
+      await createLeadFromContactForm(data as ContactFormIntake);
+    } else if (formType === 'valuation') {
+      await createLeadFromListProperty(data as ListPropertyIntake);
+    } else if (formType === 'viewing') {
+      await createLeadFromRequestViewing(data as RequestViewingIntake);
+    }
+  } catch (err) {
+    // CRM errors must never break the public-facing form
+    console.warn('[CRM intake] Could not mirror submission:', err);
+  }
+}
+
+// ─── Providers ────────────────────────────────────────────────────────────────
 const submitToFormspree = async (payload: ReturnType<typeof buildPayload>): Promise<FormSubmissionResult> => {
   if (!formspreeEndpointReady(FORMSPREE_ENDPOINT)) {
     return {
@@ -127,19 +158,15 @@ const submitToFormspree = async (payload: ReturnType<typeof buildPayload>): Prom
   };
 };
 
-const submitToNetlify = async (): Promise<FormSubmissionResult> => {
-  return {
-    success: false,
-    message: `This project is set up for Formspree. Switch VITE_FORM_PROVIDER to formspree and add your endpoint, then rebuild. ${FALLBACK_CHANNELS}`,
-  };
-};
+const submitToNetlify = async (): Promise<FormSubmissionResult> => ({
+  success: false,
+  message: `This project is set up for Formspree. Switch VITE_FORM_PROVIDER to formspree and add your endpoint, then rebuild. ${FALLBACK_CHANNELS}`,
+});
 
-const submitToEmailJs = async (): Promise<FormSubmissionResult> => {
-  return {
-    success: false,
-    message: `EmailJS is not wired in this build. Use Formspree for production forms. ${FALLBACK_CHANNELS}`,
-  };
-};
+const submitToEmailJs = async (): Promise<FormSubmissionResult> => ({
+  success: false,
+  message: `EmailJS is not wired in this build. Use Formspree for production forms. ${FALLBACK_CHANNELS}`,
+});
 
 const fallbackLocalSubmission = async (formType: string): Promise<FormSubmissionResult> =>
   new Promise((resolve) => {
@@ -151,6 +178,7 @@ const fallbackLocalSubmission = async (formType: string): Promise<FormSubmission
     }, 600);
   });
 
+// ─── Main export ──────────────────────────────────────────────────────────────
 export const submitForm = async (formType: string, data: FormPayload): Promise<FormSubmissionResult> => {
   if (isHoneypotTripped(data)) {
     return SPAM_HONEYPOT_RESPONSE;
@@ -158,9 +186,8 @@ export const submitForm = async (formType: string, data: FormPayload): Promise<F
 
   const { [FORM_HONEYPOT_FIELD]: _honeypot, ...rest } = data;
 
-  const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
-  const referrer =
-    typeof document !== 'undefined' && document.referrer?.trim() ? document.referrer.trim() : undefined;
+  const pageUrl   = typeof window !== 'undefined' ? window.location.href : '';
+  const referrer  = typeof document !== 'undefined' && document.referrer?.trim() ? document.referrer.trim() : undefined;
 
   const enriched: FormPayload = {
     ...rest,
@@ -182,6 +209,11 @@ export const submitForm = async (formType: string, data: FormPayload): Promise<F
       result = await submitToEmailJs();
     } else {
       result = await fallbackLocalSubmission(formType);
+    }
+
+    // Mirror into CRM on success (or in demo/fallback mode — every submission creates a lead)
+    if (result.success && (formType === 'contact' || formType === 'valuation' || formType === 'viewing')) {
+      void mirrorToCRM(formType, enriched);
     }
 
     return result;

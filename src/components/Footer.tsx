@@ -8,9 +8,9 @@ const isConfiguredExternalUrl = (value: string) => value.startsWith('http') && !
 export default function Footer() {
   const { pathname } = useLocation();
   const socials = [
-    { Icon: Facebook, url: siteConfig.facebookUrl, label: 'Elevate Properties Malta on Facebook' },
-    { Icon: Instagram, url: siteConfig.instagramUrl, label: 'Elevate Properties Malta on Instagram' },
-    { Icon: Linkedin, url: siteConfig.linkedinUrl, label: 'Elevate Properties Malta on LinkedIn' },
+    { Icon: Facebook, url: siteConfig.facebookUrl, label: 'Elevate by Zanzi on Facebook' },
+    { Icon: Instagram, url: siteConfig.instagramUrl, label: 'Elevate by Zanzi on Instagram' },
+    { Icon: Linkedin, url: siteConfig.linkedinUrl, label: 'Elevate by Zanzi on LinkedIn' },
   ] as const;
   const anySocialConfigured = socials.some((s) => isConfiguredExternalUrl(s.url));
 
@@ -21,11 +21,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           <div className="lg:col-span-3">
-            <p className="text-xl font-playfair tracking-[0.28em] text-brand-ivory">ELEVATE</p>
-            <p className="text-[9px] tracking-[0.34em] text-brand-champagne uppercase">Properties Malta</p>
+            <p className="text-xl font-playfair tracking-[0.18em] text-brand-ivory">Elevate</p>
+            <p className="text-[9px] tracking-[0.3em] text-brand-champagne uppercase">by Zanzi</p>
             <p className="mt-4 text-[11px] text-brand-sand font-light leading-relaxed max-w-xs">
-              Boutique luxury residential advisory in Malta — private valuations, curated listings, and discreet representation for buyers,
-              sellers, and investors.
+              Premium Malta real estate by Elevate, backed by the trusted property network of Zanzi and Quicklets.
+            </p>
+            <p className="mt-3 text-[9px] uppercase tracking-[0.24em] text-brand-metal">
+              Official Zanzi Franchise · Supported by the Quicklets Network · Malta Luxury Real Estate
             </p>
           </div>
 
@@ -84,19 +86,19 @@ export default function Footer() {
             aria-label="Footer"
           >
             <a href={anchorHref(pathname, '#hero')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
-              Home
+              Properties
             </a>
             <a href={anchorHref(pathname, '#properties')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
-              Buy
+              Featured
             </a>
             <a href={anchorHref(pathname, '#list-property')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
-              Sell
+              List Property
             </a>
             <a href={anchorHref(pathname, '#services')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
               Services
             </a>
             <a href={anchorHref(pathname, '#trust')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
-              How we work
+              Advisory
             </a>
             <a href={anchorHref(pathname, '#agents')} className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
               Advisors
@@ -105,7 +107,7 @@ export default function Footer() {
               Contact
             </a>
             <Link to="/privacy" className="inline-flex items-center min-h-[44px] hover:text-brand-champagne py-1 touch-manipulation">
-              Privacy
+              Legal
             </Link>
           </nav>
 
@@ -133,7 +135,7 @@ export default function Footer() {
 
         <div className="mt-8 pt-6 border-t border-brand-bronze-dark/15 space-y-2">
           <p className="text-[10px] uppercase tracking-[0.18em] text-brand-metal text-center leading-relaxed max-w-3xl mx-auto">
-            Elevate Properties Malta provides marketing material for illustrative purposes only. Nothing on this site constitutes financial,
+            Elevate by Zanzi provides marketing material for illustrative purposes only. Nothing on this site constitutes financial,
             legal, or investment advice — seek independent counsel before committing to a transaction.
           </p>
           <p className="text-[10px] uppercase tracking-[0.18em] text-brand-metal text-center">

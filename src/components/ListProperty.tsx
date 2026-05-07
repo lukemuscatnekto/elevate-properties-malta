@@ -61,7 +61,7 @@ export default function ListProperty() {
             className="text-[10px] text-brand-champagne font-bold uppercase tracking-[0.45em] mb-5 flex items-center gap-3"
           >
             <span className="w-8 h-px bg-brand-copper/60 inline-block" aria-hidden="true" />
-            Sell with Distinction
+            Seller Advisory
           </motion.p>
 
           <motion.h2
@@ -72,9 +72,7 @@ export default function ListProperty() {
             transition={{ delay: 0.08 }}
             className="text-3xl md:text-4xl font-playfair text-brand-ivory leading-tight mb-4"
           >
-            Private Representation
-            <br />
-            <span className="italic font-light text-brand-copper">for Exceptional Homes</span>
+            List Your Property With Elevate by Zanzi
           </motion.h2>
 
           <motion.p
@@ -84,13 +82,13 @@ export default function ListProperty() {
             transition={{ delay: 0.12 }}
             className="text-brand-sand text-sm sm:text-base font-light leading-relaxed max-w-lg mb-8"
           >
-            If you own a property of distinction in Malta, we invite you to explore what a truly private,
-            bespoke selling experience looks like. We do not advertise widely — we represent selectively.
+            Request a confidential valuation and discover how your property can be positioned through trusted advisory, premium marketing, and
+            qualified buyer handling.
           </motion.p>
 
           <div className="bg-brand-panel border border-brand-bronze-dark/25 p-5 sm:p-6 flex-1 flex flex-col">
             <div className="h-[1px] w-12 bg-brand-copper/45 mb-6 shrink-0" aria-hidden="true" />
-            <p className="text-[10px] text-brand-champagne/90 uppercase tracking-[0.3em] font-bold mb-5">Request a Confidential Valuation</p>
+            <p className="text-[10px] text-brand-champagne/90 uppercase tracking-[0.3em] font-bold mb-5">Request Confidential Valuation</p>
 
             {formState === 'success' ? (
               <div className="flex items-start gap-4 py-4" role="status">
@@ -170,7 +168,7 @@ export default function ListProperty() {
                   disabled={formState === 'submitting'}
                   className="epm-btn-primary w-full min-h-[48px] py-4 tracking-[0.3em] text-[10px] disabled:opacity-50 touch-manipulation mt-auto"
                 >
-                  {formState === 'submitting' ? 'Sending…' : 'Submit confidential briefing'}
+                  {formState === 'submitting' ? 'Sending…' : 'Request Confidential Valuation'}
                 </button>
                 {formState === 'error' && (
                   <div className="text-[11px] text-red-200 text-center break-words space-y-1" role="alert">
@@ -210,7 +208,7 @@ export default function ListProperty() {
             ))}
           </div>
           <p className="mt-6 pt-6 border-t border-brand-bronze-dark/20 text-[11px] sm:text-xs text-brand-metal font-light leading-relaxed">
-            We do not rely on mass-market noise when a more considered route better protects the asset.
+            Discreet handling · Premium presentation · Zanzi and Quicklets network trust.
           </p>
           <p className="mt-5 text-center">
             <a

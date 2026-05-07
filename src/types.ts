@@ -18,7 +18,20 @@ export interface Property {
   sqft: number;
   image: string;
   images?: string[];
-  tag?: 'Featured' | 'Sea View' | 'New Listing' | 'Exclusive' | 'Historical' | 'Rare';
+  tag?:
+    | 'Featured'
+    | 'Sea View'
+    | 'New Listing'
+    | 'Exclusive'
+    | 'Historical'
+    | 'Rare'
+    | 'Private Opportunity'
+    | 'Investment Potential'
+    | 'New to Market'
+    | 'Luxury Listing'
+    | 'Elevate Pick'
+    | 'Rental Opportunity'
+    | 'Network Listing';
   type: PropertyType;
   status: PropertyStatus;
   description: string;

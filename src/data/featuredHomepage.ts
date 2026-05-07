@@ -18,7 +18,7 @@ export const featuredHomepageProperties: Property[] = [
     status: 'For Sale',
     image:
       'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1200',
-    tag: 'Exclusive',
+    tag: 'Elevate Pick',
     description:
       'A refined villa proposition in Mosta combining generous entertaining spaces, landscaped grounds, and a calm residential setting within reach of Malta’s key hubs.',
     features: ['Pool-ready grounds', 'Multi-car garage', 'Guest wing', 'Smart climate', 'Wine storage', 'Security system'],
@@ -38,7 +38,7 @@ export const featuredHomepageProperties: Property[] = [
     status: 'For Sale',
     image:
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200',
-    tag: 'Sea View',
+    tag: 'Rental Opportunity',
     description:
       'A contemporary penthouse with elevated panoramas toward the Mediterranean — crafted for breezy terraces, understated luxury interiors, and a lock-up-and-leave lifestyle.',
     features: ['Sweeping terraces', 'Private lift lobby', 'Marina proximity', 'Storage', 'High-spec kitchen', 'Double glazing'],
@@ -58,7 +58,7 @@ export const featuredHomepageProperties: Property[] = [
     status: 'For Sale',
     image:
       'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200',
-    tag: 'Featured',
+    tag: 'Network Listing',
     description:
       'Situated in sought-after Attard, this villa offers balanced proportions across living and bedroom wings, curated finishes, and outdoor space oriented for Malta’s Mediterranean climate.',
     features: ['Garden & pool terrace', 'Home office suite', 'Cinema nook', 'Solar-ready roof', 'Gated driveway', 'Underfloor heating (select zones)'],

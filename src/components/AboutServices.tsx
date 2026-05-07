@@ -1,31 +1,55 @@
 import { motion } from 'motion/react';
-import { Key, Tag, Home, TrendingUp, ArrowRight } from 'lucide-react';
+import { Key, Tag, Home, TrendingUp, ArrowRight, ShieldCheck, Gem, Camera, Building2 } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { anchorHref } from '../utils/routeAnchors';
 
-const services = [
+const serviceCards = [
   {
-    title: 'Buy',
-    desc: 'Access to Malta’s standout homes — from first-time milestones to trophy residences — curated with discretion and clear market context.',
+    title: 'Buy Property in Malta',
+    desc: 'Access curated villas, penthouses, apartments, and private opportunities matched to your goals and timing.',
     Icon: Key,
     href: '#properties',
   },
   {
-    title: 'Sell',
-    desc: 'Discreet, bespoke representation that connects your property with qualified buyers — without volume-market noise.',
+    title: 'Sell With Confidence',
+    desc: 'Position your property with premium presentation, qualified buyer handling, and trusted advisory from valuation to negotiation.',
     Icon: Tag,
     href: '#list-property',
   },
   {
-    title: 'Rent',
-    desc: 'Long-term residences and tenancy-ready homes, presented with the same care we bring to sales mandates.',
+    title: 'Confidential Valuations',
+    desc: 'Receive discreet pricing guidance shaped by current Malta demand, property positioning, and route-to-market strategy.',
+    Icon: ShieldCheck,
+    href: '#contact',
+  },
+  {
+    title: 'Luxury Property Marketing',
+    desc: 'Showcase your asset through high-end media, controlled exposure, and polished storytelling aligned to serious buyers.',
+    Icon: Camera,
+    href: '#list-property',
+  },
+  {
+    title: 'Investment Advisory',
+    desc: 'Evaluate opportunities with practical guidance on holding strategy, positioning, and acquisition decision support.',
+    Icon: TrendingUp,
+    href: '#contact',
+  },
+  {
+    title: 'Rent & Letting Guidance',
+    desc: 'Supported by wider rental-market awareness and trusted network reach, we help clients approach Malta rentals and lettings with clearer guidance.',
     Icon: Home,
     href: '#contact',
   },
   {
-    title: 'Invest',
-    desc: 'Portfolio-level guidance on yield, hold periods, and diversification — always alongside the legal and tax advisers you appoint.',
-    Icon: TrendingUp,
+    title: 'Direct-Owner Opportunities',
+    desc: 'Access conversations and opportunities surfaced through direct-owner acquisition and relationship-driven sourcing.',
+    Icon: Building2,
+    href: '#properties',
+  },
+  {
+    title: 'Private Viewings',
+    desc: 'Arrange discreet viewing schedules with clear preparation and follow-up that respects owners, buyers, and timing.',
+    Icon: Gem,
     href: '#contact',
   },
 ];
@@ -38,82 +62,116 @@ export default function AboutServices() {
 
       {/* ── About block ── */}
       <div className="py-10 px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-stretch">
-
-          {/* Editorial copy */}
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex flex-col"
-          >
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-7 max-w-3xl">
             <p className="text-[10px] text-brand-champagne font-bold uppercase tracking-[0.35em] mb-3 flex items-center gap-3">
               <span className="w-8 h-px bg-brand-copper/60 inline-block" aria-hidden="true" />
-              Who We Are
+              Official positioning
             </p>
-            <h2 id="about-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory leading-tight mb-3">
-              About Elevate Properties Malta
+            <h2 id="about-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory leading-tight mb-2">
+              Elevate Leads. Zanzi and Quicklets Back the Network.
             </h2>
+            <p className="text-brand-sand text-sm font-light leading-relaxed max-w-2xl">
+              Elevate by Zanzi brings together premium digital execution, trusted franchise credibility, and broader Malta property-network
+              strength. The result is a more modern, more visible, and more trusted way to move through the Malta property market.
+            </p>
+          </div>
 
-            <div className="space-y-4 max-w-lg text-brand-sand font-light text-sm leading-relaxed mb-8">
-              <p>
-                Elevate Properties Malta was founded on a single conviction: that the island&rsquo;s most compelling homes deserve
-                representation that is equally considered.
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5 items-stretch">
+            <motion.article
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.75 }}
+              viewport={{ once: true }}
+              className="border border-brand-copper/35 bg-brand-panel p-6 sm:p-7 shadow-[0_16px_40px_rgba(20,15,11,0.45)]"
+            >
+              <p className="text-[10px] text-brand-champagne uppercase tracking-[0.28em] font-bold mb-2">Elevate</p>
+              <h3 className="text-lg sm:text-xl font-playfair text-brand-ivory mb-3">Premium Presentation</h3>
+              <p className="text-brand-sand text-sm font-light leading-relaxed mb-4">
+                Elevate delivers a modern luxury property experience through digital-first execution, private advisory, and premium representation.
               </p>
-              <p>
-                We are a boutique agency, not a volume house — every client benefits from direct senior attention, thoughtful positioning, and a
-                measured approach to introductions, viewings, and negotiation.
-              </p>
-              <p className="text-brand-metal text-[13px] sm:text-sm">
-                From first homes to standout residences, our focus is calibrated advice and discreet execution — whether you are transacting locally
-                or briefing us from overseas.
-              </p>
-            </div>
+              <ul className="space-y-2.5 text-[12px] sm:text-sm text-brand-sand">
+                {[
+                  'Luxury property positioning',
+                  'Premium website experience',
+                  'Private advisory process',
+                  'Modern digital marketing',
+                  'Direct-owner acquisition mindset',
+                ].map((line) => (
+                  <li key={line} className="flex items-start gap-2.5">
+                    <span className="mt-2 h-px w-5 shrink-0 bg-brand-copper/55" aria-hidden="true" />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.article>
 
+            <motion.article
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.75 }}
+              viewport={{ once: true }}
+              className="border border-brand-bronze-dark/30 bg-brand-taupe p-6 sm:p-7"
+            >
+              <p className="text-[10px] text-brand-champagne uppercase tracking-[0.28em] font-bold mb-2">Zanzi</p>
+              <h3 className="text-lg sm:text-xl font-playfair text-brand-ivory mb-3">Franchise Credibility</h3>
+              <p className="text-brand-sand text-sm font-light leading-relaxed mb-4">
+                Zanzi adds established real-estate recognition, local market knowledge, and trusted franchise credibility across Malta.
+              </p>
+              <ul className="space-y-2.5 text-[12px] sm:text-sm text-brand-sand">
+                {[
+                  'Recognised Malta real-estate presence',
+                  'Local market experience',
+                  'Buyer and seller trust',
+                  'Strong property network',
+                ].map((line) => (
+                  <li key={line} className="flex items-start gap-2.5">
+                    <span className="mt-2 h-px w-5 shrink-0 bg-brand-copper/55" aria-hidden="true" />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.article>
+
+            <motion.article
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.75 }}
+              viewport={{ once: true }}
+              className="border border-brand-bronze-dark/30 bg-brand-taupe/80 p-6 sm:p-7"
+            >
+              <p className="text-[10px] text-brand-champagne uppercase tracking-[0.28em] font-bold mb-2">Quicklets</p>
+              <h3 className="text-lg sm:text-xl font-playfair text-brand-ivory mb-3">Lettings &amp; Network Reach</h3>
+              <p className="text-brand-sand text-sm font-light leading-relaxed mb-4">
+                Quicklets contributes trusted lettings awareness and wider network support for rental and investment pathways in Malta.
+              </p>
+              <ul className="space-y-2.5 text-[12px] sm:text-sm text-brand-sand">
+                {[
+                  'Lettings market awareness',
+                  'Rental and investment support',
+                  'Wider property network trust',
+                  'Malta tenant and landlord familiarity',
+                ].map((line) => (
+                  <li key={line} className="flex items-start gap-2.5">
+                    <span className="mt-2 h-px w-5 shrink-0 bg-brand-copper/55" aria-hidden="true" />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.article>
+          </div>
+
+          <p className="mt-6 text-brand-metal text-sm font-light leading-relaxed max-w-3xl">
+            Together, Elevate by Zanzi offers a more trusted, modern, and personal way to buy, sell, and invest in Malta property.
+          </p>
+          <p className="mt-6">
             <a
               href={anchorHref(pathname, '#contact')}
-              className="inline-flex items-center justify-center gap-2 min-h-[48px] mt-auto px-8 border border-brand-bronze-dark/45 bg-brand-taupe/40 text-brand-champagne text-[10px] font-bold uppercase tracking-[0.28em] hover:bg-brand-muted hover:border-brand-copper/50 hover:text-brand-ivory transition-colors touch-manipulation"
+              className="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 border border-brand-bronze-dark/45 bg-brand-taupe/40 text-brand-champagne text-[10px] font-bold uppercase tracking-[0.28em] hover:bg-brand-muted hover:border-brand-copper/50 hover:text-brand-ivory transition-colors touch-manipulation"
             >
-              Book a confidential consultation <ArrowRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+              Book a Private Consultation <ArrowRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             </a>
-          </motion.div>
-
-          {/* Trust panel — editorial, no photography */}
-          <motion.aside
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75 }}
-            viewport={{ once: true }}
-            aria-labelledby="about-trust-kicker"
-            className="border border-brand-bronze-dark/30 bg-brand-taupe p-6 sm:p-8 flex flex-col h-full"
-          >
-            <p id="about-trust-kicker" className="text-[10px] text-brand-champagne font-bold uppercase tracking-[0.34em] mb-4">
-              Why clients choose Elevate
-            </p>
-            <h3 className="text-lg sm:text-xl font-playfair text-brand-ivory leading-snug mb-6 max-w-md">
-              Private guidance. Market clarity. Carefully handled representation.
-            </h3>
-            <ul className="space-y-4 flex-1">
-              {[
-                'Director-led contact from the first conversation.',
-                'Measured guidance across buying, selling, renting, and investment.',
-                'Quiet execution with viewings and introductions handled discreetly.',
-                'A Malta-wide perspective with attention to micro-location and long-term value.',
-              ].map((line) => (
-                <li
-                  key={line}
-                  className="flex gap-3 text-[12px] sm:text-sm text-brand-sand font-light leading-relaxed border-b border-brand-bronze-dark/15 pb-4 last:border-0 last:pb-0"
-                >
-                  <span className="mt-2 h-px w-6 shrink-0 bg-brand-copper/45" aria-hidden="true" />
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 pt-6 border-t border-brand-bronze-dark/20 text-[11px] sm:text-xs text-brand-metal font-light leading-relaxed">
-              Where needed, we coordinate introductions to trusted notaries, specialists, and professional partners you appoint.
-            </p>
-          </motion.aside>
+          </p>
         </div>
       </div>
 
@@ -121,14 +179,14 @@ export default function AboutServices() {
       <div id="services" className="scroll-anchor-target py-10 px-4 sm:px-8 border-t border-brand-bronze-dark/25 bg-brand-charcoal/40">
         <div className="max-w-7xl mx-auto">
           <div className="mb-7 max-w-2xl">
-            <h3 className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-2">Our Services</h3>
+            <h3 className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-2">Services by Elevate by Zanzi</h3>
             <p className="text-brand-sand text-xs sm:text-sm font-light leading-relaxed">
-              Four ways we support you — each path leads to the same discreet, director-led service.
+              Official, high-touch support across buying, selling, renting, lettings, valuation, and investment in Malta.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {services.map((svc, i) => (
+            {serviceCards.map((svc, i) => (
               <motion.a
                 key={svc.title}
                 href={anchorHref(pathname, svc.href)}

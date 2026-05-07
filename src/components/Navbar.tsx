@@ -27,11 +27,9 @@ export default function Navbar() {
   }, [isOpen]);
 
   const navLinks = [
-    { name: 'Home', href: '#hero' },
-    { name: 'Buy', href: '#properties' },
-    { name: 'Sell', href: '#list-property' },
-    { name: 'Rent', href: '#contact' },
-    { name: 'Invest', href: '#contact' },
+    { name: 'Properties', href: '#properties' },
+    { name: 'Services', href: '#services' },
+    { name: 'List Property', href: '#list-property' },
     { name: 'Advisors', href: '#agents' },
     { name: 'Contact', href: '#contact' },
   ];
@@ -51,11 +49,11 @@ export default function Navbar() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="flex flex-col items-start group cursor-pointer outline-none focus:ring-1 focus:ring-gold pl-0 pr-2 min-w-0"
-          aria-label="Elevate Properties Home"
+          aria-label="Elevate by Zanzi home"
         >
-          <span className="text-lg sm:text-xl md:text-2xl font-serif tracking-[0.22em] sm:tracking-[0.25em] text-brand-ivory group-hover:text-brand-champagne transition-colors truncate max-w-[62vw] sm:max-w-none">E L E V A T E</span>
+          <span className="text-lg sm:text-xl md:text-2xl font-serif tracking-[0.16em] sm:tracking-[0.2em] text-brand-ivory group-hover:text-brand-champagne transition-colors truncate max-w-[62vw] sm:max-w-none">Elevate</span>
           <div className="w-full h-[1px] bg-brand-copper scale-x-75 group-hover:scale-x-100 transition-transform duration-500 mt-1" />
-          <span className="text-[9px] tracking-[0.36em] text-brand-champagne mt-1 uppercase font-medium">Properties Malta</span>
+          <span className="text-[9px] tracking-[0.3em] text-brand-champagne mt-1 uppercase font-medium">by Zanzi</span>
         </motion.a>
 
         {/* Desktop Nav */}
@@ -71,6 +69,17 @@ export default function Navbar() {
                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brand-copper transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
+          </div>
+          <div className="flex items-center gap-5">
+            <span className="text-[9px] uppercase tracking-[0.28em] text-brand-metal">
+              Official Zanzi Franchise
+            </span>
+            <a
+              href={anchorHref(pathname, '#contact')}
+              className="epm-btn-primary py-3 px-6 text-[10px] tracking-[0.2em]"
+            >
+              Private Consultation
+            </a>
           </div>
         </div>
 
@@ -99,11 +108,12 @@ export default function Navbar() {
               <a
                 href={anchorHref(pathname, '#hero')}
                 className="flex flex-col items-start translate-x-[-8px] outline-none focus:ring-1 focus:ring-gold touch-manipulation"
-                aria-label="Elevate Properties Home"
+                aria-label="Elevate by Zanzi home"
                 onClick={() => setIsOpen(false)}
               >
-                <span className="text-xl font-serif tracking-[0.2em] text-brand-ivory">E L E V A T E</span>
-                <span className="text-[10px] tracking-[0.3em] text-brand-champagne mt-1 uppercase">Properties Malta</span>
+                <span className="text-xl font-serif tracking-[0.16em] text-brand-ivory">Elevate</span>
+                <span className="text-[10px] tracking-[0.3em] text-brand-champagne mt-1 uppercase">by Zanzi</span>
+                <span className="text-[9px] tracking-[0.24em] text-brand-metal mt-2 uppercase">Official Zanzi Franchise</span>
               </a>
               <button 
                 onClick={() => setIsOpen(false)} 
@@ -163,7 +173,7 @@ export default function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className="w-full epm-btn-primary py-6 flex items-center justify-center tracking-[0.2em] text-[10px] touch-manipulation"
               >
-                Book a Private Consultation
+                Speak With an Advisor
               </a>
             </div>
           </motion.div>

@@ -1,30 +1,53 @@
 import { motion } from 'motion/react';
-import { Landmark, Eye, Briefcase, LineChart } from 'lucide-react';
+import { ShieldCheck, Eye, Presentation, Briefcase, Users, Megaphone, Home, MessageSquare } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { anchorHref } from '../utils/routeAnchors';
 
-/** Factual commitments only — no quotes, numerical claims, awards, or credentials. */
-
-const pillars = [
+const trustPoints = [
   {
-    Icon: Landmark,
-    title: 'Malta market orientation',
-    body: 'Prime and emerging addresses across Malta and Gozo, local transaction norms, and what to budget beyond the headline price — framed for your timeline, whether you live on-island or abroad.',
+    Icon: ShieldCheck,
+    title: 'Official Zanzi franchise',
+    body: 'Trusted local recognition combined with a premium, modern advisory experience.',
   },
   {
     Icon: Eye,
-    title: 'Private viewings',
-    body: 'Viewings are arranged personally and quietly, with useful context on the residence and locality so your time on site feels purposeful — including after-hours appointments when that makes sense.',
+    title: 'Private property advisory',
+    body: 'Tailored guidance for buyers, sellers, and investors through clear, discreet communication.',
+  },
+  {
+    Icon: Users,
+    title: 'Supported by the Quicklets Network',
+    body: 'Added confidence from wider lettings awareness and property-network familiarity in Malta.',
+  },
+  {
+    Icon: Presentation,
+    title: 'Premium listing presentation',
+    body: 'Property media and narrative are handled to reflect asset quality and attract serious enquiries.',
   },
   {
     Icon: Briefcase,
-    title: 'Discreet seller representation',
-    body: 'For exceptional homes we favour controlled exposure: qualified introductions, orderly access, and materials that honour the property rather than volume-market noise.',
+    title: 'Confidential seller valuations',
+    body: 'Careful, practical valuation guidance for owners deciding how and when to enter the market.',
   },
   {
-    Icon: LineChart,
-    title: 'Investment support',
-    body: 'For portfolio buyers we align shortlists with occupancy, tenancy, refurbishment, or long-hold angles — always subject to independent legal and tax counsel you appoint.',
+    Icon: Users,
+    title: 'Buyer and tenant enquiry handling',
+    body: 'Introductions are managed with fit, readiness, and transaction quality in mind.',
+  },
+  {
+    Icon: Megaphone,
+    title: 'Modern digital marketing',
+    body: 'Digital execution supports discoverability while maintaining quality control and discretion.',
+  },
+  {
+    Icon: Home,
+    title: 'Direct-owner sourcing',
+    body: 'Relationship-led sourcing opens access to opportunities beyond standard listing flows.',
+  },
+  {
+    Icon: MessageSquare,
+    title: 'Clear follow-up and communication',
+    body: 'Every stage is coordinated with transparent next steps and consistent advisor contact.',
   },
 ];
 
@@ -39,15 +62,15 @@ export default function TrustAndProcess() {
     >
       <div className="max-w-7xl mx-auto">
         <h2 id="trust-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-3">
-          How we work with you
+          A More Trusted Way to Move Through Malta Real Estate
         </h2>
         <p className="text-sm text-brand-sand font-light leading-relaxed max-w-2xl mb-8">
-          Explore featured residences, review details at your own pace, and lodge a discreet viewing enquiry when you are ready. If you need a
-          broader search, ask — then brief us formally when you wish to instruct an off-market valuation or sale mandate.
+          Elevate by Zanzi combines premium presentation with trusted Malta property-network backing from Zanzi and Quicklets, giving buyers,
+          sellers, landlords, and investors a more confident experience.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {pillars.map((item, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+          {trustPoints.map((item, i) => (
             <motion.div
               key={item.title}
               initial={{ opacity: 0, y: 12 }}
@@ -67,6 +90,24 @@ export default function TrustAndProcess() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        <div className="border border-brand-bronze-dark/25 bg-brand-panel p-5 md:p-6">
+          <h3 className="text-lg md:text-xl font-playfair text-brand-ivory mb-4">Our Process</h3>
+          <ol className="grid grid-cols-1 md:grid-cols-5 gap-3">
+            {[
+              'Understand your goals',
+              'Match the right opportunities',
+              'Arrange private viewings or consultations',
+              'Guide negotiation and next steps',
+              'Support you through completion',
+            ].map((step, idx) => (
+              <li key={step} className="border border-brand-bronze-dark/20 bg-brand-charcoal/50 p-4">
+                <p className="text-[10px] text-brand-champagne uppercase tracking-[0.22em] font-bold mb-1">Step {idx + 1}</p>
+                <p className="text-brand-sand text-xs sm:text-sm font-light leading-relaxed">{step}</p>
+              </li>
+            ))}
+          </ol>
         </div>
 
         <p className="mt-8 text-center">

@@ -53,11 +53,11 @@ export default function ContactForm() {
                 Concierge access
               </p>
               <h2 id="contact-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-3 leading-tight">
-                Start a private conversation
+                Speak With an Elevate Advisor
               </h2>
               <p className="text-brand-sand text-sm font-light leading-relaxed max-w-md mb-6">
-                Message our advisers for Malta buying, leasing, divestment timing, portfolio expansion, pricing context, and introductions to
-                professional partners you appoint — at whatever stage you are at today.
+                Whether you are buying, selling, renting, letting, or investing, our team will guide you through the right next step with the
+                backing of trusted Malta property names.
               </p>
             </motion.div>
 
@@ -148,7 +148,7 @@ export default function ContactForm() {
                   <div className="w-16 h-16 rounded-full bg-brand-copper/10 border border-brand-copper/25 flex items-center justify-center mx-auto mb-6">
                     <CheckCircle2 className="w-8 h-8 text-brand-copper" aria-hidden="true" />
                   </div>
-                  <h3 className="text-2xl font-playfair text-brand-ivory mb-4">We have your enquiry</h3>
+                  <h3 className="text-2xl font-playfair text-brand-ivory mb-4">Private enquiry received</h3>
                   <p className="text-brand-sand font-light leading-relaxed max-w-sm mx-auto text-sm">
                     {successMessage}
                   </p>
@@ -164,7 +164,7 @@ export default function ContactForm() {
                 <>
                   <div className="mb-5">
                     <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-1">Property Enquiry</p>
-                    <h3 className="text-2xl font-playfair text-brand-ivory">Tell our advisers what matters</h3>
+                    <h3 className="text-2xl font-playfair text-brand-ivory">How can we help you?</h3>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-3 relative" aria-label="Property enquiry form">
@@ -223,11 +223,14 @@ export default function ContactForm() {
                           onChange={e => setFormData({ ...formData, type: e.target.value })}
                           className={selectCls}
                         >
-                          <option value="buying"     className="bg-brand-panel">Buying</option>
-                          <option value="selling"    className="bg-brand-panel">Selling</option>
-                          <option value="renting"    className="bg-brand-panel">Renting</option>
-                          <option value="investment" className="bg-brand-panel">Investment</option>
-                          <option value="valuation"  className="bg-brand-panel">Valuation</option>
+                          <option value="buying" className="bg-brand-panel">Buying a property</option>
+                          <option value="selling" className="bg-brand-panel">Selling a property</option>
+                          <option value="renting" className="bg-brand-panel">Renting a property</option>
+                          <option value="letting" className="bg-brand-panel">Letting a property</option>
+                          <option value="valuation" className="bg-brand-panel">Requesting a valuation</option>
+                          <option value="viewing" className="bg-brand-panel">Booking a viewing</option>
+                          <option value="investment" className="bg-brand-panel">Investment guidance</option>
+                          <option value="general" className="bg-brand-panel">General enquiry</option>
                         </select>
                       </div>
                       <div className="space-y-1.5">
@@ -269,7 +272,7 @@ export default function ContactForm() {
                     >
                       {formState === 'submitting' ? 'Sending…' : (
                         <>
-                          Send to our advisers
+                          Send Private Enquiry
                           <MessageSquare className="w-4 h-4 group-hover:scale-110 transition-transform" aria-hidden="true" />
                         </>
                       )}

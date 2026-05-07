@@ -156,10 +156,9 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 ) : null}
 
                 <div className="border-t border-brand-bronze-dark/22 pt-6">
-                  <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-2">Request a private viewing</p>
+                  <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-2">Arrange a Private Viewing</p>
                   <p className="text-brand-metal text-[11px] font-light leading-relaxed mb-5">
-                    There is no obligation to proceed. We coordinate times that respect sellers and neighbours, typically within one to two
-                    working days, subject to confirmations.
+                    Submit your details and an advisor from Elevate by Zanzi will contact you to confirm availability and next steps.
                   </p>
 
                   {formState === 'success' ? (
@@ -169,7 +168,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                       className="text-center py-6 border border-brand-bronze-dark/30 bg-brand-panel/50 px-4"
                     >
                       <CheckCircle2 className="w-10 h-10 text-brand-copper mx-auto mb-4" aria-hidden="true" />
-                      <p className="text-brand-ivory font-playfair text-xl mb-2">Viewing enquiry received</p>
+                      <p className="text-brand-ivory font-playfair text-xl mb-2">Viewing request received</p>
                       <p className="text-brand-sand text-sm font-light break-words max-w-xs mx-auto">{successMessage}</p>
                       <button
                         type="button"
@@ -253,7 +252,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                           'Sending…'
                         ) : (
                           <>
-                            Request private viewing
+                            Request a Private Viewing
                             <Send className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" />
                           </>
                         )}

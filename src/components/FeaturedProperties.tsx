@@ -62,15 +62,46 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
         aria-labelledby="properties-heading"
       >
         <div className="max-w-7xl mx-auto">
+          <div className="mb-8 border border-brand-bronze-dark/25 bg-brand-panel/55 p-4 sm:p-5">
+            <p className="text-[10px] text-brand-champagne uppercase tracking-[0.3em] font-bold mb-3">
+              Powered by Elevate. Backed by Trusted Malta Property Names.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <article className="border border-brand-copper/35 bg-brand-charcoal/70 p-4">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-brand-champagne font-bold mb-1">Elevate</p>
+                <h3 className="text-base font-playfair text-brand-ivory mb-2">Modern Luxury Experience</h3>
+                <p className="text-brand-sand text-xs font-light leading-relaxed mb-2">
+                  Premium presentation, private advisory, digital-first marketing, and a sharper client experience for Malta property.
+                </p>
+              </article>
+              <article className="border border-brand-bronze-dark/30 bg-brand-charcoal/55 p-4">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-brand-champagne font-bold mb-1">Zanzi</p>
+                <h3 className="text-base font-playfair text-brand-ivory mb-2">Official Franchise Backing</h3>
+                <p className="text-brand-sand text-xs font-light leading-relaxed mb-2">
+                  Established Malta real-estate credibility, local market knowledge, and trusted buyer and seller recognition.
+                </p>
+              </article>
+              <article className="border border-brand-bronze-dark/30 bg-brand-charcoal/55 p-4">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-brand-champagne font-bold mb-1">Quicklets</p>
+                <h3 className="text-base font-playfair text-brand-ivory mb-2">Trusted Lettings Network</h3>
+                <p className="text-brand-sand text-xs font-light leading-relaxed mb-2">
+                  Lettings-market reach and wider Malta property-network support for rental and investment conversations.
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <p className="text-[10px] text-brand-champagne font-bold uppercase tracking-[0.32em] mb-2 text-center">
+            Selected Malta Properties
+          </p>
           <h2 id="properties-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-3 text-center">
-            Featured Properties
+            Featured by Elevate by Zanzi
           </h2>
           <p className="text-xs sm:text-sm text-brand-sand font-light leading-relaxed text-center max-w-2xl mx-auto mb-2">
-            A curated spotlight from our Malta portfolio — open any card for specifications, narrative, and highlights. When you are ready to
-            inspect in person, request a confidential viewing from that screen.
+            Curated by Elevate. Backed by trusted Malta property-network credibility.
           </p>
           <p className="text-[10px] text-brand-metal uppercase tracking-[0.22em] text-center mb-7">
-            Featured selection · Availability subject to confirmation
+            Curated selection · Availability subject to confirmation
           </p>
 
           {heroBanner ? (
@@ -167,9 +198,14 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
                         </dd>
                       </div>
                     </dl>
-                    <span className="block w-full text-center border border-brand-bronze-dark/45 text-brand-champagne text-[9px] uppercase tracking-[0.2em] py-2.5 min-h-[44px] flex items-center justify-center group-hover:bg-gold group-hover:text-charcoal transition-colors touch-manipulation font-bold pointer-events-none" aria-hidden="true">
-                      View listing · enquire
-                    </span>
+                    <div className="grid grid-cols-2 gap-2">
+                      <span className="block w-full text-center border border-brand-bronze-dark/45 text-brand-champagne text-[9px] uppercase tracking-[0.2em] py-2.5 min-h-[44px] flex items-center justify-center group-hover:bg-gold group-hover:text-charcoal transition-colors touch-manipulation font-bold pointer-events-none" aria-hidden="true">
+                        Request Private Viewing
+                      </span>
+                      <span className="block w-full text-center border border-brand-bronze-dark/35 text-brand-sand text-[9px] uppercase tracking-[0.2em] py-2.5 min-h-[44px] flex items-center justify-center group-hover:border-brand-copper/50 group-hover:text-brand-ivory transition-colors font-bold pointer-events-none" aria-hidden="true">
+                        View Details
+                      </span>
+                    </div>
                   </div>
                 </motion.article>
               ))}
@@ -184,7 +220,7 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
               href={anchorHref(pathname, '#contact')}
               className="epm-btn-primary epm-btn-primary-sm inline-flex min-h-[48px] w-full sm:w-auto px-8 whitespace-nowrap touch-manipulation"
             >
-              Contact an adviser
+              Speak With an Advisor
             </a>
           </nav>
         </div>
