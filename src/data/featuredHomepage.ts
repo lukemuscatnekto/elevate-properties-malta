@@ -38,7 +38,7 @@ export const featuredHomepageProperties: Property[] = [
     status: 'For Sale',
     image:
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200',
-    tag: 'Rental Opportunity',
+    tag: 'Luxury Listing',
     description:
       'A contemporary penthouse with elevated panoramas toward the Mediterranean — crafted for breezy terraces, understated luxury interiors, and a lock-up-and-leave lifestyle.',
     features: ['Sweeping terraces', 'Private lift lobby', 'Marina proximity', 'Storage', 'High-spec kitchen', 'Double glazing'],
@@ -58,7 +58,7 @@ export const featuredHomepageProperties: Property[] = [
     status: 'For Sale',
     image:
       'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200',
-    tag: 'Network Listing',
+    tag: 'Investment Potential',
     description:
       'Situated in sought-after Attard, this villa offers balanced proportions across living and bedroom wings, curated finishes, and outdoor space oriented for Malta’s Mediterranean climate.',
     features: ['Garden & pool terrace', 'Home office suite', 'Cinema nook', 'Solar-ready roof', 'Gated driveway', 'Underfloor heating (select zones)'],

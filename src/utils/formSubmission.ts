@@ -19,7 +19,7 @@ interface FormSubmissionResult {
 type FormPayload = Record<string, string | number | boolean | null | undefined>;
 
 const FALLBACK_CHANNELS =
-  'You may also reach us directly on +356 9981 6646, WhatsApp (see the contact section on this page), or at info@elevatepropertiesmalta.com — an Elevate by Zanzi advisor will handle your enquiry manually.';
+  'You may also reach us directly on +356 9981 6646, WhatsApp (see the contact section on this page), or at nicodalton@elevatepropertiesmalta.com — an Elevate by Zanzi advisor will handle your enquiry manually.';
 
 const FORM_PROVIDER = (import.meta.env.VITE_FORM_PROVIDER ?? 'none').toLowerCase() as FormProvider;
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined;

@@ -5,8 +5,10 @@ import { siteConfig } from '../config/site';
 import { submitForm, FORM_HONEYPOT_FIELD } from '../utils/formSubmission';
 import { formDiscretionFootnote, formTechnicalFailureHint } from '../content/formFootnotes';
 import FormHoneypot from './FormHoneypot';
+import { useElevatePreviewMode } from '../context/ElevatePreviewContext';
 
 export default function ContactForm() {
+  const elevatePreview = useElevatePreviewMode();
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [honeypot, setHoneypot] = useState('');
   const [formData, setFormData] = useState({
@@ -28,115 +30,42 @@ export default function ContactForm() {
   };
 
   const inputCls =
-    'w-full min-h-[48px] bg-brand-muted/30 border border-brand-bronze-dark/22 px-5 py-3 sm:py-4 text-brand-ivory text-sm font-light placeholder:text-brand-metal/80 focus:border-brand-copper/50 outline-none transition-colors';
+    'w-full min-h-[48px] bg-[#080a0f]/85 border border-white/[0.1] px-5 py-3 sm:py-4 text-[#f4f4f2] text-sm font-light placeholder:text-[#6f7a88] focus:border-[rgba(0,159,227,0.5)] outline-none transition-colors';
   const selectCls = `${inputCls} appearance-none cursor-pointer`;
 
   return (
-    <section id="contact" className="scroll-anchor-target py-10 px-4 sm:px-8 bg-brand-brown-dark relative overflow-hidden border-t border-brand-bronze-dark/25" aria-labelledby="contact-heading">
-      {/* Glow */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(188,136,92,0.06),transparent_65%)]" />
-      </div>
+    <section
+      id="contact"
+      className={`scroll-anchor-target relative overflow-hidden border-t px-4 sm:px-6 lg:px-8 ${
+        elevatePreview
+          ? 'border-white/[0.06] bg-[#050608] py-12 sm:py-14'
+          : 'border-white/[0.06] bg-[#07090d] py-14 sm:py-16'
+      }`}
+      aria-labelledby="contact-heading"
+    >
+      {!elevatePreview ? (
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(0,159,227,0.055),transparent_50%)]"
+          aria-hidden="true"
+        />
+      ) : (
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,159,227,0.2)] to-transparent" aria-hidden="true" />
+      )}
 
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+      <div className={`relative z-10 mx-auto ${elevatePreview ? 'max-w-lg' : 'max-w-7xl'}`}>
+        <div className={`grid grid-cols-1 ${elevatePreview ? 'gap-8' : 'gap-10 lg:grid-cols-2 lg:gap-14'}`}>
 
-          {/* ── Left: contact info ── */}
-          <div>
+          {/* ── Left: glass enquiry form (Luma) ── */}
+          <div className="relative order-1">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <p className="text-[10px] text-brand-champagne font-bold uppercase tracking-[0.35em] mb-3 flex items-center gap-3">
-                <span className="w-8 h-px bg-brand-copper/55 inline-block" aria-hidden="true" />
-                Concierge access
-              </p>
-              <h2 id="contact-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-3 leading-tight">
-                Speak With an Elevate Advisor
-              </h2>
-              <p className="text-brand-sand text-sm font-light leading-relaxed max-w-md mb-6">
-                Whether you are buying, selling, renting, letting, or investing, our team will guide you through the right next step with the
-                backing of trusted Malta property names.
-              </p>
-            </motion.div>
-
-            {/* Contact details — dual advisers */}
-            <div className="space-y-6 mb-6">
-              {[siteConfig.contacts.primary, siteConfig.contacts.secondary].map((c) => (
-                <div key={c.name} className="flex items-start gap-5 group">
-                  <div className="w-12 h-12 rounded-full border border-brand-bronze-dark/25 flex items-center justify-center group-hover:border-brand-copper/45 group-hover:bg-brand-bronze-dark/10 transition-all duration-400 shrink-0">
-                    <Phone className="w-5 h-5 text-brand-copper" aria-hidden="true" />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-1">{c.name}</p>
-                    <a href={c.phoneHref} className="text-brand-ivory text-base font-light hover:text-brand-champagne transition-colors tracking-wide block truncate">
-                      {c.phoneDisplay}
-                    </a>
-                  </div>
-                </div>
-              ))}
-
-              <div className="flex flex-wrap items-start gap-x-6 gap-y-3">
-                <a
-                  href={siteConfig.primaryWhatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 border border-brand-bronze-dark/40 bg-brand-panel/35 px-5 min-h-[48px] text-[10px] font-bold uppercase tracking-[0.25em] text-brand-champagne hover:bg-gold hover:text-charcoal transition-colors touch-manipulation shrink-0"
-                >
-                  <MessageCircle className="w-4 h-4" aria-hidden="true" />
-                  WhatsApp — {siteConfig.contacts.primary.name}
-                </a>
-                <span className="text-[11px] text-brand-sand font-light self-center max-w-[200px]">
-                  Or WhatsApp{' '}
-                  <a href={siteConfig.contacts.secondary.whatsappHref} className="text-brand-champagne hover:underline underline-offset-4" target="_blank" rel="noopener noreferrer">
-                    {siteConfig.contacts.secondary.name}
-                  </a>
-                </span>
-              </div>
-
-              <div className="flex items-start gap-5 group pt-3 border-t border-brand-bronze-dark/18">
-                <div className="w-12 h-12 rounded-full border border-brand-bronze-dark/25 flex items-center justify-center group-hover:border-brand-copper/45 shrink-0">
-                  <Mail className="w-5 h-5 text-brand-copper" aria-hidden="true" />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-1">Direct email</p>
-                  <a href={siteConfig.emailHref} className="text-brand-ivory text-base font-light hover:text-brand-champagne transition-colors tracking-wide break-all">
-                    {siteConfig.emailDisplay}
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-5 group">
-                <div className="w-12 h-12 rounded-full border border-brand-bronze-dark/25 flex items-center justify-center group-hover:border-brand-copper/45 shrink-0">
-                  <Clock className="w-5 h-5 text-brand-copper" aria-hidden="true" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-1">Consultation hours</p>
-                  <p className="text-brand-ivory text-base font-light">{siteConfig.openingHours}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-t border-brand-bronze-dark/15 pt-5 max-w-md">
-              <p className="text-brand-metal text-[12px] font-light leading-relaxed">
-                Nico Dalton and Luke Muscat field inbound enquiries alongside the team. After hours, WhatsApp reaches Nico primarily; for viewing
-                windows or sensitive matters, escalate discreetly whenever required.
-              </p>
-            </div>
-          </div>
-
-          {/* ── Right: form ── */}
-          <div className="relative">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-brand-panel border border-brand-bronze-dark/25 p-5 sm:p-6 md:p-7 relative"
+              className={`relative border ${elevatePreview ? 'rounded-xl border-[rgba(0,159,227,0.12)] bg-[#08090b]/92 p-6 backdrop-blur-md sm:p-7' : 'border-white/[0.1] bg-[#080a0f]/88 p-5 sm:p-6 md:p-7'}`}
             >
-              {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-16 h-16 border-t border-l border-gold/30 pointer-events-none" aria-hidden="true" />
-              <div className="absolute bottom-0 right-0 w-16 h-16 border-b border-r border-gold/30 pointer-events-none" aria-hidden="true" />
+              {!elevatePreview ? (
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,159,227,0.28)] to-transparent" aria-hidden="true" />
+              ) : null}
 
               {formState === 'success' ? (
                 <motion.div
@@ -145,34 +74,47 @@ export default function ContactForm() {
                   className="py-16 text-center"
                   role="status"
                 >
-                  <div className="w-16 h-16 rounded-full bg-brand-copper/10 border border-brand-copper/25 flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle2 className="w-8 h-8 text-brand-copper" aria-hidden="true" />
+                  <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[rgba(0,159,227,0.28)] bg-[rgba(0,159,227,0.08)]">
+                    <CheckCircle2 className="h-8 w-8 text-[#009FE3]" aria-hidden="true" />
                   </div>
-                  <h3 className="text-2xl font-playfair text-brand-ivory mb-4">Private enquiry received</h3>
+                  <h2 id={elevatePreview ? 'contact-heading' : undefined} className="text-2xl font-playfair text-brand-ivory mb-4">
+                    Private enquiry received
+                  </h2>
                   <p className="text-brand-sand font-light leading-relaxed max-w-sm mx-auto text-sm">
                     {successMessage}
                   </p>
                   <button
                     type="button"
                     onClick={() => setFormState('idle')}
-                    className="mt-8 inline-flex items-center justify-center min-h-[48px] px-8 border border-brand-bronze-dark/45 bg-brand-taupe/30 text-brand-champagne text-[10px] font-bold uppercase tracking-[0.28em] hover:bg-brand-muted hover:border-brand-copper/50 hover:text-brand-ivory transition-colors touch-manipulation"
+                    className="mt-8 inline-flex min-h-[48px] touch-manipulation items-center justify-center border border-white/[0.12] bg-[#0a0c10]/90 px-8 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-[#f4f4f2] transition-colors hover:border-[rgba(0,159,227,0.45)] hover:bg-[#0c0e12]"
                   >
                     Send another enquiry
                   </button>
                 </motion.div>
               ) : (
                 <>
-                  <div className="mb-5">
-                    <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-1">Property Enquiry</p>
-                    <h3 className="text-2xl font-playfair text-brand-ivory">How can we help you?</h3>
-                  </div>
+                  {elevatePreview ? (
+                    <div className="mb-6 text-center">
+                      <h2 id="contact-heading" className="font-playfair text-2xl text-brand-ivory md:text-[1.75rem]">
+                        Enquire
+                      </h2>
+                      <p className="mt-2 text-[13px] font-light text-brand-sand">Serious buyers, sellers, and investors.</p>
+                    </div>
+                  ) : (
+                    <div className="mb-6">
+                      <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#9ea6b0]">Private consultation request</p>
+                      <h3 className="font-playfair text-2xl text-[#f4f4f2]">How can we help you?</h3>
+                    </div>
+                  )}
 
-                  <form onSubmit={handleSubmit} className="space-y-3 relative" aria-label="Property enquiry form">
+                  <form onSubmit={handleSubmit} className="relative space-y-3" aria-label="Property enquiry form">
                     <FormHoneypot idSuffix="contact" value={honeypot} onChange={setHoneypot} />
                     {/* Name + Email */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label htmlFor="cf-name" className="text-[9px] text-brand-champagne/75 uppercase tracking-[0.25em] font-bold block">Full Name</label>
+                        <label htmlFor="cf-name" className="mb-1 block font-sans text-[12px] font-medium tracking-wide text-[#c5cad2]">
+                          Full name
+                        </label>
                         <input
                           id="cf-name"
                           required
@@ -185,7 +127,9 @@ export default function ContactForm() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label htmlFor="cf-email" className="text-[9px] text-brand-champagne/75 uppercase tracking-[0.25em] font-bold block">Email Address</label>
+                        <label htmlFor="cf-email" className="mb-1 block font-sans text-[12px] font-medium tracking-wide text-[#c5cad2]">
+                          Email
+                        </label>
                         <input
                           id="cf-email"
                           required
@@ -200,7 +144,9 @@ export default function ContactForm() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label htmlFor="cf-phone" className="text-[9px] text-brand-champagne/75 uppercase tracking-[0.25em] font-bold block">Phone</label>
+                      <label htmlFor="cf-phone" className="mb-1 block font-sans text-[12px] font-medium tracking-wide text-[#c5cad2]">
+                        Phone
+                      </label>
                       <input
                         id="cf-phone"
                         required
@@ -216,7 +162,9 @@ export default function ContactForm() {
                     {/* Type + Budget */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label htmlFor="cf-type" className="text-[9px] text-brand-champagne/75 uppercase tracking-[0.25em] font-bold block">Enquiry Type</label>
+                        <label htmlFor="cf-type" className="mb-1 block font-sans text-[12px] font-medium tracking-wide text-[#c5cad2]">
+                          Interest
+                        </label>
                         <select
                           id="cf-type"
                           value={formData.type}
@@ -234,7 +182,9 @@ export default function ContactForm() {
                         </select>
                       </div>
                       <div className="space-y-1.5">
-                        <label htmlFor="cf-budget" className="text-[9px] text-brand-champagne/75 uppercase tracking-[0.25em] font-bold block">Budget Range</label>
+                        <label htmlFor="cf-budget" className="mb-1 block font-sans text-[12px] font-medium tracking-wide text-[#c5cad2]">
+                          Budget range
+                        </label>
                         <select
                           id="cf-budget"
                           value={formData.budget}
@@ -250,7 +200,9 @@ export default function ContactForm() {
 
                     {/* Message */}
                     <div className="space-y-1.5">
-                      <label htmlFor="cf-message" className="text-[9px] text-brand-champagne/75 uppercase tracking-[0.25em] font-bold block">Your Message</label>
+                      <label htmlFor="cf-message" className="mb-1 block font-sans text-[12px] font-medium tracking-wide text-[#c5cad2]">
+                        Message
+                      </label>
                       <textarea
                         id="cf-message"
                         required
@@ -263,22 +215,22 @@ export default function ContactForm() {
                     </div>
 
                     {/* Submit */}
-                    <motion.button
-                      whileHover={{ scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
+                    <button
                       type="submit"
                       disabled={formState === 'submitting'}
-                      className="epm-btn-primary w-full min-h-[48px] flex items-center justify-center gap-3 py-4 tracking-[0.28em] text-[10px] disabled:opacity-50 group touch-manipulation"
+                      className="epm-btn-primary group flex min-h-[48px] w-full touch-manipulation items-center justify-center gap-3 py-4 text-[10px] tracking-[0.22em] transition-opacity disabled:opacity-50 sm:tracking-[0.24em]"
                     >
-                      {formState === 'submitting' ? 'Sending…' : (
+                      {formState === 'submitting' ? (
+                        'Sending…'
+                      ) : (
                         <>
-                          Send Private Enquiry
-                          <MessageSquare className="w-4 h-4 group-hover:scale-110 transition-transform" aria-hidden="true" />
+                          Send private enquiry
+                          <MessageSquare className="h-4 w-4 opacity-80 transition-opacity group-hover:opacity-100" aria-hidden="true" />
                         </>
                       )}
-                    </motion.button>
+                    </button>
 
-                    <p className="text-[10px] text-brand-metal text-center leading-relaxed px-2 max-w-md mx-auto">{formDiscretionFootnote}</p>
+                    <p className="mx-auto max-w-md px-2 text-center font-sans text-[11px] font-light leading-relaxed text-[#8e96a3]">{formDiscretionFootnote}</p>
                     {formState === 'error' && (
                       <div className="text-[11px] text-red-200 text-center break-words space-y-2 px-2" role="alert">
                         <p>{successMessage}</p>
@@ -290,6 +242,92 @@ export default function ContactForm() {
               )}
             </motion.div>
           </div>
+
+          {/* ── Right: Get In Touch card ── */}
+          {!elevatePreview ? (
+          <div className="order-2 lg:pl-2">
+            <motion.div
+              initial={{ opacity: 0, x: 12 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="border border-white/[0.09] bg-[#080a0f]/75 p-6 sm:p-8"
+            >
+              <p className="mb-3 flex items-center gap-3 font-sans text-[11px] font-medium tracking-[0.12em] text-[#9ea6b0]">
+                <span className="inline-block h-px w-8 bg-[rgba(0,159,227,0.55)]" aria-hidden="true" />
+                Concierge
+              </p>
+              <h2 id="contact-heading" className="mb-3 font-playfair text-2xl leading-tight text-[#f4f4f2] md:text-3xl">
+                Get in touch
+              </h2>
+              <p className="mb-8 max-w-md font-sans text-sm font-light leading-relaxed text-[#b4bcc8]">
+                Speak with an Elevate advisor: share what you are looking for and our team will guide you privately.
+              </p>
+
+              <div className="mb-8 space-y-6">
+                {[siteConfig.contacts.primary, siteConfig.contacts.secondary].map((c) => (
+                  <div key={c.name} className="group flex items-start gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.1] transition-colors group-hover:border-[rgba(0,159,227,0.35)]">
+                      <Phone className="h-4 w-4 text-[#009FE3]" aria-hidden="true" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="mb-1 font-sans text-[11px] font-medium tracking-wide text-[#9ea6b0]">{c.name}</p>
+                      <a href={c.phoneHref} className="block truncate text-base font-light tracking-wide text-[#f4f4f2] transition-colors hover:text-white">
+                        {c.phoneDisplay}
+                      </a>
+                    </div>
+                  </div>
+                ))}
+
+                <div className="flex flex-wrap items-start gap-x-5 gap-y-3">
+                  <a
+                    href={siteConfig.primaryWhatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-[46px] shrink-0 items-center gap-2 border border-[rgba(0,159,227,0.28)] bg-[rgba(0,159,227,0.08)] px-4 text-[10px] font-bold uppercase tracking-[0.22em] text-[#f4f4f2] transition-colors hover:bg-[rgba(0,159,227,0.14)] touch-manipulation"
+                  >
+                    <MessageCircle className="h-4 w-4 text-[#009FE3]" aria-hidden="true" />
+                    WhatsApp: {siteConfig.contacts.primary.name}
+                  </a>
+                  <span className="max-w-[210px] self-center text-[11px] font-light text-[#aeb4bf]">
+                    Or WhatsApp{' '}
+                    <a href={siteConfig.contacts.secondary.whatsappHref} className="text-[#009FE3] underline-offset-4 hover:underline" target="_blank" rel="noopener noreferrer">
+                      {siteConfig.contacts.secondary.name}
+                    </a>
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-4 border-t border-white/[0.06] pt-6">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.1]">
+                    <Mail className="h-4 w-4 text-[#009FE3]" aria-hidden="true" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="mb-1 font-sans text-[11px] font-medium tracking-wide text-[#9ea6b0]">Direct email</p>
+                    <a href={siteConfig.emailHref} className="break-all text-base font-light tracking-wide text-[#f4f4f2] transition-colors hover:text-white">
+                      {siteConfig.emailDisplay}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.1]">
+                    <Clock className="h-4 w-4 text-[#009FE3]" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p className="mb-1 font-sans text-[11px] font-medium tracking-wide text-[#9ea6b0]">Consultation hours</p>
+                    <p className="text-base font-light text-[#f4f4f2]">{siteConfig.openingHours}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-white/[0.06] pt-6">
+                <p className="text-[12px] font-light leading-relaxed text-[#8e96a3]">
+                  Nico Dalton and Luke Muscat field inbound enquiries alongside the team. After hours, WhatsApp reaches Nico primarily; for viewing
+                  windows or sensitive matters, escalate discreetly whenever required.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+          ) : null}
         </div>
       </div>
     </section>

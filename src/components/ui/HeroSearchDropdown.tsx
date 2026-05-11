@@ -29,10 +29,10 @@ export type HeroSearchDropdownProps = {
 
 /** Matches the former native `<select>` trigger appearance (transparent, no boxed field). */
 const triggerLike =
-  'w-full min-h-[44px] bg-transparent text-brand-ivory/95 text-xs sm:text-sm font-light outline-none cursor-pointer truncate py-1.5 pl-0 pr-7 rounded-sm border border-transparent focus:border-brand-champagne/50 focus:ring-0 text-left';
+  'w-full min-h-[44px] bg-transparent text-brand-ivory/95 text-xs sm:text-sm font-light outline-none cursor-pointer truncate py-1.5 pl-0 pr-7 rounded-sm border border-transparent focus:border-brand-copper/55 focus:ring-0 text-left';
 
 const listboxSurface =
-  'max-h-[min(50vh,280px)] overflow-y-auto overscroll-contain rounded-sm border border-brand-bronze-dark/45 bg-[#211A16] py-1 shadow-[0_16px_40px_rgba(17,15,12,0.75)]';
+  'max-h-[min(50vh,280px)] overflow-y-auto overscroll-contain rounded-sm border border-white/12 bg-brand-panel py-1 shadow-[0_16px_40px_rgba(8,10,14,0.65)]';
 
 export default function HeroSearchDropdown({
   fieldId,
@@ -244,8 +244,8 @@ export default function HeroSearchDropdown({
               aria-selected={selected}
               tabIndex={-1}
               className={`cursor-pointer border-l-2 px-3 py-2.5 text-xs font-light text-brand-ivory/95 outline-none transition-colors sm:text-sm ${
-                selected ? 'border-brand-copper bg-brand-bronze-dark/25' : 'border-transparent'
-              } ${active && !selected ? 'bg-brand-bronze-dark/35' : ''} ${!active && !selected ? 'hover:bg-brand-bronze-dark/28' : ''}`}
+                selected ? 'border-brand-copper bg-brand-copper/14' : 'border-transparent'
+              } ${active && !selected ? 'bg-white/8' : ''} ${!active && !selected ? 'hover:bg-white/6' : ''}`}
               onMouseEnter={() => setActiveIdx(i)}
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => choose(opt.value)}
@@ -274,7 +274,7 @@ export default function HeroSearchDropdown({
         <span className="min-w-0 truncate">{selectedLabel}</span>
       </button>
       <ChevronDown
-        className={`pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-bronze-dark/70 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+        className={`pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-metal/85 transition-transform ${isOpen ? 'rotate-180' : ''}`}
         aria-hidden="true"
       />
       {typeof document !== 'undefined' && menu ? createPortal(menu, document.body) : null}

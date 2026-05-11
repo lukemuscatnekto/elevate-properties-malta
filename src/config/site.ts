@@ -27,8 +27,8 @@ export const siteConfig = {
 
   domainUrl: 'https://elevatepropertiesmalta.com',
 
-  emailDisplay: 'info@elevatepropertiesmalta.com',
-  emailHref: 'mailto:info@elevatepropertiesmalta.com',
+  emailDisplay: 'nicodalton@elevatepropertiesmalta.com',
+  emailHref: 'mailto:nicodalton@elevatepropertiesmalta.com',
 
   contacts: {
     primary: primaryContact,

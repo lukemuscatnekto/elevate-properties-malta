@@ -1,105 +1,141 @@
 import { motion } from 'motion/react';
-import { Key, Tag, Home, TrendingUp, ArrowRight, ShieldCheck, Gem, Camera, Building2 } from 'lucide-react';
+import { Key, Tag, Home, TrendingUp, ArrowRight, ShieldCheck, Camera } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { anchorHref } from '../utils/routeAnchors';
+import { useElevatePreviewMode } from '../context/ElevatePreviewContext';
 
-const serviceCards = [
+const defaultServiceCards = [
   {
-    title: 'Buy Property in Malta',
-    desc: 'Access curated villas, penthouses, apartments, and private opportunities matched to your goals and timing.',
+    title: 'Property Advisory',
+    desc: 'Bespoke guidance to find the right property.',
     Icon: Key,
     href: '#properties',
   },
   {
-    title: 'Sell With Confidence',
-    desc: 'Position your property with premium presentation, qualified buyer handling, and trusted advisory from valuation to negotiation.',
+    title: 'Buyer Representation',
+    desc: 'Expert negotiation and full purchase support.',
     Icon: Tag,
     href: '#list-property',
   },
   {
-    title: 'Confidential Valuations',
-    desc: 'Receive discreet pricing guidance shaped by current Malta demand, property positioning, and route-to-market strategy.',
+    title: 'Seller Strategy',
+    desc: 'Position your property with clarity and confidence.',
     Icon: ShieldCheck,
     href: '#contact',
   },
   {
-    title: 'Luxury Property Marketing',
-    desc: 'Showcase your asset through high-end media, controlled exposure, and polished storytelling aligned to serious buyers.',
+    title: 'Rentals & Lettings',
+    desc: 'Guidance for landlords, tenants, and rental opportunities.',
     Icon: Camera,
     href: '#list-property',
   },
   {
     title: 'Investment Advisory',
-    desc: 'Evaluate opportunities with practical guidance on holding strategy, positioning, and acquisition decision support.',
-    Icon: TrendingUp,
-    href: '#contact',
-  },
-  {
-    title: 'Rent & Letting Guidance',
-    desc: 'Supported by wider rental-market awareness and trusted network reach, we help clients approach Malta rentals and lettings with clearer guidance.',
+    desc: 'Clear insight for stronger property decisions.',
     Icon: Home,
     href: '#contact',
   },
   {
-    title: 'Direct-Owner Opportunities',
-    desc: 'Access conversations and opportunities surfaced through direct-owner acquisition and relationship-driven sourcing.',
-    Icon: Building2,
-    href: '#properties',
-  },
-  {
-    title: 'Private Viewings',
-    desc: 'Arrange discreet viewing schedules with clear preparation and follow-up that respects owners, buyers, and timing.',
-    Icon: Gem,
+    title: 'Property Management',
+    desc: 'Practical support for long-term property stewardship.',
+    Icon: TrendingUp,
     href: '#contact',
   },
-];
+] as const;
+
+const previewServiceCards = [
+  {
+    title: 'Property advisory',
+    desc: 'Brief-to-shortlist discipline — Malta-wide sourcing with valuation realism before viewings.',
+    Icon: Key,
+    href: '#buy-malta',
+  },
+  {
+    title: 'Buyer representation',
+    desc: 'Negotiation architecture, diligence pacing, and discreet introductions through to notarial completion.',
+    Icon: Tag,
+    href: '#buy-malta',
+  },
+  {
+    title: 'Seller strategy',
+    desc: 'Premium narrative, media direction, and buyer qualification so leverage stays with the owner.',
+    Icon: ShieldCheck,
+    href: '#sell-malta',
+  },
+  {
+    title: 'Rentals & lettings',
+    desc: 'Landlord positioning, tenancy structuring, and lettings intelligence via wider network awareness.',
+    Icon: Camera,
+    href: '#contact',
+  },
+  {
+    title: 'Investment advisory',
+    desc: 'Scenario modelling for yield, refurbishment, and duration holds — aligned to liquidity appetite.',
+    Icon: Home,
+    href: '#investment',
+  },
+  {
+    title: 'Property management',
+    desc: 'Long-horizon stewardship for owners who require operational continuity after acquisition.',
+    Icon: TrendingUp,
+    href: '#contact',
+  },
+] as const;
 
 export default function AboutServices() {
   const { pathname } = useLocation();
+  const elevatePreview = useElevatePreviewMode();
+  const serviceCards = elevatePreview ? previewServiceCards : defaultServiceCards;
 
   return (
-    <section id="about" className="scroll-anchor-target bg-brand-brown-dark relative border-t border-brand-bronze-dark/25" aria-labelledby="about-heading">
+    <section
+      id="about"
+      className={`scroll-anchor-target relative border-t border-white/[0.06] bg-[#07090d] ${elevatePreview ? 'border-[rgba(0,159,227,0.08)]' : ''}`}
+      aria-labelledby="about-heading"
+    >
+      <div className="epm-accent-line absolute inset-x-0 top-0" aria-hidden="true" />
 
       {/* ── About block ── */}
-      <div className="py-10 px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-7 max-w-3xl">
-            <p className="text-[10px] text-brand-champagne font-bold uppercase tracking-[0.35em] mb-3 flex items-center gap-3">
-              <span className="w-8 h-px bg-brand-copper/60 inline-block" aria-hidden="true" />
-              Official positioning
+      <div className={`px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'py-14 sm:py-[4.5rem]' : 'py-14 sm:py-16'}`}>
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 max-w-3xl">
+            <p className="mb-3 flex items-center gap-3 font-sans text-[11px] font-medium tracking-[0.14em] text-[#9ea6b0]">
+              <span className="h-px w-10 bg-gradient-to-r from-[rgba(0,159,227,0.5)] to-transparent" aria-hidden="true" />
+              Brand foundation
             </p>
-            <h2 id="about-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory leading-tight mb-2">
-              Elevate Leads. Zanzi and Quicklets Back the Network.
+            <h2 id="about-heading" className="mb-3 font-playfair text-2xl leading-tight text-[#f4f4f2] md:text-3xl">
+              Elevate by Zanzi
             </h2>
-            <p className="text-brand-sand text-sm font-light leading-relaxed max-w-2xl">
-              Elevate by Zanzi brings together premium digital execution, trusted franchise credibility, and broader Malta property-network
-              strength. The result is a more modern, more visible, and more trusted way to move through the Malta property market.
+            <p className="max-w-2xl font-sans text-sm font-light leading-relaxed text-[#b4bcc8] sm:text-[15px]">
+              {elevatePreview
+                ? 'Elevate carries the luxury tone — ZANZI franchise credibility signals Malta execution seriousness. Quicklets network depth supports lettings intelligence when your mandate requires it.'
+                : 'Modern luxury by Elevate. Official franchise credibility through Zanzi. Supported by the wider Quicklets property network.'}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5 items-stretch">
+          <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3 lg:gap-5">
             <motion.article
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.75 }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
-              className="border border-brand-copper/35 bg-brand-panel p-6 sm:p-7 shadow-[0_16px_40px_rgba(20,15,11,0.45)]"
+              className="border border-white/[0.09] bg-[#080a0f]/85 p-6 sm:p-7"
             >
-              <p className="text-[10px] text-brand-champagne uppercase tracking-[0.28em] font-bold mb-2">Elevate</p>
-              <h3 className="text-lg sm:text-xl font-playfair text-brand-ivory mb-3">Premium Presentation</h3>
-              <p className="text-brand-sand text-sm font-light leading-relaxed mb-4">
-                Elevate delivers a modern luxury property experience through digital-first execution, private advisory, and premium representation.
+              <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#009FE3]">Elevate</p>
+              <h3 className="mb-3 font-playfair text-lg text-[#f4f4f2] sm:text-xl">Premium presentation</h3>
+              <p className="mb-4 font-sans text-sm font-light leading-relaxed text-[#aeb4bf]">
+                Premium property presentation and private advisory.
               </p>
-              <ul className="space-y-2.5 text-[12px] sm:text-sm text-brand-sand">
+              <ul className="space-y-2.5 font-sans text-[13px] font-light leading-relaxed text-[#c5cad2] sm:text-sm">
                 {[
                   'Luxury property positioning',
                   'Premium website experience',
-                  'Private advisory process',
+                  'Private buyer and seller advisory',
                   'Modern digital marketing',
                   'Direct-owner acquisition mindset',
                 ].map((line) => (
                   <li key={line} className="flex items-start gap-2.5">
-                    <span className="mt-2 h-px w-5 shrink-0 bg-brand-copper/55" aria-hidden="true" />
+                    <span className="mt-2 h-px w-4 shrink-0 bg-[rgba(0,159,227,0.45)]" aria-hidden="true" />
                     <span>{line}</span>
                   </li>
                 ))}
@@ -107,26 +143,26 @@ export default function AboutServices() {
             </motion.article>
 
             <motion.article
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.75 }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
-              className="border border-brand-bronze-dark/30 bg-brand-taupe p-6 sm:p-7"
+              className="border border-white/[0.09] bg-[#080a0f]/75 p-6 sm:p-7"
             >
-              <p className="text-[10px] text-brand-champagne uppercase tracking-[0.28em] font-bold mb-2">Zanzi</p>
-              <h3 className="text-lg sm:text-xl font-playfair text-brand-ivory mb-3">Franchise Credibility</h3>
-              <p className="text-brand-sand text-sm font-light leading-relaxed mb-4">
-                Zanzi adds established real-estate recognition, local market knowledge, and trusted franchise credibility across Malta.
+              <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#009FE3]">Zanzi</p>
+              <h3 className="mb-3 font-playfair text-lg text-[#f4f4f2] sm:text-xl">Franchise credibility</h3>
+              <p className="mb-4 font-sans text-sm font-light leading-relaxed text-[#aeb4bf]">
+                Official franchise backing and Malta market trust.
               </p>
-              <ul className="space-y-2.5 text-[12px] sm:text-sm text-brand-sand">
+              <ul className="space-y-2.5 font-sans text-[13px] font-light leading-relaxed text-[#c5cad2] sm:text-sm">
                 {[
                   'Recognised Malta real-estate presence',
                   'Local market experience',
                   'Buyer and seller trust',
-                  'Strong property network',
+                  'Strong local recognition',
                 ].map((line) => (
                   <li key={line} className="flex items-start gap-2.5">
-                    <span className="mt-2 h-px w-5 shrink-0 bg-brand-copper/55" aria-hidden="true" />
+                    <span className="mt-2 h-px w-4 shrink-0 bg-[rgba(0,159,227,0.45)]" aria-hidden="true" />
                     <span>{line}</span>
                   </li>
                 ))}
@@ -134,26 +170,26 @@ export default function AboutServices() {
             </motion.article>
 
             <motion.article
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.75 }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
-              className="border border-brand-bronze-dark/30 bg-brand-taupe/80 p-6 sm:p-7"
+              className="border border-white/[0.09] bg-[#080a0f]/75 p-6 sm:p-7"
             >
-              <p className="text-[10px] text-brand-champagne uppercase tracking-[0.28em] font-bold mb-2">Quicklets</p>
-              <h3 className="text-lg sm:text-xl font-playfair text-brand-ivory mb-3">Lettings &amp; Network Reach</h3>
-              <p className="text-brand-sand text-sm font-light leading-relaxed mb-4">
-                Quicklets contributes trusted lettings awareness and wider network support for rental and investment pathways in Malta.
+              <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#8b7ba8]">Quick Lets</p>
+              <h3 className="mb-3 font-playfair text-lg text-[#f4f4f2] sm:text-xl">Lettings &amp; network reach</h3>
+              <p className="mb-4 font-sans text-sm font-light leading-relaxed text-[#aeb4bf]">
+                Lettings network support and wider market awareness.
               </p>
-              <ul className="space-y-2.5 text-[12px] sm:text-sm text-brand-sand">
+              <ul className="space-y-2.5 font-sans text-[13px] font-light leading-relaxed text-[#c5cad2] sm:text-sm">
                 {[
                   'Lettings market awareness',
                   'Rental and investment support',
-                  'Wider property network trust',
+                  'Wider property-network support',
                   'Malta tenant and landlord familiarity',
                 ].map((line) => (
                   <li key={line} className="flex items-start gap-2.5">
-                    <span className="mt-2 h-px w-5 shrink-0 bg-brand-copper/55" aria-hidden="true" />
+                    <span className="mt-2 h-px w-4 shrink-0 bg-[rgba(139,123,168,0.45)]" aria-hidden="true" />
                     <span>{line}</span>
                   </li>
                 ))}
@@ -161,51 +197,61 @@ export default function AboutServices() {
             </motion.article>
           </div>
 
-          <p className="mt-6 text-brand-metal text-sm font-light leading-relaxed max-w-3xl">
-            Together, Elevate by Zanzi offers a more trusted, modern, and personal way to buy, sell, and invest in Malta property.
+          <p className="mt-8 max-w-3xl font-sans text-sm font-light leading-relaxed text-[#8e96a3]">
+            Together, Elevate by Zanzi offers a calmer, more trusted way to buy, sell, and invest in Malta property.
           </p>
           <p className="mt-6">
             <a
               href={anchorHref(pathname, '#contact')}
-              className="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 border border-brand-bronze-dark/45 bg-brand-taupe/40 text-brand-champagne text-[10px] font-bold uppercase tracking-[0.28em] hover:bg-brand-muted hover:border-brand-copper/50 hover:text-brand-ivory transition-colors touch-manipulation"
+              className="inline-flex min-h-[48px] w-full touch-manipulation items-center justify-center gap-2 border border-[rgba(0,159,227,0.35)] bg-[#0a0c10]/90 px-6 font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-[#f4f4f2] transition-colors hover:border-[rgba(0,159,227,0.55)] hover:bg-[#0c0e14]/95 sm:w-auto sm:px-8 sm:tracking-[0.22em]"
             >
-              Book a Private Consultation <ArrowRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+              Book a private consultation <ArrowRight className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             </a>
           </p>
         </div>
       </div>
 
       {/* ── Services block ── */}
-      <div id="services" className="scroll-anchor-target py-10 px-4 sm:px-8 border-t border-brand-bronze-dark/25 bg-brand-charcoal/40">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-7 max-w-2xl">
-            <h3 className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-2">Services by Elevate by Zanzi</h3>
-            <p className="text-brand-sand text-xs sm:text-sm font-light leading-relaxed">
-              Official, high-touch support across buying, selling, renting, lettings, valuation, and investment in Malta.
+      <div
+        id="services"
+        className={`scroll-anchor-target border-t border-white/[0.06] bg-[#080a10] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-[rgba(0,159,227,0.07)] py-16 sm:py-20' : 'py-14 sm:py-16'}`}
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className={`max-w-2xl ${elevatePreview ? 'mb-12' : 'mb-10'}`}>
+            <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.14em] text-[#9ea6b0]">Our services</p>
+            <h3 className="mb-3 font-playfair text-2xl leading-tight text-[#f4f4f2] md:text-[2rem] md:leading-tight">
+              {elevatePreview ? 'Full-stack Malta property advisory' : 'Advisory across every stage of Malta property'}
+            </h3>
+            <p className="font-sans text-sm font-light leading-relaxed text-[#aeb4bf] sm:text-[15px]">
+              {elevatePreview
+                ? 'Serious buyers, direct owners, investors, and landlords — each pathway receives discreet handling and credible valuation discipline.'
+                : 'Private advisory across buying, selling, lettings, investment, and long-term property management.'}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="overflow-hidden rounded-sm border border-white/[0.08]">
             {serviceCards.map((svc, i) => (
               <motion.a
                 key={svc.title}
                 href={anchorHref(pathname, svc.href)}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 }}
+                transition={{ delay: i * 0.04, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true }}
-                className="group bg-brand-panel border border-brand-bronze-dark/25 hover:border-brand-copper/50 min-w-0 p-4 sm:p-5 flex flex-col min-h-[158px] sm:min-h-[168px] lg:min-h-0 transition-all duration-500 outline-none focus:ring-1 focus:ring-brand-copper/55 touch-manipulation"
+                className="group flex min-h-0 min-w-0 flex-col gap-3 border-b border-white/[0.06] bg-[#07090d]/40 px-5 py-5 transition-colors last:border-b-0 hover:bg-[#0a0c12]/55 focus:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[rgba(0,159,227,0.45)] sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-6 sm:py-6 touch-manipulation"
               >
-                <div className="w-9 h-9 rounded-full border border-brand-bronze-dark/30 flex items-center justify-center mb-3 group-hover:border-brand-copper/55 group-hover:bg-brand-bronze-dark/15 transition-all duration-500">
-                  <svc.Icon className="w-4 h-4 text-brand-copper" aria-hidden="true" />
+                <div className="flex min-w-0 flex-1 items-start gap-4">
+                  <svc.Icon className="mt-0.5 h-4 w-4 shrink-0 text-[rgba(0,159,227,0.55)] transition-colors group-hover:text-[#009FE3]" aria-hidden="true" />
+                  <div className="min-w-0">
+                    <h4 className="font-playfair text-lg leading-snug text-[#f4f4f2] transition-colors group-hover:text-white sm:text-xl">
+                      {svc.title}
+                    </h4>
+                    <p className="mt-1.5 font-sans text-[13px] font-light leading-relaxed text-[#9ea6b0] sm:text-sm">{svc.desc}</p>
+                  </div>
                 </div>
-
-                <h4 className="text-base sm:text-lg font-playfair text-brand-ivory mb-2 group-hover:text-brand-champagne transition-colors duration-400">{svc.title}</h4>
-                <p className="text-brand-metal text-[10px] sm:text-[11px] font-light leading-relaxed flex-1 line-clamp-5 sm:line-clamp-4">{svc.desc}</p>
-
-                <div className="mt-5 flex items-center gap-2 text-[10px] text-brand-bronze-dark/80 uppercase tracking-widest font-bold group-hover:gap-4 transition-all duration-400" aria-hidden="true">
-                  Continue <ArrowRight className="w-3.5 h-3.5" />
-                </div>
+                <span className="flex shrink-0 items-center gap-2 font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-[#7d8694] transition-all group-hover:gap-3 group-hover:text-[#009FE3]" aria-hidden="true">
+                  Continue <ArrowRight className="h-3.5 w-3.5" />
+                </span>
               </motion.a>
             ))}
           </div>

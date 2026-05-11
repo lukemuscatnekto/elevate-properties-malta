@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Phone, MessageCircle } from 'lucide-react';
 import { publicAdvisors, type PublicAdvisor } from '../data/advisors';
+import { useElevatePreviewMode } from '../context/ElevatePreviewContext';
 
-const avatarFrame =
-  'mx-auto md:mx-0 shrink-0 w-[72px] h-[72px] sm:w-20 sm:h-20 rounded-full border border-brand-bronze-dark/40 bg-brand-espresso/85 overflow-hidden';
+const portraitFrame =
+  'mx-auto shrink-0 overflow-hidden rounded-sm border border-white/[0.1] bg-[#07090d] shadow-[0_12px_40px_rgba(0,0,0,0.35)] md:mx-0';
 
 function AdvisorAvatar({ advisor }: { advisor: PublicAdvisor }) {
   const [photoFailed, setPhotoFailed] = useState(false);
@@ -14,13 +15,13 @@ function AdvisorAvatar({ advisor }: { advisor: PublicAdvisor }) {
 
   if (showPhoto && photoSrc) {
     return (
-      <div className={`${avatarFrame} ring-1 ring-brand-bronze-dark/25`}>
+      <div className={`${portraitFrame} aspect-[4/5] w-[7.5rem] sm:w-[8.25rem]`}>
         <img
           src={photoSrc}
           alt={photoAlt}
-          width={80}
-          height={80}
-          className="w-full h-full object-cover"
+          width={132}
+          height={165}
+          className="h-full w-full object-cover"
           loading="lazy"
           decoding="async"
           onError={() => setPhotoFailed(true)}
@@ -30,76 +31,83 @@ function AdvisorAvatar({ advisor }: { advisor: PublicAdvisor }) {
   }
 
   return (
-    <div className={`${avatarFrame} flex items-center justify-center`} aria-hidden="true">
-      <span className="font-playfair text-lg sm:text-xl text-brand-champagne tracking-[0.12em]">{advisor.initials}</span>
+    <div className={`${portraitFrame} flex aspect-[4/5] w-[7.5rem] items-center justify-center sm:w-[8.25rem]`} aria-hidden="true">
+      <span className="font-playfair text-xl tracking-[0.12em] text-[#d0d6de] sm:text-2xl">{advisor.initials}</span>
     </div>
   );
 }
 
 export default function Agents() {
+  const elevatePreview = useElevatePreviewMode();
+
   return (
     <section
       id="agents"
-      className="scroll-anchor-target py-10 px-4 sm:px-8 bg-brand-charcoal border-t border-brand-bronze-dark/25"
+      className={`scroll-anchor-target relative overflow-hidden border-t border-white/[0.06] bg-[#080a10] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-[rgba(0,159,227,0.07)] py-14 sm:py-[4.5rem]' : 'py-14 sm:py-16'}`}
       aria-labelledby="agents-heading"
     >
-      <div className="max-w-5xl mx-auto">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_40%_at_50%_0%,rgba(0,159,227,0.06),transparent_50%)]" aria-hidden="true" />
+      <div className="relative mx-auto max-w-5xl">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-9 sm:mb-10"
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-10 text-center sm:mb-12"
         >
-          <p className="text-[10px] text-brand-champagne font-bold uppercase tracking-[0.35em] mb-3 flex items-center justify-center gap-3">
-            <span className="w-8 h-px bg-brand-copper/50" aria-hidden="true" />
-            Private Advisors
-            <span className="w-8 h-px bg-brand-copper/50" aria-hidden="true" />
+          <p className="mb-3 flex items-center justify-center gap-3 font-sans text-[11px] font-medium tracking-[0.14em] text-[#9ea6b0]">
+            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[rgba(0,159,227,0.45)]" aria-hidden="true" />
+            Private advisors
+            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[rgba(0,159,227,0.45)]" aria-hidden="true" />
           </p>
-          <h2 id="agents-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory leading-tight mb-3">
-            Meet the Advisors Behind Elevate by Zanzi
+          <h2 id="agents-heading" className="mb-3 font-playfair text-2xl leading-tight text-[#f4f4f2] md:text-3xl">
+            Discreet guidance, personal service.
           </h2>
-          <p className="text-brand-sand text-xs sm:text-sm font-light leading-relaxed max-w-xl mx-auto">
-            Local guidance, premium presentation, and a more personal real-estate experience.
+          <p className="mx-auto max-w-xl px-1 font-sans text-xs font-light leading-relaxed text-[#b4bcc8] sm:text-sm">
+            {elevatePreview
+              ? 'Principal advisors field acquisitions, listings, and investment mandates, with discretion calibrated to Malta\'s luxury corridors.'
+              : 'Local guidance, premium presentation, and a more personal real-estate experience.'}
           </p>
         </motion.div>
 
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 list-none p-0 m-0">
+        <ul className="m-0 grid list-none grid-cols-1 gap-6 p-0 md:grid-cols-2 md:gap-7">
           {publicAdvisors.map((advisor, i) => (
             <motion.li
               key={advisor.id}
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: i * 0.08 }}
-              className="border border-brand-bronze-dark/28 bg-brand-panel p-6 sm:p-7 flex flex-col items-center text-center md:items-stretch md:text-left"
+              transition={{ duration: 0.55, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+              className={`flex flex-col border border-white/[0.08] bg-[#07090d]/85 p-6 sm:p-7 ${elevatePreview ? 'rounded-sm' : ''}`}
             >
-              <div className="flex flex-col md:flex-row md:items-start gap-5 w-full">
+              <div className="flex w-full flex-col gap-6 md:flex-row md:items-start">
                 <AdvisorAvatar advisor={advisor} />
-                <div className="flex-1 min-w-0 space-y-2">
-                  <h3 className="text-lg sm:text-xl font-playfair text-brand-ivory">{advisor.name}</h3>
-                  <p className="text-[10px] text-brand-copper uppercase tracking-[0.22em] font-semibold">{advisor.role}</p>
-                  <p className="text-brand-sand text-xs sm:text-sm font-light leading-relaxed pt-1">{advisor.bio}</p>
+                <div className="min-w-0 flex-1 space-y-2 text-center md:text-left">
+                  <h3 className="font-playfair text-xl text-[#f4f4f2] sm:text-2xl">{advisor.name}</h3>
+                  <p className="font-sans text-[11px] font-medium uppercase tracking-[0.14em] text-[#009FE3] sm:text-xs sm:tracking-[0.16em]">
+                    {advisor.role}
+                  </p>
+                  <p className="pt-1 font-sans text-sm font-light leading-relaxed text-[#b4bcc8]">{advisor.bio}</p>
                 </div>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-brand-bronze-dark/20 w-full flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
+              <div className="mt-6 flex w-full flex-col gap-3 border-t border-white/[0.08] pt-6 sm:flex-row sm:justify-start md:justify-start">
                 <a
                   href={advisor.phoneHref}
-                  className="inline-flex items-center justify-center gap-2 min-h-[48px] px-4 border border-brand-bronze-dark/35 bg-brand-taupe/30 text-brand-ivory/95 text-[11px] font-light hover:border-brand-copper/50 hover:text-brand-champagne transition-colors touch-manipulation"
+                  className="inline-flex min-h-[48px] w-full touch-manipulation items-center justify-center gap-2 border border-white/[0.12] bg-[#080a0f]/90 px-4 font-sans text-[11px] font-light text-[#f4f4f2] transition-colors hover:border-[rgba(0,159,227,0.35)] hover:text-[#e8eaee] sm:w-auto"
                   aria-label={`Call ${advisor.name} on ${advisor.phoneDisplay}`}
                 >
-                  <Phone className="w-3.5 h-3.5 text-brand-copper shrink-0" aria-hidden="true" />
+                  <Phone className="h-3.5 w-3.5 shrink-0 text-[#009FE3]" aria-hidden="true" />
                   {advisor.phoneDisplay}
                 </a>
                 <a
                   href={advisor.whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 min-h-[48px] px-5 border border-brand-bronze-dark/45 text-[10px] font-bold uppercase tracking-[0.2em] text-brand-champagne hover:bg-gold hover:text-charcoal transition-colors touch-manipulation"
+                  className="inline-flex min-h-[48px] w-full touch-manipulation items-center justify-center gap-2 border border-[rgba(0,159,227,0.22)] bg-[rgba(0,159,227,0.06)] px-5 font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-[#f4f4f2] transition-colors hover:border-[rgba(0,159,227,0.38)] hover:bg-[rgba(0,159,227,0.1)] sm:w-auto"
                   aria-label={`Open WhatsApp to message ${advisor.name}`}
                 >
-                  <MessageCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
+                  <MessageCircle className="h-4 w-4 shrink-0 text-[#009FE3]" aria-hidden="true" />
                   WhatsApp
                 </a>
               </div>
@@ -107,7 +115,7 @@ export default function Agents() {
           ))}
         </ul>
 
-        <p className="mt-8 sm:mt-10 text-center text-[11px] sm:text-xs text-brand-metal font-light leading-relaxed max-w-2xl mx-auto">
+        <p className="mx-auto mt-10 max-w-2xl text-center font-sans text-[11px] font-light leading-relaxed text-[#8e96a3] sm:mt-12 sm:text-xs">
           For discretion, first conversations can be handled by phone, WhatsApp, or private appointment.
         </p>
       </div>

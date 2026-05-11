@@ -1,121 +1,116 @@
 import { motion } from 'motion/react';
-import { ShieldCheck, Eye, Presentation, Briefcase, Users, Megaphone, Home, MessageSquare } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { anchorHref } from '../utils/routeAnchors';
+import { useElevatePreviewMode } from '../context/ElevatePreviewContext';
 
 const trustPoints = [
   {
-    Icon: ShieldCheck,
     title: 'Official Zanzi franchise',
-    body: 'Trusted local recognition combined with a premium, modern advisory experience.',
+    body: 'Trusted local recognition paired with a premium advisory experience.',
   },
   {
-    Icon: Eye,
-    title: 'Private property advisory',
-    body: 'Tailored guidance for buyers, sellers, and investors through clear, discreet communication.',
+    title: 'Private buyer and seller advisory',
+    body: 'Tailored guidance with discreet communication at every stage.',
   },
   {
-    Icon: Users,
-    title: 'Supported by the Quicklets Network',
-    body: 'Added confidence from wider lettings awareness and property-network familiarity in Malta.',
-  },
-  {
-    Icon: Presentation,
     title: 'Premium listing presentation',
-    body: 'Property media and narrative are handled to reflect asset quality and attract serious enquiries.',
+    body: 'Media and storytelling are shaped to attract serious enquiries.',
   },
   {
-    Icon: Briefcase,
     title: 'Confidential seller valuations',
-    body: 'Careful, practical valuation guidance for owners deciding how and when to enter the market.',
+    body: 'Practical valuation guidance for owners planning their route to market.',
   },
   {
-    Icon: Users,
-    title: 'Buyer and tenant enquiry handling',
-    body: 'Introductions are managed with fit, readiness, and transaction quality in mind.',
-  },
-  {
-    Icon: Megaphone,
-    title: 'Modern digital marketing',
-    body: 'Digital execution supports discoverability while maintaining quality control and discretion.',
-  },
-  {
-    Icon: Home,
-    title: 'Direct-owner sourcing',
-    body: 'Relationship-led sourcing opens access to opportunities beyond standard listing flows.',
-  },
-  {
-    Icon: MessageSquare,
-    title: 'Clear follow-up and communication',
-    body: 'Every stage is coordinated with transparent next steps and consistent advisor contact.',
+    title: 'Supported by wider property-network reach',
+    body: 'Additional confidence through trusted local network support.',
   },
 ];
 
+const previewProcessSteps = [
+  { title: 'Private briefing', body: 'Goals, constraints, and posture — mapped before any stock is proposed.' },
+  { title: 'Curated sourcing', body: 'Featured, off-market, and owner-direct layers validated against your mandate.' },
+  { title: 'Negotiation architecture', body: 'Offers framed around leverage, timing, and completion realism.' },
+  { title: 'Completion stewardship', body: 'Structured liaison toward notarial commitment — fewer friction surprises.' },
+] as const;
+
+const defaultProcessSteps = [
+  { title: 'Consultation', body: 'Understanding your goals and lifestyle.' },
+  { title: 'Curated Search', body: 'Access to selected and private opportunities.' },
+  { title: 'Expert Guidance', body: 'Strategic advice and negotiation support.' },
+  { title: 'Seamless Acquisition', body: 'Support from first viewing to completion.' },
+] as const;
+
 export default function TrustAndProcess() {
   const { pathname } = useLocation();
+  const elevatePreview = useElevatePreviewMode();
+  const processSteps = elevatePreview ? previewProcessSteps : defaultProcessSteps;
 
   return (
     <section
       id="trust"
-      className="scroll-anchor-target py-10 px-4 sm:px-8 bg-brand-charcoal border-t border-brand-bronze-dark/25"
+      className={`scroll-anchor-target relative border-t border-white/[0.06] bg-[#07090d] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-[rgba(0,159,227,0.08)] py-14 sm:py-[4.5rem]' : 'py-14 sm:py-16'}`}
       aria-labelledby="trust-heading"
     >
-      <div className="max-w-7xl mx-auto">
-        <h2 id="trust-heading" className="text-2xl md:text-3xl font-playfair text-brand-ivory mb-3">
-          A More Trusted Way to Move Through Malta Real Estate
+      <div className="epm-accent-line absolute inset-x-0 top-0" aria-hidden="true" />
+      <div className="mx-auto max-w-7xl">
+        <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.14em] text-[#9ea6b0]">Our advisory approach</p>
+        <h2 id="trust-heading" className="mb-3 max-w-xl font-playfair text-2xl leading-[1.15] text-[#f4f4f2] md:text-3xl">
+          A journey, tailored to you.
         </h2>
-        <p className="text-sm text-brand-sand font-light leading-relaxed max-w-2xl mb-8">
-          Elevate by Zanzi combines premium presentation with trusted Malta property-network backing from Zanzi and Quicklets, giving buyers,
-          sellers, landlords, and investors a more confident experience.
+        <p className="mb-10 max-w-2xl font-sans text-sm font-light leading-relaxed text-[#b4bcc8] sm:mb-12 sm:text-[15px]">
+          {elevatePreview
+            ? 'Structured advisory: valuation sanity checks, discreet introductions, and disciplined negotiation.'
+            : 'Strategic support from first consultation through to confident completion.'}
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+        <ul className="mb-10 list-none border border-white/[0.08] p-0 sm:mb-12">
           {trustPoints.map((item, i) => (
-            <motion.div
+            <motion.li
               key={item.title}
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.06 }}
+              transition={{ delay: i * 0.04, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
-              className="bg-brand-panel border border-brand-bronze-dark/25 p-5 md:p-6 min-w-0"
+              className="flex gap-4 border-b border-white/[0.06] px-5 py-5 last:border-b-0 sm:gap-6 sm:px-6 sm:py-6"
             >
-              <div className="flex gap-4">
-                <div className="w-11 h-11 rounded-full border border-brand-bronze-dark/35 flex items-center justify-center shrink-0" aria-hidden="true">
-                  <item.Icon className="w-5 h-5 text-brand-copper" />
-                </div>
-                <div className="min-w-0">
-                  <h3 className="text-lg font-playfair text-brand-ivory mb-2">{item.title}</h3>
-                  <p className="text-brand-sand text-xs sm:text-sm font-light leading-relaxed">{item.body}</p>
-                </div>
+              <span className="w-7 shrink-0 pt-0.5 font-sans text-[11px] font-medium tabular-nums text-[#009FE3] sm:text-xs">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div className="min-w-0">
+                <h3 className="font-playfair text-base leading-snug text-[#f4f4f2] sm:text-lg">{item.title}</h3>
+                <p className="mt-2 font-sans text-xs font-light leading-relaxed text-[#aeb4bf] sm:text-sm">{item.body}</p>
               </div>
-            </motion.div>
+            </motion.li>
           ))}
-        </div>
+        </ul>
 
-        <div className="border border-brand-bronze-dark/25 bg-brand-panel p-5 md:p-6">
-          <h3 className="text-lg md:text-xl font-playfair text-brand-ivory mb-4">Our Process</h3>
-          <ol className="grid grid-cols-1 md:grid-cols-5 gap-3">
-            {[
-              'Understand your goals',
-              'Match the right opportunities',
-              'Arrange private viewings or consultations',
-              'Guide negotiation and next steps',
-              'Support you through completion',
-            ].map((step, idx) => (
-              <li key={step} className="border border-brand-bronze-dark/20 bg-brand-charcoal/50 p-4">
-                <p className="text-[10px] text-brand-champagne uppercase tracking-[0.22em] font-bold mb-1">Step {idx + 1}</p>
-                <p className="text-brand-sand text-xs sm:text-sm font-light leading-relaxed">{step}</p>
+        <div
+          className={`border border-white/[0.08] bg-[#080a0f]/80 px-5 py-6 sm:px-7 sm:py-8 ${elevatePreview ? 'rounded-sm border-[rgba(0,159,227,0.12)]' : ''}`}
+        >
+          <h3 className="mb-6 font-playfair text-lg text-[#f4f4f2] md:text-xl">{elevatePreview ? 'Our process' : 'Process'}</h3>
+          <ol className="grid grid-cols-1 divide-y divide-white/[0.06] md:grid-cols-4 md:divide-x md:divide-y-0">
+            {processSteps.map((step, idx) => (
+              <li key={step.title} className="px-4 py-5 md:px-5 md:py-4">
+                <span className="mb-2 block font-sans text-[10px] font-medium tabular-nums tracking-[0.12em] text-[#009FE3]">
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
+                <h4 className="font-playfair text-sm leading-snug text-[#f4f4f2] sm:text-base">{step.title}</h4>
+                <p className="mt-2 font-sans text-xs font-light leading-relaxed text-[#aeb4bf] sm:text-sm">{step.body}</p>
               </li>
             ))}
           </ol>
         </div>
 
-        <p className="mt-8 text-center">
+        <p className="mt-10 text-center sm:mt-12">
           <a
             href={anchorHref(pathname, '#contact')}
-            className="inline-flex items-center justify-center min-h-[48px] px-8 border border-brand-bronze-dark/45 bg-brand-taupe/40 text-brand-champagne text-[10px] font-bold uppercase tracking-[0.28em] hover:bg-brand-muted hover:border-brand-copper/50 hover:text-brand-ivory transition-colors touch-manipulation"
+            className={`inline-flex min-h-[48px] w-full touch-manipulation items-center justify-center px-6 font-sans text-[10px] font-semibold uppercase tracking-[0.2em] transition-colors sm:w-auto sm:px-8 sm:tracking-[0.22em] ${
+              elevatePreview
+                ? 'border border-[rgba(0,159,227,0.35)] bg-[rgba(0,159,227,0.06)] text-[#f4f4f2] hover:border-[rgba(0,159,227,0.48)] hover:bg-[rgba(0,159,227,0.1)]'
+                : 'border border-white/[0.12] bg-[#0a0c10]/85 text-[#f4f4f2] hover:border-[rgba(0,159,227,0.45)] hover:bg-[#0c0e12]'
+            }`}
           >
-            Speak with an adviser
+            {elevatePreview ? 'Book private consultation' : 'Speak with an adviser'}
           </a>
         </p>
       </div>

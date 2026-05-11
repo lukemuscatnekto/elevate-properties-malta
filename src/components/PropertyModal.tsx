@@ -55,7 +55,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
   };
 
   const inputCls =
-    'w-full min-h-[48px] bg-brand-muted/35 border border-brand-bronze-dark/22 py-3 sm:py-4 pl-11 pr-4 text-brand-ivory text-xs placeholder:text-brand-metal/75 focus:border-brand-copper/50 outline-none transition-colors';
+    'w-full min-h-[48px] bg-brand-panel/75 border border-white/12 py-3 sm:py-4 pl-11 pr-4 text-brand-ivory text-xs placeholder:text-brand-metal/75 focus:border-brand-copper/55 outline-none transition-colors';
 
   return (
     <AnimatePresence>
@@ -81,13 +81,13 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
             exit={{ opacity: 0, scale: 0.94, y: 16 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-5xl max-h-[min(92dvh,920px)] bg-brand-charcoal border border-brand-bronze-dark/25 shadow-[0_40px_80px_rgba(17,15,12,0.75)] overflow-hidden flex flex-col lg:flex-row"
+            className="relative w-full max-w-5xl max-h-[min(92dvh,920px)] bg-brand-charcoal border border-white/10 shadow-[0_40px_80px_rgba(8,10,14,0.75)] overflow-hidden flex flex-col lg:flex-row"
           >
             <button
               type="button"
               onClick={onClose}
               aria-label="Close property details"
-              className="absolute top-4 right-4 z-[110] min-h-[44px] min-w-[44px] flex items-center justify-center bg-brand-espresso/80 border border-brand-bronze-dark/35 hover:bg-gold hover:border-gold text-brand-ivory hover:text-charcoal transition-all focus:outline-none focus:ring-2 focus:ring-brand-copper/55 touch-manipulation"
+              className="absolute top-4 right-4 z-[110] min-h-[44px] min-w-[44px] flex items-center justify-center bg-brand-espresso/80 border border-white/14 hover:bg-brand-copper/16 hover:border-brand-copper/45 text-brand-ivory transition-all focus:outline-none focus:ring-2 focus:ring-brand-copper/55 touch-manipulation"
             >
               <X className="w-4 h-4" aria-hidden="true" />
             </button>
@@ -98,7 +98,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
 
               <div className="absolute bottom-6 left-6 right-6">
                 {property.tag && (
-                  <span className="inline-block px-4 py-1 bg-gold text-charcoal text-[9px] font-bold uppercase tracking-[0.3em] mb-3">
+                  <span className="inline-block px-4 py-1 border border-white/14 bg-black/45 text-brand-silver text-[9px] font-bold uppercase tracking-[0.26em] mb-3">
                     {property.tag}
                   </span>
                 )}
@@ -108,7 +108,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
               </div>
             </div>
 
-            <div className="lg:w-[45%] flex-1 overflow-y-auto bg-brand-brown-dark border-l border-brand-bronze-dark/20 custom-scrollbar min-h-0">
+            <div className="lg:w-[45%] flex-1 overflow-y-auto bg-brand-brown-dark border-l border-white/10 custom-scrollbar min-h-0">
               <div className="p-6 md:p-8 space-y-6 pb-10">
                 <div>
                   <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-3">
@@ -119,14 +119,14 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                     </address>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3 py-4 border-y border-brand-bronze-dark/22" aria-label="Property specifications">
+                  <div className="grid grid-cols-3 gap-3 py-4 border-y border-white/10" aria-label="Property specifications">
                     {[
                       { Icon: Bed, val: property.beds, label: 'Beds' },
                       { Icon: Bath, val: property.baths, label: 'Baths' },
                       { Icon: Maximize, val: `${property.sqft}m²`, label: 'Area' },
                     ].map(({ Icon, val, label }) => (
                       <div key={label} className="text-center group">
-                        <Icon className="w-4 h-4 text-brand-copper/55 group-hover:text-brand-champagne mx-auto mb-2 transition-colors" aria-hidden="true" />
+                        <Icon className="w-4 h-4 text-brand-copper/65 group-hover:text-brand-champagne mx-auto mb-2 transition-colors" aria-hidden="true" />
                         <p className="text-brand-ivory text-sm sm:text-base font-light">{val}</p>
                         <p className="text-[9px] text-brand-metal uppercase tracking-widest">{label}</p>
                       </div>
@@ -155,7 +155,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                   </div>
                 ) : null}
 
-                <div className="border-t border-brand-bronze-dark/22 pt-6">
+                <div className="border-t border-white/10 pt-6">
                   <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-2">Arrange a Private Viewing</p>
                   <p className="text-brand-metal text-[11px] font-light leading-relaxed mb-5">
                     Submit your details and an advisor from Elevate by Zanzi will contact you to confirm availability and next steps.
@@ -165,7 +165,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                     <motion.div
                       initial={{ opacity: 0, scale: 0.96 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-6 border border-brand-bronze-dark/30 bg-brand-panel/50 px-4"
+                      className="text-center py-6 border border-white/10 bg-brand-panel/50 px-4"
                     >
                       <CheckCircle2 className="w-10 h-10 text-brand-copper mx-auto mb-4" aria-hidden="true" />
                       <p className="text-brand-ivory font-playfair text-xl mb-2">Viewing request received</p>
@@ -173,7 +173,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                       <button
                         type="button"
                         onClick={() => setFormState('idle')}
-                        className="mt-5 inline-flex min-h-[48px] items-center justify-center px-8 border border-brand-bronze-dark/45 bg-brand-taupe/30 text-brand-champagne text-[10px] uppercase font-bold tracking-[0.28em] hover:bg-brand-muted hover:border-brand-copper/50 hover:text-brand-ivory transition-colors touch-manipulation"
+                        className="mt-5 inline-flex min-h-[48px] items-center justify-center px-8 border border-white/14 bg-brand-panel text-brand-champagne text-[10px] uppercase font-bold tracking-[0.28em] hover:bg-brand-muted hover:border-brand-copper/50 hover:text-brand-ivory transition-colors touch-manipulation"
                       >
                         Send another request
                       </button>

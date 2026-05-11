@@ -11,34 +11,41 @@
   --font-playfair: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
 
-  /* Hero-aligned brand palette */
-  --color-brand-espresso: #110f0c;
-  --color-brand-brown-dark: #1b1713;
-  --color-brand-charcoal: #211a16;
-  --color-brand-panel: #2b221b;
-  --color-brand-taupe: #302a24;
-  --color-brand-muted: #3a322a;
-  --color-brand-shadow: #5f5143;
+  /* Refined black / silver / subtle-blue palette */
+  --color-brand-espresso: #0d0d0d;
+  --color-brand-brown-dark: #111111;
+  --color-brand-charcoal: #151515;
+  --color-brand-panel: #1a1a1a;
+  --color-brand-taupe: #1f1f1f;
+  --color-brand-muted: #242424;
+  --color-brand-shadow: #2a2a2a;
 
-  --color-brand-bronze-dark: #7b593d;
-  --color-brand-gold-antique: #a26e44;
-  --color-brand-bronze: #bc885c;
-  --color-brand-copper: #d49866;
-  --color-brand-champagne: #de9f6a;
-  --color-brand-metal: #766e65;
+  --color-brand-bronze-dark: #2a2a2a;
+  --color-brand-gold-antique: #b8875e;
+  --color-brand-bronze: #b8875e;
+  /**
+   * Primary accent — Zanzi blue (#009FE3).
+   * The legacy `brand-copper` token name is preserved so we don't have to rename
+   * the hundreds of utilities scattered across the marketing site.
+   */
+  --color-brand-copper: #009FE3;
+  --color-brand-blue: #009FE3;
+  --color-brand-champagne: #d9d9d9;
+  --color-brand-silver: #d9d9d9;
+  --color-brand-metal: #8e8e8e;
 
-  /* Warm typography on dark grounds */
-  --color-brand-ivory: #f4f1ea;
-  --color-brand-sand: #b5ada3;
+  /* Typography on dark surfaces */
+  --color-brand-ivory: #f3f3f3;
+  --color-brand-sand: #b8b8b8;
 
   /**
    * Primary accent — maps all legacy `gold` utilities (text-gold, border-gold, bg-gold)
    * to the main bronze so the site stays cohesive without renaming every class.
    */
-  --color-gold: #bc885c;
+  --color-gold: #b8875e;
 
   /* Page shell (maps legacy `charcoal` utilities) */
-  --color-charcoal: #110f0c;
+  --color-charcoal: #0d0d0d;
 }
 
 @layer base {
@@ -49,8 +56,8 @@
   }
 
   body {
-    @apply bg-charcoal font-sans antialiased selection:bg-gold selection:text-charcoal;
-    color: rgb(232 228 220 / 0.93);
+    @apply bg-charcoal font-sans antialiased selection:bg-brand-copper/30 selection:text-brand-ivory;
+    color: rgb(243 243 243 / 0.94);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -64,36 +71,36 @@
 }
 
 .glass {
-  @apply bg-brand-muted/25 backdrop-blur-2xl border border-brand-bronze-dark/25 shadow-[inset_0_0_30px_rgba(255,255,255,0.02)];
+  @apply bg-brand-muted/35 backdrop-blur-2xl border border-white/10 shadow-[inset_0_0_28px_rgba(255,255,255,0.015)];
 }
 
 .glass-card {
-  @apply bg-brand-muted/25 backdrop-blur-2xl border border-brand-bronze-dark/25 shadow-[inset_0_0_30px_rgba(255,255,255,0.02)] p-8;
+  @apply bg-brand-muted/35 backdrop-blur-2xl border border-white/10 shadow-[inset_0_0_28px_rgba(255,255,255,0.015)] p-8;
 }
 
 .gold-gradient {
-  background: linear-gradient(135deg, #a26e44 0%, #d49866 45%, #bc885c 100%);
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 45%, #505050 100%);
 }
 
 .gold-dimmed {
-  background: linear-gradient(135deg, rgba(162, 110, 68, 0.45) 0%, rgba(212, 152, 102, 0.22) 100%);
+  background: linear-gradient(135deg, rgba(184, 135, 94, 0.2) 0%, rgba(0, 159, 227, 0.18) 100%);
 }
 
 .radial-luxury {
-  background: radial-gradient(circle at center, rgba(188, 136, 92, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle at center, rgba(0, 159, 227, 0.12) 0%, transparent 70%);
 }
 
 .divider-gold {
-  @apply h-[1px] w-full bg-gradient-to-r from-transparent via-brand-bronze-dark/35 to-transparent my-10;
+  @apply h-[1px] w-full bg-gradient-to-r from-transparent via-white/15 to-transparent my-10;
 }
 
-/* Primary CTA — bronze gradient, champagne hover, espresso label text */
+/* Primary CTA — dark premium with silver/blue accents */
 .epm-btn-primary {
-  @apply inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-gold-antique to-brand-bronze text-charcoal font-bold uppercase tracking-[0.18em] text-[11px] transition-all outline-none focus-visible:ring-2 focus-visible:ring-brand-champagne;
+  @apply inline-flex items-center justify-center gap-2 border border-white/20 bg-brand-panel text-brand-ivory font-bold uppercase tracking-[0.18em] text-[11px] transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-brand-copper/70;
 }
 
 .epm-btn-primary:hover {
-  @apply from-brand-copper to-brand-champagne shadow-[0_0_32px_rgba(222,159,106,0.22)];
+  @apply border-brand-copper/55 bg-brand-muted text-brand-ivory shadow-[0_0_22px_rgba(0,159,227,0.25)];
 }
 
 .epm-btn-primary-sm {
@@ -109,11 +116,22 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-brand-bronze-dark/40 rounded-full hover:bg-gold/40 transition-colors;
+  @apply bg-white/15 rounded-full hover:bg-brand-copper/35 transition-colors;
 }
 
 .luxury-pattern {
   background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png");
+}
+
+@layer base {
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  button:focus-visible,
+  a:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 1px rgba(0, 159, 227, 0.6);
+  }
 }
 
 @keyframes slow-zoom {
@@ -123,4 +141,64 @@
 
 .animate-slow-zoom {
   animation: slow-zoom 20s infinite alternate ease-in-out;
+}
+
+/* Subtle Zanzi-blue accent line — used as a top stripe on dark sections (footer, hero copy, etc.). */
+.epm-accent-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 159, 227, 0.0) 6%,
+    rgba(0, 159, 227, 0.55) 50%,
+    rgba(0, 159, 227, 0.0) 94%,
+    transparent 100%
+  );
+}
+
+/* Soft Zanzi-blue glow ring used sparingly on hero CTA / focus states. */
+.epm-glow-blue {
+  box-shadow: 0 0 28px rgba(0, 159, 227, 0.25);
+}
+
+@keyframes epm-fade-up {
+  0%   { opacity: 0; transform: translateY(14px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.epm-fade-up {
+  animation: epm-fade-up 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/**
+ * Hero-only CTAs (Manus/Luma): matte glass, silver type, restrained blue on hover.
+ * Scoped so the rest of the marketing site keeps existing button treatments.
+ */
+.epm-hero-cta-primary {
+  @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-sm border border-white/[0.1] bg-black/28 px-8 py-2.5 font-sans text-[10px] font-semibold uppercase tracking-[0.26em] text-[#f4f4f2] backdrop-blur-md transition-all duration-300 outline-none;
+}
+
+.epm-hero-cta-primary:hover {
+  @apply border-[rgba(0,159,227,0.42)] bg-black/38 text-white;
+  box-shadow: 0 0 0 1px rgba(0, 159, 227, 0.1), 0 10px 36px rgba(0, 0, 0, 0.32), 0 0 28px rgba(0, 159, 227, 0.06);
+}
+
+.epm-hero-cta-primary:focus-visible {
+  box-shadow: 0 0 0 1px rgba(0, 159, 227, 0.45);
+}
+
+.epm-hero-cta-secondary {
+  @apply inline-flex min-h-[44px] items-center justify-center rounded-sm border border-white/[0.08] bg-black/15 px-8 py-2.5 font-sans text-[10px] font-semibold uppercase tracking-[0.26em] text-[#d4d8de] backdrop-blur-[2px] transition-all duration-300 outline-none;
+}
+
+.epm-hero-cta-secondary:hover {
+  @apply border-[rgba(0,159,227,0.32)] text-[#f4f4f2];
+  box-shadow: 0 0 22px rgba(0, 159, 227, 0.07);
+}
+
+.epm-hero-search-dock {
+  @apply rounded-md border border-white/[0.065] bg-[#0b0d10]/70 backdrop-blur-2xl;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 28px 90px rgba(0, 0, 0, 0.58);
 }
