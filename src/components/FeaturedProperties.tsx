@@ -230,22 +230,22 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
                         </dd>
                       </div>
                     </dl>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                       <span
-                        className={`pointer-events-none flex min-h-[44px] w-full items-center justify-center border py-2.5 text-center font-sans transition-colors touch-manipulation ${
+                        className={`pointer-events-none flex min-h-[44px] w-full items-center justify-center border px-3 py-2.5 text-center font-sans transition-colors touch-manipulation ${
                           elevatePreview
                             ? 'border-white/[0.08] bg-[#0a0a0c] text-[10px] font-light tracking-wide text-[#d2d6de] group-hover:border-white/[0.12]'
-                            : 'border border-[rgba(0,159,227,0.28)] bg-[rgba(0,159,227,0.06)] text-[9px] font-semibold uppercase tracking-[0.16em] text-[#f0f2f5] group-hover:border-[rgba(0,159,227,0.45)]'
+                            : 'border border-[rgba(0,159,227,0.28)] bg-[rgba(0,159,227,0.06)] text-[10px] font-semibold uppercase tracking-[0.14em] text-[#f0f2f5] group-hover:border-[rgba(0,159,227,0.42)]'
                         }`}
                         aria-hidden="true"
                       >
                         Request private viewing
                       </span>
                       <span
-                        className={`pointer-events-none flex min-h-[44px] w-full items-center justify-center border py-2.5 text-center font-sans transition-colors ${
+                        className={`pointer-events-none flex min-h-[44px] w-full items-center justify-center border px-3 py-2.5 text-center font-sans transition-colors ${
                           elevatePreview
                             ? 'border-white/[0.06] bg-transparent text-[10px] font-light tracking-wide text-[#9aa2ac] group-hover:border-white/[0.1] group-hover:text-[#c5cad2]'
-                            : 'border border-white/[0.1] text-[9px] font-semibold uppercase tracking-[0.16em] text-[#c5cad2] group-hover:border-white/[0.16] group-hover:text-[#e8eaee]'
+                            : 'border border-white/[0.08] text-[10px] font-semibold uppercase tracking-[0.14em] text-[#c5cad2] group-hover:border-white/[0.14] group-hover:text-[#e8eaee]'
                         }`}
                         aria-hidden="true"
                       >
