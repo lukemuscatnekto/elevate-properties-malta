@@ -10,10 +10,11 @@ export default function Footer() {
   const { pathname } = useLocation();
   const elevatePreview = useElevatePreviewMode();
   const socials = [
-    { Icon: Facebook, url: siteConfig.facebookUrl, label: 'Elevate by Zanzi on Facebook' },
-    { Icon: Instagram, url: siteConfig.instagramUrl, label: 'Elevate by Zanzi on Instagram' },
-    { Icon: Linkedin, url: siteConfig.linkedinUrl, label: 'Elevate by Zanzi on LinkedIn' },
+    { Icon: Facebook, url: siteConfig.facebookUrl, label: 'Elevate Properties Malta on Facebook' },
+    { Icon: Instagram, url: siteConfig.instagramUrl, label: 'Elevate Properties Malta on Instagram' },
+    { Icon: Linkedin, url: siteConfig.linkedinUrl, label: 'Elevate Properties Malta on LinkedIn' },
   ] as const;
+  const FOOTER_ICON_MARK = '/images/elevate-logos/04_icon_mark_quick_lets_transparent.png';
   const anySocialConfigured = socials.some((s) => isConfiguredExternalUrl(s.url));
 
   const { primary, secondary } = siteConfig.contacts;
@@ -29,23 +30,31 @@ export default function Footer() {
           <div className="lg:col-span-3">
             <div className="mb-4 flex items-start gap-3">
               <img
-                src="/images/elevate-logo.png"
+                src={FOOTER_ICON_MARK}
                 alt=""
-                width={40}
-                height={40}
-                className="h-9 w-9 shrink-0 object-contain opacity-90"
+                width={88}
+                height={88}
+                decoding="async"
+                loading="lazy"
+                className="h-10 w-10 shrink-0 object-contain sm:h-11 sm:w-11"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).classList.add('hidden');
                 }}
               />
+              <span
+                className="h-10 w-px shrink-0 self-center bg-gradient-to-b from-[rgba(0,159,227,0.6)] via-[rgba(232,234,238,0.2)] to-[rgba(176,132,228,0.55)] sm:h-11"
+                aria-hidden="true"
+              />
               <div className="min-w-0">
-                <p className="font-playfair text-xl tracking-[0.12em] text-[#f4f4f2] sm:text-[1.35rem] sm:tracking-[0.16em]">Elevate</p>
-                <p className="text-[9px] uppercase tracking-[0.22em] text-[#c5cad2] sm:tracking-[0.26em]">
-                  by <span className={elevatePreview ? 'font-semibold text-[#009FE3]/88' : 'font-semibold text-[#009FE3]'}>ZANZI</span>
+                <p className="font-playfair text-xl leading-none tracking-[0.14em] text-[#f4f4f2] sm:text-[1.35rem] sm:tracking-[0.16em]">
+                  ELEVATE
                 </p>
-                <p
-                  className={`mt-1 text-[#9ea6b0] ${elevatePreview ? 'text-[10px] font-light tracking-wide normal-case' : 'text-[8px] uppercase tracking-[0.2em] sm:tracking-[0.24em]'}`}
-                >
+                <p className="mt-1 whitespace-nowrap text-[9px] uppercase tracking-[0.18em] text-[#c5cad2] sm:text-[9.5px] sm:tracking-[0.2em]">
+                  by <span className="font-semibold text-[#009FE3]">ZANZI</span>
+                  <span className="text-[#eef1f6]"> & </span>
+                  <span className="font-semibold text-[#c9a8f0]">QUICK LETS</span>
+                </p>
+                <p className="mt-1 text-[8px] uppercase tracking-[0.22em] text-[#9ea6b0] sm:text-[8.5px] sm:tracking-[0.24em]">
                   Properties Malta
                 </p>
               </div>
@@ -56,7 +65,7 @@ export default function Footer() {
                 : 'Premium Malta real estate with private advisory, refined marketing, and trusted local backing.'}
             </p>
             <p className={`mt-3 leading-relaxed ${elevatePreview ? 'text-[10px] font-light tracking-normal text-[#8e96a3]' : 'text-[9px] uppercase tracking-[0.16em] text-[#8e96a3] sm:tracking-[0.2em]'}`}>
-              Official Zanzi franchise · Quick Lets network · Malta
+              Official Franchise · <span className="text-[#009FE3]">ZANZI</span> &amp; <span className="text-[#c9a8f0]">QUICK LETS</span> · Malta
             </p>
           </div>
 
@@ -171,11 +180,11 @@ export default function Footer() {
 
         <div className="mt-8 pt-6 border-t border-white/[0.06] space-y-2">
           <p className={`text-center leading-relaxed max-w-3xl mx-auto ${elevatePreview ? 'text-[10px] font-light tracking-normal text-brand-metal' : 'text-[10px] uppercase tracking-[0.18em] text-brand-metal'}`}>
-            Elevate by Zanzi provides marketing material for illustrative purposes only. Nothing on this site constitutes financial,
-            legal, or investment advice. Seek independent counsel before committing to a transaction.
+            Elevate Properties Malta provides marketing material for illustrative purposes only. Nothing on this site constitutes
+            financial, legal, or investment advice. Seek independent counsel before committing to a transaction.
           </p>
           <p className={`text-center ${elevatePreview ? 'text-[10px] font-light tracking-wide text-brand-metal' : 'text-[10px] uppercase tracking-[0.18em] text-brand-metal'}`}>
-            © {new Date().getFullYear()} {siteConfig.companyName}
+            © {new Date().getFullYear()} Elevate Properties Malta
           </p>
         </div>
       </div>
