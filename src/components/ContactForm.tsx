@@ -30,7 +30,7 @@ export default function ContactForm() {
   };
 
   const inputCls =
-    'w-full min-h-[48px] bg-[#080a0f]/85 border border-white/[0.1] px-5 py-3 sm:py-4 text-[#f4f4f2] text-sm font-light placeholder:text-[#6f7a88] focus:border-[rgba(0,159,227,0.5)] outline-none transition-colors';
+    'w-full min-h-[48px] bg-[#07090d]/92 border border-white/[0.07] px-5 py-3 sm:py-4 text-[#f4f4f2] text-sm font-light placeholder:text-[#6f7a88] focus:border-[rgba(0,159,227,0.45)] outline-none transition-colors';
   const selectCls = `${inputCls} appearance-none cursor-pointer`;
 
   return (
@@ -38,8 +38,8 @@ export default function ContactForm() {
       id="contact"
       className={`scroll-anchor-target relative overflow-hidden border-t px-4 sm:px-6 lg:px-8 ${
         elevatePreview
-          ? 'border-white/[0.06] bg-[#050608] py-12 sm:py-14'
-          : 'border-white/[0.06] bg-[#07090d] py-14 sm:py-16'
+          ? 'border-white/[0.05] bg-[#070809] py-12 sm:py-14'
+          : 'border-white/[0.05] bg-[#080a10] py-14 sm:py-16'
       }`}
       aria-labelledby="contact-heading"
     >
@@ -49,22 +49,22 @@ export default function ContactForm() {
           aria-hidden="true"
         />
       ) : (
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,159,227,0.2)] to-transparent" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,159,227,0.16)] to-transparent" aria-hidden="true" />
       )}
 
       <div className={`relative z-10 mx-auto ${elevatePreview ? 'max-w-lg' : 'max-w-7xl'}`}>
         <div className={`grid grid-cols-1 ${elevatePreview ? 'gap-8' : 'gap-10 lg:grid-cols-2 lg:gap-14'}`}>
 
-          {/* ── Left: glass enquiry form (Luma) ── */}
+          {/* ── Left: private enquiry form ── */}
           <div className="relative order-1">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className={`relative border ${elevatePreview ? 'rounded-xl border-[rgba(0,159,227,0.12)] bg-[#08090b]/92 p-6 backdrop-blur-md sm:p-7' : 'border-white/[0.1] bg-[#080a0f]/88 p-5 sm:p-6 md:p-7'}`}
+              className={`relative border ${elevatePreview ? 'rounded-sm border-[rgba(0,159,227,0.12)] bg-[#080a10]/96 p-6 sm:p-7' : 'border-white/[0.06] bg-[#080a10]/95 p-5 sm:p-6 md:p-7'}`}
             >
               {!elevatePreview ? (
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,159,227,0.28)] to-transparent" aria-hidden="true" />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,159,227,0.22)] to-transparent" aria-hidden="true" />
               ) : null}
 
               {formState === 'success' ? (
@@ -250,7 +250,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, x: 12 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="border border-white/[0.09] bg-[#080a0f]/75 p-6 sm:p-8"
+              className="border border-white/[0.06] bg-[#07090d]/92 p-6 sm:p-8"
             >
               <p className="mb-3 flex items-center gap-3 font-sans text-[11px] font-medium tracking-[0.12em] text-[#9ea6b0]">
                 <span className="inline-block h-px w-8 bg-[rgba(0,159,227,0.55)]" aria-hidden="true" />
@@ -266,7 +266,7 @@ export default function ContactForm() {
               <div className="mb-8 space-y-6">
                 {[siteConfig.contacts.primary, siteConfig.contacts.secondary].map((c) => (
                   <div key={c.name} className="group flex items-start gap-4">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.1] transition-colors group-hover:border-[rgba(0,159,227,0.35)]">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.07] transition-colors group-hover:border-[rgba(0,159,227,0.28)]">
                       <Phone className="h-4 w-4 text-[#009FE3]" aria-hidden="true" />
                     </div>
                     <div className="min-w-0">
@@ -297,7 +297,7 @@ export default function ContactForm() {
                 </div>
 
                 <div className="flex items-start gap-4 border-t border-white/[0.06] pt-6">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.1]">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.07]">
                     <Mail className="h-4 w-4 text-[#009FE3]" aria-hidden="true" />
                   </div>
                   <div className="min-w-0">
@@ -309,7 +309,7 @@ export default function ContactForm() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.1]">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.07]">
                     <Clock className="h-4 w-4 text-[#009FE3]" aria-hidden="true" />
                   </div>
                   <div>

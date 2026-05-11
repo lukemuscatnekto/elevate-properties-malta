@@ -62,18 +62,18 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
         id="properties"
         className={`scroll-anchor-target relative overflow-hidden border-t px-4 sm:px-6 lg:px-8 ${
           elevatePreview
-            ? 'border-white/[0.05] bg-[#060608] py-16 sm:py-20'
-            : 'border-white/[0.06] bg-[#07090d] py-14 sm:py-16'
+            ? 'border-white/[0.05] bg-[#07090d] py-16 sm:py-20'
+            : 'border-white/[0.05] bg-[#07090d] py-14 sm:py-16'
         }`}
         aria-labelledby="properties-heading"
       >
         {!elevatePreview ? (
           <>
             <div
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_0%,rgba(0,159,227,0.07),transparent_55%),radial-gradient(ellipse_60%_50%_at_20%_100%,rgba(8,12,20,0.9),#07090d)]"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_72%_0%,rgba(0,159,227,0.045),transparent_52%)]"
               aria-hidden="true"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#07090d]/95 via-[#07090d]/92 to-[#07090d]/98" aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#07090d]/96 via-[#07090d]/94 to-[#07090d]/98" aria-hidden="true" />
           </>
         ) : null}
         {!elevatePreview ? <div className="epm-accent-line relative z-10" aria-hidden="true" /> : null}
@@ -129,7 +129,7 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
 
           {filtered.length === 0 ? (
             <div
-              className="border border-white/[0.1] bg-[#080a0f]/80 px-4 py-10 text-center sm:px-6"
+              className="border border-white/[0.07] bg-[#080a10]/75 px-4 py-10 text-center sm:px-6"
               role="status"
               aria-live="polite"
             >
@@ -138,7 +138,7 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 border-b border-white/[0.06] pb-12 md:grid-cols-2 md:gap-7 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 border-b border-white/[0.05] pb-12 md:grid-cols-2 md:gap-7 lg:grid-cols-3">
               {filtered.map((property, i) => (
                 <motion.article
                   key={property.id}
@@ -150,8 +150,8 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
                   viewport={{ once: true, margin: '-40px' }}
                   className={`group cursor-pointer overflow-hidden rounded-sm border outline-none transition-[border-color,box-shadow] duration-500 focus-visible:ring-2 focus-visible:ring-[rgba(0,159,227,0.45)] focus-visible:ring-offset-2 ${
                     elevatePreview
-                      ? 'border-white/[0.07] bg-[#08090b] focus-visible:ring-offset-[#060608] hover:border-[rgba(0,159,227,0.28)] hover:shadow-[0_0_0_1px_rgba(0,159,227,0.08)]'
-                      : 'border-white/[0.09] bg-[#080a0f]/90 focus-visible:ring-offset-[#07090d] hover:border-[rgba(0,159,227,0.38)] hover:shadow-[0_20px_48px_rgba(0,0,0,0.45),0_0_0_1px_rgba(0,159,227,0.1)]'
+                      ? 'border-white/[0.06] bg-[#080a10]/95 focus-visible:ring-offset-[#07090d] hover:border-[rgba(0,159,227,0.32)] hover:shadow-[0_14px_36px_rgba(0,0,0,0.38)]'
+                      : 'border-white/[0.07] bg-[#080a10]/95 focus-visible:ring-offset-[#07090d] hover:border-[rgba(0,159,227,0.35)] hover:shadow-[0_14px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(0,159,227,0.08)]'
                   }`}
                   tabIndex={0}
                   onClick={() => open(property)}
@@ -166,18 +166,18 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
                     <img
                       src={property.image}
                       alt={`${property.title}, ${property.location}`}
-                      className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                      className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                       loading="lazy"
                     />
                     <div
-                      className="absolute inset-0 bg-gradient-to-t from-[#050608]/85 via-[#050608]/2 to-transparent"
+                      className="absolute inset-0 bg-gradient-to-t from-[#07090d]/78 via-[#07090d]/15 to-transparent"
                       aria-hidden="true"
                     />
                     <span
-                      className={`absolute left-2.5 top-2.5 max-w-[min(12rem,70%)] truncate px-2 py-1 font-sans text-[10px] font-medium tracking-wide text-[#e8eaee] transition-colors ${
+                      className={`absolute left-2.5 top-2.5 max-w-[min(12rem,70%)] truncate px-2 py-0.5 font-sans text-[10px] font-medium tracking-[0.06em] text-[#eef1f6] transition-colors ${
                         elevatePreview
-                          ? 'border border-white/[0.08] bg-[#0a0a0c]/90 text-[#c8cdd4]'
-                          : 'border border-white/[0.12] bg-[#07090d]/75 text-[#dce1e8]'
+                          ? 'border border-white/[0.06] bg-[#080a10]/88 text-[#c8cdd4]'
+                          : 'border border-white/[0.08] bg-[#07090d]/82 text-[#dce1e8]'
                       }`}
                     >
                       {property.tag ?? property.location}
@@ -188,7 +188,7 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
                     />
                   </div>
 
-                  <div className="border-t border-white/[0.06] bg-[#07090d]/50 p-4 sm:p-5">
+                  <div className="border-t border-white/[0.05] bg-[#07090d]/55 p-4 sm:p-5">
                     <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                       <h3
                         id={`featured-title-${property.id}`}

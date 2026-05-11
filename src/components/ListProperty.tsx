@@ -11,7 +11,7 @@ import { useElevatePreviewMode } from '../context/ElevatePreviewContext';
 import { HERO_PROPERTY_TYPE_OPTIONS } from '../data/heroSearchFieldOptions';
 
 const listFieldCls =
-  'w-full min-h-[44px] bg-[#080a0f]/85 border border-white/[0.1] px-4 py-3 text-xs text-[#f4f4f2] placeholder:text-[#6f7a88] outline-none focus:border-[rgba(0,159,227,0.5)] transition-colors';
+  'w-full min-h-[44px] bg-[#07090d]/92 border border-white/[0.07] px-4 py-3 text-xs text-[#f4f4f2] placeholder:text-[#6f7a88] outline-none focus:border-[rgba(0,159,227,0.45)] transition-colors';
 
 const sellerBenefits = [
   {
@@ -76,7 +76,7 @@ export default function ListProperty() {
   return (
     <section
       id="list-property"
-      className={`scroll-anchor-target relative overflow-hidden border-t border-white/[0.06] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-white/[0.05] bg-[#060608] pb-12 pt-12 sm:pb-14 sm:pt-14' : 'bg-[#07090d] pb-14 pt-12 sm:pb-16 sm:pt-14'}`}
+      className={`scroll-anchor-target relative overflow-hidden border-t border-white/[0.05] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'bg-[#070809] pb-12 pt-12 sm:pb-14 sm:pt-14' : 'bg-[#080a10] pb-14 pt-12 sm:pb-16 sm:pt-14'}`}
       aria-labelledby="list-heading"
     >
       {!elevatePreview ? (
@@ -126,7 +126,7 @@ export default function ListProperty() {
           </motion.p>
 
           <div
-            className={`flex flex-1 flex-col ${elevatePreview ? 'rounded-xl border border-white/[0.08] bg-[#08090b] p-5 sm:p-6' : 'border border-white/[0.1] bg-[#080a0f]/88 p-5 sm:p-6'}`}
+            className={`flex flex-1 flex-col ${elevatePreview ? 'rounded-sm border border-[rgba(0,159,227,0.12)] bg-[#080a10]/96 p-5 sm:p-6' : 'border border-white/[0.06] bg-[#080a10]/95 p-5 sm:p-6'}`}
           >
             {!elevatePreview ? (
               <div className="mb-5 h-px w-12 shrink-0 bg-gradient-to-r from-[rgba(0,159,227,0.5)] to-transparent" aria-hidden="true" />
@@ -274,7 +274,7 @@ export default function ListProperty() {
                 )}
               </form>
             )}
-            <p className="text-[10px] text-brand-metal text-center leading-relaxed mt-5 pt-4 border-t border-white/10">{formDiscretionFootnote}</p>
+            <p className="text-[10px] text-brand-metal text-center leading-relaxed mt-5 pt-4 border-t border-white/[0.06]">{formDiscretionFootnote}</p>
           </div>
         </div>
 
@@ -285,7 +285,7 @@ export default function ListProperty() {
           viewport={{ once: true }}
           transition={{ duration: 0.75 }}
           aria-labelledby="list-contact-kicker"
-          className="h-fit min-w-0 w-full self-start border border-white/[0.09] bg-[#080a0f]/80 p-6 sm:p-8 lg:sticky lg:top-28"
+          className="h-fit min-w-0 w-full self-start border border-white/[0.06] bg-[#07090d]/92 p-6 sm:p-8 lg:sticky lg:top-28"
         >
           <p id="list-contact-kicker" className="mb-3 flex items-center gap-3 font-sans text-[11px] font-medium tracking-[0.12em] text-[#9ea6b0]">
             <span className="inline-block h-px w-8 bg-gradient-to-r from-transparent to-white/35" aria-hidden="true" />
@@ -296,8 +296,8 @@ export default function ListProperty() {
           <div className="mb-8 space-y-5">
             {[siteConfig.contacts.primary, siteConfig.contacts.secondary].map((c) => (
               <div key={c.name} className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.02]">
-                  <Phone className="h-4 w-4 text-[#c9ced6]" aria-hidden="true" />
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/[0.07] bg-[#080a10]/40">
+                  <Phone className="h-4 w-4 text-[#009FE3]" aria-hidden="true" />
                 </div>
                 <div className="min-w-0">
                   <p className="mb-0.5 font-sans text-[11px] font-medium tracking-wide text-[#9ea6b0]">{c.name}</p>
@@ -311,13 +311,13 @@ export default function ListProperty() {
               href={siteConfig.primaryWhatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 border border-white/[0.14] bg-black/35 text-[10px] font-bold uppercase tracking-[0.2em] text-[#f4f4f2] transition-colors hover:border-white/[0.22] hover:bg-black/45 touch-manipulation"
+              className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 border border-[rgba(0,159,227,0.22)] bg-[rgba(0,159,227,0.06)] text-[10px] font-bold uppercase tracking-[0.2em] text-[#f4f4f2] transition-colors hover:border-[rgba(0,159,227,0.34)] hover:bg-[rgba(0,159,227,0.1)] touch-manipulation"
             >
-              <MessageCircle className="h-4 w-4 text-[#c9ced6]" aria-hidden="true" />
+              <MessageCircle className="h-4 w-4 text-[#009FE3]" aria-hidden="true" />
               WhatsApp — {siteConfig.contacts.primary.name}
             </a>
             <div className="flex items-start gap-3 border-t border-white/[0.06] pt-5">
-              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[#c9ced6]" aria-hidden="true" />
+              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[#009FE3]" aria-hidden="true" />
               <div className="min-w-0">
                 <p className="mb-0.5 text-[10px] font-bold uppercase tracking-[0.26em] text-[#9ea5b0]">Email</p>
                 <a href={siteConfig.emailHref} className="break-all text-sm font-light text-[#f4f4f2] hover:text-white">
@@ -326,7 +326,7 @@ export default function ListProperty() {
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <Clock className="mt-0.5 h-4 w-4 shrink-0 text-[#c9ced6]" aria-hidden="true" />
+              <Clock className="mt-0.5 h-4 w-4 shrink-0 text-[#009FE3]" aria-hidden="true" />
               <div>
                 <p className="mb-0.5 text-[10px] font-bold uppercase tracking-[0.26em] text-[#9ea5b0]">Hours</p>
                 <p className="text-sm font-light text-[#f4f4f2]">{siteConfig.openingHours}</p>
@@ -351,7 +351,7 @@ export default function ListProperty() {
           <p className="mt-4 text-center">
             <a
               href={anchorHref(pathname, '#contact')}
-              className="inline-flex min-h-[44px] w-full items-center justify-center border border-white/[0.12] bg-black/30 px-5 text-[9px] font-bold uppercase tracking-[0.22em] text-[#f4f4f2] transition-colors hover:border-[rgba(0,159,227,0.35)] touch-manipulation sm:w-auto"
+              className="inline-flex min-h-[44px] w-full items-center justify-center border border-white/[0.08] bg-[#080a10]/90 px-5 text-[9px] font-bold uppercase tracking-[0.22em] text-[#f4f4f2] transition-colors hover:border-[rgba(0,159,227,0.32)] touch-manipulation sm:w-auto"
             >
               Full enquiry form
             </a>

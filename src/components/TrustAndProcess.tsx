@@ -48,7 +48,7 @@ export default function TrustAndProcess() {
   return (
     <section
       id="trust"
-      className={`scroll-anchor-target relative border-t border-white/[0.06] bg-[#07090d] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-[rgba(0,159,227,0.08)] py-14 sm:py-[4.5rem]' : 'py-14 sm:py-16'}`}
+      className={`scroll-anchor-target relative border-t border-white/[0.05] bg-[#07090d] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-[rgba(0,159,227,0.07)] py-14 sm:py-[4.5rem]' : 'py-14 sm:py-16'}`}
       aria-labelledby="trust-heading"
     >
       <div className="epm-accent-line absolute inset-x-0 top-0" aria-hidden="true" />
@@ -63,7 +63,7 @@ export default function TrustAndProcess() {
             : 'Strategic support from first consultation through to confident completion.'}
         </p>
 
-        <ul className="mb-10 list-none border border-white/[0.08] p-0 sm:mb-12">
+        <ul className="mb-10 list-none border-y border-white/[0.06] p-0 sm:mb-12">
           {trustPoints.map((item, i) => (
             <motion.li
               key={item.title}
@@ -71,7 +71,7 @@ export default function TrustAndProcess() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.04, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
-              className="flex gap-4 border-b border-white/[0.06] px-5 py-5 last:border-b-0 sm:gap-6 sm:px-6 sm:py-6"
+              className="flex gap-4 border-b border-white/[0.05] px-5 py-5 last:border-b-0 sm:gap-6 sm:px-6 sm:py-6"
             >
               <span className="w-7 shrink-0 pt-0.5 font-sans text-[11px] font-medium tabular-nums text-[#009FE3] sm:text-xs">
                 {String(i + 1).padStart(2, '0')}
@@ -85,10 +85,10 @@ export default function TrustAndProcess() {
         </ul>
 
         <div
-          className={`border border-white/[0.08] bg-[#080a0f]/80 px-5 py-6 sm:px-7 sm:py-8 ${elevatePreview ? 'rounded-sm border-[rgba(0,159,227,0.12)]' : ''}`}
+          className={`border border-white/[0.06] bg-[#080a10]/90 px-5 py-7 sm:px-8 sm:py-9 ${elevatePreview ? 'rounded-sm border-[rgba(0,159,227,0.1)]' : 'rounded-sm'}`}
         >
           <h3 className="mb-6 font-playfair text-lg text-[#f4f4f2] md:text-xl">{elevatePreview ? 'Our process' : 'Process'}</h3>
-          <ol className="grid grid-cols-1 divide-y divide-white/[0.06] md:grid-cols-4 md:divide-x md:divide-y-0">
+          <ol className="grid grid-cols-1 divide-y divide-white/[0.05] md:grid-cols-4 md:divide-x md:divide-y-0 md:divide-white/[0.05]">
             {processSteps.map((step, idx) => (
               <li key={step.title} className="px-4 py-5 md:px-5 md:py-4">
                 <span className="mb-2 block font-sans text-[10px] font-medium tabular-nums tracking-[0.12em] text-[#009FE3]">

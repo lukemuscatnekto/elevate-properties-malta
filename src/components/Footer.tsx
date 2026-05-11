@@ -20,7 +20,7 @@ export default function Footer() {
 
   return (
     <footer
-      className={`relative border-t border-white/[0.08] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-white/[0.06] bg-[#050506] py-14 sm:py-16' : 'bg-[#060608] py-12 sm:py-14'}`}
+      className="relative border-t border-white/[0.06] bg-[#050608] px-4 py-14 sm:px-6 sm:py-16 lg:px-8"
       role="contentinfo"
     >
       {!elevatePreview ? <div className="epm-accent-line absolute inset-x-0 top-0" aria-hidden="true" /> : null}
@@ -66,13 +66,13 @@ export default function Footer() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-              <div className="space-y-1.5 border-l border-white/[0.08] pl-4">
+              <div className="space-y-1.5 border-l border-[rgba(0,159,227,0.12)] pl-4">
                 <p className={`mb-1 ${elevatePreview ? 'text-[10px] font-light tracking-wide text-[#c5cad2]' : 'font-sans text-[11px] font-medium tracking-wide text-[#aeb4bf]'}`}>{primary.name}</p>
                 <a href={primary.phoneHref} className="flex touch-manipulation items-center gap-2 font-light text-[#f4f4f2] transition-colors hover:text-[#e8eaee]">
                   <Phone className="h-3.5 w-3.5 shrink-0 text-[#009FE3]" aria-hidden="true" /> {primary.phoneDisplay}
                 </a>
               </div>
-              <div className="space-y-1.5 border-l border-white/[0.08] pl-4">
+              <div className="space-y-1.5 border-l border-[rgba(0,159,227,0.1)] pl-4">
                 <p className={`mb-1 ${elevatePreview ? 'text-[10px] font-light tracking-wide text-[#9ea6b0]' : 'font-sans text-[11px] font-medium tracking-wide text-[#9ea6b0]'}`}>{secondary.name}</p>
                 <a href={secondary.phoneHref} className="flex touch-manipulation items-center gap-2 font-light text-[#f4f4f2] opacity-95 transition-colors hover:text-[#e8eaee]">
                   <Phone className="h-3.5 w-3.5 shrink-0 text-[#009FE3] opacity-75" aria-hidden="true" /> {secondary.phoneDisplay}
@@ -169,7 +169,7 @@ export default function Footer() {
           ) : null}
         </div>
 
-        <div className="mt-8 pt-6 border-t border-white/10 space-y-2">
+        <div className="mt-8 pt-6 border-t border-white/[0.06] space-y-2">
           <p className={`text-center leading-relaxed max-w-3xl mx-auto ${elevatePreview ? 'text-[10px] font-light tracking-normal text-brand-metal' : 'text-[10px] uppercase tracking-[0.18em] text-brand-metal'}`}>
             Elevate by Zanzi provides marketing material for illustrative purposes only. Nothing on this site constitutes financial,
             legal, or investment advice. Seek independent counsel before committing to a transaction.

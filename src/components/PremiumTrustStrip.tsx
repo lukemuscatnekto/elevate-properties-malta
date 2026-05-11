@@ -42,8 +42,8 @@ export default function PremiumTrustStrip() {
     <section
       className={`relative border-t px-4 sm:px-6 lg:px-8 ${
         elevatePreview
-          ? 'border-white/[0.05] bg-[#060608] py-4 sm:py-5'
-          : 'border-white/[0.06] bg-[#080a10] py-3 sm:py-3.5'
+          ? 'border-white/[0.05] bg-[#070809] py-2.5 sm:py-3'
+          : 'border-white/[0.05] bg-[#070809] py-2.5 sm:py-3'
       }`}
       aria-labelledby="premium-trust-strip-heading"
     >
@@ -51,21 +51,21 @@ export default function PremiumTrustStrip() {
         Brand credentials
       </h2>
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,159,227,0.2)] to-transparent opacity-90"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,159,227,0.16)] to-transparent opacity-90"
         aria-hidden="true"
       />
       <div
-        className={`relative mx-auto flex max-w-6xl flex-col divide-y divide-white/[0.07] sm:flex-row sm:divide-x sm:divide-y-0 ${
+        className={`relative mx-auto flex max-w-6xl flex-col divide-y divide-white/[0.05] sm:flex-row sm:divide-x sm:divide-y-0 ${
           elevatePreview ? 'gap-0' : 'gap-0'
         }`}
       >
         {items.map(({ title, body }) => (
           <div
             key={title}
-            className={`min-w-0 flex-1 px-3 py-3 text-center sm:px-5 sm:py-2.5 sm:text-left ${elevatePreview ? 'sm:first:pl-2' : ''}`}
+            className={`min-w-0 flex-1 px-3 py-2.5 text-center sm:px-5 sm:py-2 sm:text-left ${elevatePreview ? 'sm:first:pl-2' : ''}`}
           >
-            <p className="font-playfair text-[11px] font-normal leading-snug tracking-[0.04em] text-[#e8eaee] sm:text-xs">{title}</p>
-            <p className="mt-1 text-[10px] font-light leading-relaxed text-[#9ea6b0] sm:text-[11px]">{body}</p>
+            <p className="font-playfair text-[11px] font-normal leading-snug tracking-[0.03em] text-[#eef1f6] sm:text-[11.5px]">{title}</p>
+            <p className="mt-0.5 text-[10px] font-light leading-relaxed text-[#9aa3ae] sm:text-[10.5px]">{body}</p>
           </div>
         ))}
       </div>

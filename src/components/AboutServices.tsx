@@ -90,7 +90,7 @@ export default function AboutServices() {
   return (
     <section
       id="about"
-      className={`scroll-anchor-target relative border-t border-white/[0.06] bg-[#07090d] ${elevatePreview ? 'border-[rgba(0,159,227,0.08)]' : ''}`}
+      className={`scroll-anchor-target relative border-t border-white/[0.05] bg-[#07090d] ${elevatePreview ? 'border-[rgba(0,159,227,0.07)]' : ''}`}
       aria-labelledby="about-heading"
     >
       <div className="epm-accent-line absolute inset-x-0 top-0" aria-hidden="true" />
@@ -99,14 +99,14 @@ export default function AboutServices() {
       <div className={`px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'py-14 sm:py-[4.5rem]' : 'py-14 sm:py-16'}`}>
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl">
-            <p className="mb-3 flex items-center gap-3 font-sans text-[11px] font-medium tracking-[0.14em] text-[#9ea6b0]">
-              <span className="h-px w-10 bg-gradient-to-r from-[rgba(0,159,227,0.5)] to-transparent" aria-hidden="true" />
+            <p className="mb-3 flex items-center gap-3 font-sans text-[11px] font-medium tracking-[0.12em] text-[#9aa3ae]">
+              <span className="h-px w-10 bg-gradient-to-r from-[rgba(0,159,227,0.42)] to-transparent" aria-hidden="true" />
               Brand foundation
             </p>
-            <h2 id="about-heading" className="mb-3 font-playfair text-2xl leading-tight text-[#f4f4f2] md:text-3xl">
+            <h2 id="about-heading" className="mb-3 font-playfair text-2xl leading-tight tracking-[0.01em] text-[#f4f4f2] md:text-3xl">
               Elevate by Zanzi
             </h2>
-            <p className="max-w-2xl font-sans text-sm font-light leading-relaxed text-[#b4bcc8] sm:text-[15px]">
+            <p className="max-w-2xl font-sans text-sm font-light leading-relaxed text-[#aeb6c2] sm:text-[15px]">
               {elevatePreview
                 ? 'Elevate carries the luxury tone — ZANZI franchise credibility signals Malta execution seriousness. Quicklets network depth supports lettings intelligence when your mandate requires it.'
                 : 'Modern luxury by Elevate. Official franchise credibility through Zanzi. Supported by the wider Quicklets property network.'}
@@ -119,7 +119,7 @@ export default function AboutServices() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
-              className="border border-white/[0.09] bg-[#080a0f]/85 p-6 sm:p-7"
+              className="border border-white/[0.06] bg-[#07090d]/95 p-6 sm:p-7"
             >
               <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#009FE3]">Elevate</p>
               <h3 className="mb-3 font-playfair text-lg text-[#f4f4f2] sm:text-xl">Premium presentation</h3>
@@ -147,7 +147,7 @@ export default function AboutServices() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
-              className="border border-white/[0.09] bg-[#080a0f]/75 p-6 sm:p-7"
+              className="border border-white/[0.06] bg-[#07090d]/90 p-6 sm:p-7"
             >
               <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#009FE3]">Zanzi</p>
               <h3 className="mb-3 font-playfair text-lg text-[#f4f4f2] sm:text-xl">Franchise credibility</h3>
@@ -174,9 +174,9 @@ export default function AboutServices() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               viewport={{ once: true }}
-              className="border border-white/[0.09] bg-[#080a0f]/75 p-6 sm:p-7"
+              className="border border-white/[0.06] bg-[#07090d]/90 p-6 sm:p-7"
             >
-              <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#8b7ba8]">Quick Lets</p>
+              <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#9a8fb0]">Quick Lets</p>
               <h3 className="mb-3 font-playfair text-lg text-[#f4f4f2] sm:text-xl">Lettings &amp; network reach</h3>
               <p className="mb-4 font-sans text-sm font-light leading-relaxed text-[#aeb4bf]">
                 Lettings network support and wider market awareness.
@@ -214,7 +214,7 @@ export default function AboutServices() {
       {/* ── Services block ── */}
       <div
         id="services"
-        className={`scroll-anchor-target border-t border-white/[0.06] bg-[#080a10] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-[rgba(0,159,227,0.07)] py-16 sm:py-20' : 'py-14 sm:py-16'}`}
+        className={`scroll-anchor-target border-t border-white/[0.05] bg-[#080a10] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-[rgba(0,159,227,0.06)] py-16 sm:py-20' : 'py-14 sm:py-16'}`}
       >
         <div className="mx-auto max-w-7xl">
           <div className={`max-w-2xl ${elevatePreview ? 'mb-12' : 'mb-10'}`}>
@@ -229,7 +229,7 @@ export default function AboutServices() {
             </p>
           </div>
 
-          <div className="overflow-hidden rounded-sm border border-white/[0.08]">
+          <div className="overflow-hidden rounded-sm border border-white/[0.06]">
             {serviceCards.map((svc, i) => (
               <motion.a
                 key={svc.title}
@@ -238,7 +238,7 @@ export default function AboutServices() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true }}
-                className="group flex min-h-0 min-w-0 flex-col gap-3 border-b border-white/[0.06] bg-[#07090d]/40 px-5 py-5 transition-colors last:border-b-0 hover:bg-[#0a0c12]/55 focus:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[rgba(0,159,227,0.45)] sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-6 sm:py-6 touch-manipulation"
+                className="group flex min-h-0 min-w-0 flex-col gap-3 border-b border-white/[0.05] bg-[#07090d]/35 px-5 py-5 transition-colors last:border-b-0 hover:bg-[#0a0c12]/45 focus:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[rgba(0,159,227,0.4)] sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-6 sm:py-6 touch-manipulation"
               >
                 <div className="flex min-w-0 flex-1 items-start gap-4">
                   <svc.Icon className="mt-0.5 h-4 w-4 shrink-0 text-[rgba(0,159,227,0.55)] transition-colors group-hover:text-[#009FE3]" aria-hidden="true" />

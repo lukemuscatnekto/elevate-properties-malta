@@ -10,15 +10,15 @@ export default function ConsultationBand() {
 
   return (
     <section
-      className={`relative border-t border-white/[0.06] bg-[#060608] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-[rgba(0,159,227,0.08)] py-12 sm:py-14' : 'py-12 sm:py-14'}`}
+      className={`relative border-t border-white/[0.05] bg-[#070809] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-[rgba(0,159,227,0.07)] py-14 sm:py-16' : 'py-14 sm:py-16'}`}
       aria-labelledby="consultation-band-heading"
     >
-      <div className="relative mx-auto max-w-5xl border border-white/[0.09] bg-[#080a0f]/85 px-6 py-8 sm:px-10 sm:py-10">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,159,227,0.22)] to-transparent" aria-hidden="true" />
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+      <div className="relative mx-auto max-w-5xl border border-white/[0.07] bg-[#080a10]/96 px-6 py-10 sm:px-12 sm:py-12">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(0,159,227,0.18)] to-transparent" aria-hidden="true" />
+        <div className="flex flex-col gap-9 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
           <div className="max-w-2xl text-center lg:text-left">
-            <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.14em] text-[#9ea6b0]">Private consultation</p>
-            <h2 id="consultation-band-heading" className="mb-2 font-playfair text-2xl leading-tight text-[#f4f4f2] md:text-3xl">
+            <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#9aa3ae]">Private consultation</p>
+            <h2 id="consultation-band-heading" className="mb-2 font-playfair text-2xl leading-[1.12] tracking-[0.01em] text-[#f4f4f2] md:text-[1.85rem]">
               Ready for your next move?
             </h2>
             <p className="font-sans text-sm font-light leading-relaxed text-[#b4bcc8]">

@@ -5,7 +5,7 @@ import { publicAdvisors, type PublicAdvisor } from '../data/advisors';
 import { useElevatePreviewMode } from '../context/ElevatePreviewContext';
 
 const portraitFrame =
-  'mx-auto shrink-0 overflow-hidden rounded-sm border border-white/[0.1] bg-[#07090d] shadow-[0_12px_40px_rgba(0,0,0,0.35)] md:mx-0';
+  'mx-auto shrink-0 overflow-hidden rounded-sm border border-white/[0.07] bg-[#07090d] shadow-[0_10px_32px_rgba(0,0,0,0.22)] md:mx-0';
 
 function AdvisorAvatar({ advisor }: { advisor: PublicAdvisor }) {
   const [photoFailed, setPhotoFailed] = useState(false);
@@ -43,10 +43,10 @@ export default function Agents() {
   return (
     <section
       id="agents"
-      className={`scroll-anchor-target relative overflow-hidden border-t border-white/[0.06] bg-[#080a10] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-[rgba(0,159,227,0.07)] py-14 sm:py-[4.5rem]' : 'py-14 sm:py-16'}`}
+      className={`scroll-anchor-target relative overflow-hidden border-t border-white/[0.05] bg-[#080a10] px-4 sm:px-6 lg:px-8 ${elevatePreview ? 'border-[rgba(0,159,227,0.06)] py-14 sm:py-[4.5rem]' : 'py-14 sm:py-16'}`}
       aria-labelledby="agents-heading"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_40%_at_50%_0%,rgba(0,159,227,0.06),transparent_50%)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_38%_at_50%_0%,rgba(0,159,227,0.04),transparent_52%)]" aria-hidden="true" />
       <div className="relative mx-auto max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -78,7 +78,7 @@ export default function Agents() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className={`flex flex-col border border-white/[0.08] bg-[#07090d]/85 p-6 sm:p-7 ${elevatePreview ? 'rounded-sm' : ''}`}
+              className={`flex flex-col border border-white/[0.06] bg-[#07090d]/92 p-6 sm:p-7 ${elevatePreview ? 'rounded-sm' : ''}`}
             >
               <div className="flex w-full flex-col gap-6 md:flex-row md:items-start">
                 <AdvisorAvatar advisor={advisor} />
@@ -91,10 +91,10 @@ export default function Agents() {
                 </div>
               </div>
 
-              <div className="mt-6 flex w-full flex-col gap-3 border-t border-white/[0.08] pt-6 sm:flex-row sm:justify-start md:justify-start">
+              <div className="mt-6 flex w-full flex-col gap-3 border-t border-white/[0.06] pt-6 sm:flex-row sm:justify-start md:justify-start">
                 <a
                   href={advisor.phoneHref}
-                  className="inline-flex min-h-[48px] w-full touch-manipulation items-center justify-center gap-2 border border-white/[0.12] bg-[#080a0f]/90 px-4 font-sans text-[11px] font-light text-[#f4f4f2] transition-colors hover:border-[rgba(0,159,227,0.35)] hover:text-[#e8eaee] sm:w-auto"
+                  className="inline-flex min-h-[48px] w-full touch-manipulation items-center justify-center gap-2 border border-white/[0.08] bg-[#080a10]/90 px-4 font-sans text-[11px] font-light text-[#f4f4f2] transition-colors hover:border-[rgba(0,159,227,0.32)] hover:text-[#e8eaee] sm:w-auto"
                   aria-label={`Call ${advisor.name} on ${advisor.phoneDisplay}`}
                 >
                   <Phone className="h-3.5 w-3.5 shrink-0 text-[#009FE3]" aria-hidden="true" />
