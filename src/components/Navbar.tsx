@@ -1,12 +1,14 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, MessageCircle, ArrowUpRight, MapPin } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { Menu, X, MessageCircle, ArrowUpRight, MapPin, Phone } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { siteConfig } from '../config/site';
 import { anchorHref } from '../utils/routeAnchors';
 import { useElevatePreviewMode } from '../context/ElevatePreviewContext';
 
 const ICON_MARK_TRANSPARENT = '/images/elevate-logos/04_icon_mark_quick_lets_transparent.png';
+const DRAWER_EASE = [0.22, 1, 0.36, 1] as const;
+const MOBILE_NAV_DRAWER_ID = 'mobile-nav-drawer';
 
 export default function Navbar() {
   const { pathname } = useLocation();
@@ -16,19 +18,31 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
+  /** Body scroll lock while the mobile drawer is open. Preserves any prior overflow value. */
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = previousOverflow;
     };
   }, [isOpen]);
+
+  /** Escape key closes the drawer (and only attaches while open). */
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isOpen]);
+
+  const closeDrawer = useCallback(() => setIsOpen(false), []);
 
   const navLinks = elevatePreview
     ? [
@@ -66,7 +80,7 @@ export default function Navbar() {
           href={anchorHref(pathname, '#hero')}
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: DRAWER_EASE }}
           className="group flex min-w-0 shrink-0 items-center gap-2 rounded-sm py-0.5 pr-1 outline-none focus-visible:ring-1 focus-visible:ring-brand-copper/70 sm:gap-2.5"
           aria-label="Elevate by Zanzi Properties Malta, home"
         >
@@ -76,19 +90,33 @@ export default function Navbar() {
             width={112}
             height={112}
             decoding="async"
-            className="h-14 w-14 shrink-0 object-contain"
+            className="h-9 w-9 shrink-0 object-contain md:h-14 md:w-14"
           />
+
+          {/* Mobile-only compact brand stack: ELEVATE / by ZANZI & QUICK LETS */}
+          <span className="flex min-w-0 flex-col leading-none md:hidden">
+            <span className="font-playfair text-[0.95rem] uppercase tracking-[0.16em] text-[#f4f4f2]">
+              Elevate
+            </span>
+            <span className="mt-1 whitespace-nowrap text-[7px] font-medium uppercase tracking-[0.18em] text-[#aab2bf]">
+              by <span className="text-[#009FE3]">ZANZI</span>
+              <span className="text-[#cfd5de]"> &amp; </span>
+              <span className="text-[#c9a8f0]">QUICK LETS</span>
+            </span>
+          </span>
+
+          {/* Desktop divider + 3-line lockup (preserved exactly) */}
           {!elevatePreview ? (
             <>
               <span
-                className="h-14 w-px shrink-0 self-center bg-gradient-to-b from-[rgba(0,159,227,0.65)] via-[rgba(232,234,238,0.22)] to-[rgba(176,132,228,0.55)]"
+                className="hidden h-14 w-px shrink-0 self-center bg-gradient-to-b from-[rgba(0,159,227,0.65)] via-[rgba(232,234,238,0.22)] to-[rgba(176,132,228,0.55)] md:inline-block"
                 aria-hidden="true"
               />
-              <div className="flex min-w-0 flex-col justify-center text-[6.5px] font-medium uppercase leading-snug tracking-[0.1em] text-[#eef1f6]/95 sm:text-[7px] sm:tracking-[0.11em] md:text-[7.5px] md:tracking-[0.12em]">
+              <div className="hidden min-w-0 flex-col justify-center text-[7px] font-medium uppercase leading-snug tracking-[0.11em] text-[#eef1f6]/95 md:flex md:text-[7.5px] md:tracking-[0.12em]">
                 <p className="whitespace-nowrap">Official franchise</p>
                 <p className="mt-0.5 whitespace-nowrap">
                   <span className="text-[#009FE3]">ZANZI</span>
-                  <span className="text-[#f4f6f9]"> & </span>
+                  <span className="text-[#f4f6f9]"> &amp; </span>
                   <span className="text-[#c9a8f0]">QUICK LETS</span>
                 </p>
                 <p className="mt-0.5 flex items-center gap-0.5 whitespace-nowrap text-[#d0d6df]">
@@ -100,7 +128,7 @@ export default function Navbar() {
           ) : null}
         </motion.a>
 
-        {/* Desktop Nav */}
+        {/* Desktop Nav (visually identical to before) */}
         <div
           className={`hidden min-w-0 flex-1 items-center justify-end md:flex ${elevatePreview ? 'gap-4 lg:gap-6' : 'gap-3 lg:gap-5'}`}
         >
@@ -136,114 +164,151 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Toggle — single refined hamburger */}
         <button
           type="button"
-          className={`flex h-10 w-10 shrink-0 items-center justify-center border border-white/[0.09] text-[#f4f4f2] outline-none transition-colors hover:border-white/[0.14] md:hidden focus-visible:ring-1 focus-visible:ring-brand-copper/60 ${
-            elevatePreview ? 'bg-[#0a0a0c]' : 'bg-black/25 backdrop-blur-md'
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border text-[#dbe1ea] outline-none transition-colors hover:text-[#f4f4f2] md:hidden focus-visible:ring-1 focus-visible:ring-brand-copper/60 ${
+            elevatePreview
+              ? 'border-white/[0.08] bg-[#0a0a0c]/80 hover:border-[rgba(0,159,227,0.4)]'
+              : 'border-white/[0.08] bg-[#0a0c10]/55 backdrop-blur-md hover:border-[rgba(0,159,227,0.4)]'
           }`}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen(true)}
           aria-expanded={isOpen}
-          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-controls={MOBILE_NAV_DRAWER_ID}
+          aria-label="Open menu"
         >
-          {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          <Menu className="h-[1.15rem] w-[1.15rem] text-[#009FE3]" strokeWidth={1.4} aria-hidden="true" />
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed inset-0 top-0 z-40 flex flex-col overflow-y-auto border-t border-white/[0.06] bg-[#050608] p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1.25rem,env(safe-area-inset-top))] sm:p-10 md:hidden"
-          >
-            <div className="mb-10 flex items-center justify-between gap-3 sm:mb-16">
-              <a
-                href={anchorHref(pathname, '#hero')}
-                className="flex min-w-0 flex-col items-start touch-manipulation outline-none focus:ring-1 focus:ring-brand-copper"
-                aria-label="Elevate by Zanzi home"
-                onClick={() => setIsOpen(false)}
-              >
-                <span className="truncate font-playfair text-xl uppercase tracking-[0.1em] text-brand-ivory sm:text-2xl">Elevate</span>
-                <span className="mt-1 text-[10px] uppercase tracking-[0.3em] text-brand-silver">
-                  by{' '}
-                  <span className={elevatePreview ? 'font-semibold text-[#009FE3]/90' : 'text-brand-copper'}>ZANZI</span>
-                </span>
-                <span className="mt-1 text-[8px] uppercase tracking-[0.26em] text-brand-metal">Properties Malta</span>
-                <span className="mt-2 text-[9px] uppercase tracking-[0.24em] text-brand-metal">Official Zanzi Franchise</span>
-              </a>
-              <button
-                type="button"
-                onClick={() => setIsOpen(false)}
-                className="shrink-0 border border-white/[0.08] bg-black/30 p-2.5 text-[#f4f4f2] backdrop-blur-sm outline-none transition-colors hover:border-white/[0.14] focus-visible:ring-1 focus-visible:ring-brand-copper/60 sm:p-3"
-                aria-label="Close menu"
-              >
-                <X className="h-7 w-7 sm:h-8 sm:w-8" />
-              </button>
-            </div>
+          <>
+            <motion.div
+              key="mobile-nav-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22, ease: DRAWER_EASE }}
+              onClick={closeDrawer}
+              className="fixed inset-0 z-[59] bg-[#03050a]/95 md:hidden"
+              aria-hidden="true"
+            />
+            <motion.div
+              key="mobile-nav-drawer"
+              id={MOBILE_NAV_DRAWER_ID}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation menu"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ duration: 0.34, ease: DRAWER_EASE }}
+              className="fixed inset-y-0 right-0 z-[60] flex h-[100dvh] w-full flex-col overflow-y-auto bg-[#050608] text-[#e8eaee] md:hidden"
+            >
+              {/* Subtle matte glow — low-alpha radial blue + purple, no heavy blur */}
+              <div
+                className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_72%_50%_at_82%_14%,rgba(0,159,227,0.10),transparent_62%),radial-gradient(ellipse_60%_42%_at_18%_92%,rgba(176,132,228,0.07),transparent_64%)]"
+                aria-hidden="true"
+              />
+              {/* Top + bottom hairlines */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/[0.06]" aria-hidden="true" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/[0.06]" aria-hidden="true" />
 
-            <nav className="mb-10 flex flex-col gap-6 sm:mb-12 sm:gap-8">
-              {navLinks.map((link, idx) => (
-                <motion.a
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + idx * 0.05 }}
-                  key={link.name}
-                  href={anchorHref(pathname, link.href)}
-                  className="font-playfair text-[1.7rem] leading-tight text-brand-ivory outline-none transition-colors hover:text-brand-champagne focus:text-brand-champagne sm:text-[2rem]"
-                  onClick={() => setIsOpen(false)}
+              {/* Drawer header: icon + brand stack + close */}
+              <div className="relative flex items-center justify-between gap-3 px-5 pt-[max(0.85rem,env(safe-area-inset-top))] pb-3 sm:px-7">
+                <a
+                  href={anchorHref(pathname, '#hero')}
+                  onClick={closeDrawer}
+                  className="flex min-w-0 items-center gap-2 rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-brand-copper/60"
+                  aria-label="Elevate by Zanzi home"
                 >
-                  {link.name}
-                </motion.a>
-              ))}
-            </nav>
-
-            <div className="mt-auto border-t border-white/10 pt-8">
-              <p className="mb-6 text-[10px] font-bold uppercase tracking-widest text-brand-metal">Concierge Lines</p>
-              <div className="mb-6 space-y-5">
-                <div>
-                  <p className="mb-1 text-[9px] uppercase tracking-widest text-brand-champagne/85">{siteConfig.contacts.primary.name}</p>
-                  <a href={siteConfig.contacts.primary.phoneHref} className="block touch-manipulation text-lg font-light text-brand-ivory">
-                    {siteConfig.contacts.primary.phoneDisplay}
-                  </a>
-                </div>
-                <div>
-                  <p className="mb-1 text-[9px] uppercase tracking-widest text-brand-metal">{siteConfig.contacts.secondary.name}</p>
-                  <a
-                    href={siteConfig.contacts.secondary.phoneHref}
-                    className="block touch-manipulation text-lg font-light text-brand-ivory opacity-95"
-                  >
-                    {siteConfig.contacts.secondary.phoneDisplay}
-                  </a>
-                </div>
+                  <img
+                    src={ICON_MARK_TRANSPARENT}
+                    alt=""
+                    width={80}
+                    height={80}
+                    decoding="async"
+                    className="h-9 w-9 shrink-0 object-contain"
+                  />
+                  <span className="flex min-w-0 flex-col leading-none">
+                    <span className="font-playfair text-[0.95rem] uppercase tracking-[0.16em] text-[#f4f4f2]">
+                      Elevate
+                    </span>
+                    <span className="mt-1 whitespace-nowrap text-[7px] font-medium uppercase tracking-[0.18em] text-[#aab2bf]">
+                      by <span className="text-[#009FE3]">ZANZI</span>
+                      <span className="text-[#cfd5de]"> &amp; </span>
+                      <span className="text-[#c9a8f0]">QUICK LETS</span>
+                    </span>
+                  </span>
+                </a>
+                <button
+                  type="button"
+                  onClick={closeDrawer}
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-white/[0.08] bg-[#0a0c10]/55 text-[#dbe1ea] outline-none transition-colors hover:border-[rgba(0,159,227,0.4)] hover:text-[#f4f4f2] focus-visible:ring-1 focus-visible:ring-brand-copper/60"
+                  aria-label="Close menu"
+                >
+                  <X className="h-[1.15rem] w-[1.15rem] text-[#009FE3]" strokeWidth={1.4} aria-hidden="true" />
+                </button>
               </div>
-              <a
-                href={siteConfig.emailHref}
-                className="mb-8 block break-all text-sm font-light text-brand-sand touch-manipulation transition-colors hover:text-brand-champagne sm:text-base"
-              >
-                {siteConfig.emailDisplay}
-              </a>
-              <a
-                href={siteConfig.primaryWhatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mb-6 flex w-full touch-manipulation items-center justify-center gap-2 border border-brand-copper/30 bg-brand-copper/10 py-4 text-[10px] font-bold uppercase tracking-[0.2em] text-brand-ivory transition-colors hover:bg-brand-copper/20"
-              >
-                <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                WhatsApp {siteConfig.contacts.primary.name.split(' ')[0]}
-              </a>
-              <a
-                href={anchorHref(pathname, '#contact')}
-                onClick={() => setIsOpen(false)}
-                className="epm-btn-primary flex w-full touch-manipulation items-center justify-center py-4 text-[10px] tracking-[0.2em] sm:py-6"
-              >
-                Speak With an Advisor
-              </a>
-            </div>
-          </motion.div>
+
+              {/* Menu links — Playfair, generous, separator hairlines */}
+              <nav aria-label="Mobile primary" className="relative mt-2 flex flex-col px-5 sm:px-7">
+                {navLinks.map((link, idx) => (
+                  <motion.a
+                    key={link.name}
+                    href={anchorHref(pathname, link.href)}
+                    onClick={closeDrawer}
+                    initial={{ opacity: 0, x: 14 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.08 + idx * 0.045, duration: 0.42, ease: DRAWER_EASE }}
+                    className="group flex min-h-[52px] items-center justify-between border-b border-white/[0.05] py-3 font-playfair text-[1.6rem] leading-tight text-[#f4f4f2] outline-none transition-colors hover:text-[#009FE3] focus-visible:text-[#009FE3] sm:text-[1.85rem]"
+                  >
+                    <span>{link.name}</span>
+                    <ArrowUpRight
+                      className="h-3.5 w-3.5 text-[#5d6675] transition-colors group-hover:text-[#009FE3] group-focus-visible:text-[#009FE3]"
+                      aria-hidden="true"
+                    />
+                  </motion.a>
+                ))}
+              </nav>
+
+              {/* Bottom CTAs + franchise footer */}
+              <div className="relative mt-auto flex flex-col gap-2.5 px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-7 sm:px-7">
+                <a
+                  href={anchorHref(pathname, '#contact')}
+                  onClick={closeDrawer}
+                  className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-sm border border-[rgba(0,159,227,0.35)] bg-[#07090c]/60 px-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#f4f4f2] outline-none transition-colors hover:border-[rgba(0,159,227,0.55)] hover:bg-[#0a0d12]/70 focus-visible:ring-1 focus-visible:ring-brand-copper/60"
+                >
+                  Private Consultation
+                  <ArrowUpRight className="h-3.5 w-3.5 text-[#009FE3]" aria-hidden="true" />
+                </a>
+                <a
+                  href={siteConfig.contacts.primary.phoneHref}
+                  className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-sm border border-white/[0.08] bg-[#0a0d12]/55 px-5 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#eef1f6] outline-none transition-colors hover:border-[rgba(0,159,227,0.32)] hover:bg-[#0c1018]/65 focus-visible:ring-1 focus-visible:ring-brand-copper/60"
+                >
+                  <Phone className="h-3.5 w-3.5 text-[#009FE3]" aria-hidden="true" />
+                  Speak to an Advisor
+                </a>
+                <a
+                  href={siteConfig.primaryWhatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-flex min-h-[40px] w-full items-center justify-center gap-2 text-[9px] font-medium uppercase tracking-[0.22em] text-[#aab2bf] outline-none transition-colors hover:text-[#e8eaee] focus-visible:text-[#e8eaee]"
+                >
+                  <MessageCircle className="h-3 w-3 text-[#009FE3]/80" aria-hidden="true" />
+                  WhatsApp {siteConfig.contacts.primary.name.split(' ')[0]}
+                </a>
+                <p className="mt-4 border-t border-white/[0.06] pt-4 text-center text-[8px] font-medium uppercase tracking-[0.22em] text-[#8e96a3]">
+                  Official Franchise · <span className="text-[#009FE3]">ZANZI</span>
+                  <span className="text-[#aab2bf]"> &amp; </span>
+                  <span className="text-[#c9a8f0]">QUICK LETS</span>
+                  <span className="text-[#8e96a3]"> · Malta</span>
+                </p>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
