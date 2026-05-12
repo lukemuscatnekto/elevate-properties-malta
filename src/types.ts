@@ -20,6 +20,9 @@ export interface Property {
   images?: string[];
   tag?:
     | 'Featured'
+    | 'Featured Selection'
+    | 'Curated Selection'
+    | 'Investment Profile'
     | 'Sea View'
     | 'New Listing'
     | 'Exclusive'

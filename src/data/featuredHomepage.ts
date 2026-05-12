@@ -1,8 +1,12 @@
 import type { Property } from '../types';
 
 /**
- * Homepage featured listings — replace this static array with data from your CRM, Zanzi, QuickLets, or API when ready.
+ * Homepage featured listings. Replace this static array with data from your CRM, ZANZI, Quick Lets, or API when ready.
  * Keep the same `Property` shape (or map server fields into it) so `FeaturedProperties` and `PropertyModal` stay unchanged.
+ *
+ * Wording note: these entries are framed as curated selections / typologies (not confirmed live listings) so the public site
+ * stays honest until real CRM inventory is wired up. Tags use "Featured Selection" / "Curated Selection" / "Investment Profile"
+ * rather than "Listing" so advisors are never asked about a specific property they don't actively represent.
  */
 export const featuredHomepageProperties: Property[] = [
   {
@@ -18,9 +22,9 @@ export const featuredHomepageProperties: Property[] = [
     status: 'For Sale',
     image:
       'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1200',
-    tag: 'Elevate Pick',
+    tag: 'Featured Selection',
     description:
-      'A refined villa proposition in Mosta combining generous entertaining spaces, landscaped grounds, and a calm residential setting within reach of Malta’s key hubs.',
+      'A refined villa profile in the Mosta corridor, framed for generous entertaining spaces, landscaped grounds, and a calm residential setting within reach of Malta’s key hubs.',
     features: ['Pool-ready grounds', 'Multi-car garage', 'Guest wing', 'Smart climate', 'Wine storage', 'Security system'],
     isFeatured: true,
     createdAt: '2024-06-01T10:00:00Z',
@@ -38,9 +42,9 @@ export const featuredHomepageProperties: Property[] = [
     status: 'For Sale',
     image:
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200',
-    tag: 'Luxury Listing',
+    tag: 'Curated Selection',
     description:
-      'A contemporary penthouse with elevated panoramas toward the Mediterranean — crafted for breezy terraces, understated luxury interiors, and a lock-up-and-leave lifestyle.',
+      'A contemporary penthouse profile with elevated panoramas toward the Mediterranean. Shaped for breezy terraces, understated interiors, and a lock-up-and-leave lifestyle.',
     features: ['Sweeping terraces', 'Private lift lobby', 'Marina proximity', 'Storage', 'High-spec kitchen', 'Double glazing'],
     isFeatured: true,
     createdAt: '2024-06-12T14:30:00Z',
@@ -58,9 +62,9 @@ export const featuredHomepageProperties: Property[] = [
     status: 'For Sale',
     image:
       'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200',
-    tag: 'Investment Potential',
+    tag: 'Investment Profile',
     description:
-      'Situated in sought-after Attard, this villa offers balanced proportions across living and bedroom wings, curated finishes, and outdoor space oriented for Malta’s Mediterranean climate.',
+      'An Attard-style villa profile balanced across living and bedroom wings, with curated finishes and outdoor space oriented for Malta’s Mediterranean climate.',
     features: ['Garden & pool terrace', 'Home office suite', 'Cinema nook', 'Solar-ready roof', 'Gated driveway', 'Underfloor heating (select zones)'],
     isFeatured: true,
     createdAt: '2024-06-18T09:15:00Z',
