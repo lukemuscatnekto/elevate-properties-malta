@@ -158,7 +158,7 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 <div className="border-t border-white/10 pt-6">
                   <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-2">Arrange a Private Viewing</p>
                   <p className="text-brand-metal text-[11px] font-light leading-relaxed mb-5">
-                    Submit your details and an advisor from Elevate by Zanzi will contact you to confirm availability and next steps.
+                    Submit your details and an advisor from Elevate Properties Malta will contact you to confirm availability and next steps.
                   </p>
 
                   {formState === 'success' ? (

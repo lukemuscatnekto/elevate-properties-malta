@@ -104,12 +104,12 @@ export default function AboutServices() {
               Brand foundation
             </p>
             <h2 id="about-heading" className="mb-3 font-playfair text-2xl leading-tight tracking-[0.01em] text-[#f4f4f2] md:text-3xl">
-              Elevate by Zanzi
+              Elevate Properties Malta
             </h2>
             <p className="max-w-2xl font-sans text-sm font-light leading-relaxed text-[#aeb6c2] sm:text-[15px]">
               {elevatePreview
-                ? 'Elevate carries the luxury tone — ZANZI franchise credibility signals Malta execution seriousness. Quicklets network depth supports lettings intelligence when your mandate requires it.'
-                : 'Modern luxury by Elevate. Official franchise credibility through Zanzi. Supported by the wider Quicklets property network.'}
+                ? 'Elevate carries the luxury tone — ZANZI franchise credibility signals Malta execution seriousness. Quick Lets network depth supports lettings intelligence when your mandate requires it.'
+                : 'Modern luxury by Elevate. Official franchise credibility through ZANZI. Supported by the wider Quick Lets property network.'}
             </p>
           </div>
 
@@ -198,7 +198,7 @@ export default function AboutServices() {
           </div>
 
           <p className="mt-8 max-w-3xl font-sans text-sm font-light leading-relaxed text-[#8e96a3]">
-            Together, Elevate by Zanzi offers a calmer, more trusted way to buy, sell, and invest in Malta property.
+            Together, Elevate Properties Malta offers a calmer, more trusted way to buy, sell, and invest in Malta property.
           </p>
           <p className="mt-6">
             <a

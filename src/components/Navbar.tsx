@@ -82,7 +82,7 @@ export default function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: DRAWER_EASE }}
           className="group flex min-w-0 shrink-0 items-center gap-2 rounded-sm py-0.5 pr-1 outline-none focus-visible:ring-1 focus-visible:ring-brand-copper/70 sm:gap-2.5"
-          aria-label="Elevate by Zanzi Properties Malta, home"
+          aria-label="Elevate Properties Malta, home"
         >
           <img
             src={ICON_MARK_TRANSPARENT}
@@ -222,7 +222,7 @@ export default function Navbar() {
                   href={anchorHref(pathname, '#hero')}
                   onClick={closeDrawer}
                   className="flex min-w-0 items-center gap-2 rounded-sm outline-none focus-visible:ring-1 focus-visible:ring-brand-copper/60"
-                  aria-label="Elevate by Zanzi home"
+                  aria-label="Elevate Properties Malta home"
                 >
                   <img
                     src={ICON_MARK_TRANSPARENT}

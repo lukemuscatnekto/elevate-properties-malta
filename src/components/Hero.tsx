@@ -48,11 +48,11 @@ const HERO_VILLA_IMAGE = '/images/elevate-hero-villa.png';
 const HERO_BRAND_BANNER_TRANSPARENT = '/images/elevate-brand-banner-transparent.png';
 
 const FEATURE_TABS = [
-  { label: 'Premium Properties', Icon: ShieldCheck },
-  { label: 'Prime Locations', Icon: MapPinned },
-  { label: 'Investment Guidance', Icon: BadgeHelp },
-  { label: 'Trust & Integrity', Icon: Handshake },
-  { label: 'Personalised Service', Icon: PhoneCall },
+  { label: 'Premium Properties', Icon: ShieldCheck, href: '#properties' },
+  { label: 'Prime Locations', Icon: MapPinned, href: '#properties' },
+  { label: 'Investment Guidance', Icon: BadgeHelp, href: '#contact' },
+  { label: 'Trust & Integrity', Icon: Handshake, href: '#trust' },
+  { label: 'Personalised Service', Icon: PhoneCall, href: '#agents' },
 ] as const;
 
 export default function Hero({ onSearch, suppressLogoIntro = false }: HeroProps) {
@@ -115,7 +115,7 @@ export default function Hero({ onSearch, suppressLogoIntro = false }: HeroProps)
       className={`relative flex min-h-[100dvh] min-h-screen flex-col overflow-x-clip border-b ${
         elevatePreview ? 'border-white/[0.04]' : 'border-white/[0.06]'
       }`}
-      aria-label="Hero — Elevate by Zanzi Properties Malta"
+      aria-label="Hero — Elevate Properties Malta"
     >
       {/* ── Premium logo intro (full viewport, then fades — not inside hero lockup) ── */}
       {introLayerMounted && (
@@ -193,7 +193,7 @@ export default function Hero({ onSearch, suppressLogoIntro = false }: HeroProps)
           >
             <img
               src={HERO_BRAND_BANNER_TRANSPARENT}
-              alt="Elevate by Zanzi and Quick Lets Properties Malta"
+              alt="Elevate Properties Malta — by ZANZI & QUICK LETS"
               width={720}
               height={260}
               decoding="async"
@@ -237,7 +237,8 @@ export default function Hero({ onSearch, suppressLogoIntro = false }: HeroProps)
           className="relative z-20 mt-auto w-full shrink-0 pb-[max(4.5rem,env(safe-area-inset-bottom))] pt-1.5 sm:pb-[4.5rem] md:pb-[4.35rem]"
         >
           <div className="relative mx-auto w-full max-w-6xl min-w-0 px-0 pb-0.5">
-            <div className="mb-1 flex justify-center md:mb-1.5 md:justify-end">
+            {/* Desktop-only advisor pill — on mobile the drawer carries this CTA */}
+            <div className="mb-1 hidden justify-center md:mb-1.5 md:flex md:justify-end">
               <a
                 href={anchorHref(pathname, '#contact')}
                 className="inline-flex min-h-[36px] max-w-[92vw] items-center gap-1.5 rounded-sm border border-[rgba(0,159,227,0.32)] bg-[#07090c]/45 px-2.5 py-1.5 text-[8px] font-medium uppercase tracking-[0.12em] text-[#eef1f6] backdrop-blur-[10px] transition-colors hover:border-[rgba(0,159,227,0.5)] hover:bg-[#0a0c10]/60 sm:min-h-[38px] sm:px-3 sm:text-[9px] sm:tracking-[0.14em] md:max-w-none"
@@ -248,18 +249,26 @@ export default function Hero({ onSearch, suppressLogoIntro = false }: HeroProps)
             </div>
 
             <div className="flex justify-center">
-              <div className="inline-flex items-stretch overflow-hidden rounded-sm border border-white/[0.1] bg-[#07090c]/42 text-[8px] uppercase tracking-[0.14em] text-[#d6dbe3] shadow-[0_8px_28px_rgba(0,0,0,0.28)] backdrop-blur-[10px] sm:text-[9px] sm:tracking-[0.16em]">
-                <button type="button" className="relative min-h-[32px] px-3 font-medium text-[#f2f4f8] sm:min-h-[34px] sm:px-4">
+              <div
+                className="inline-flex items-stretch overflow-hidden rounded-sm border border-white/[0.1] bg-[#07090c]/42 text-[8px] uppercase tracking-[0.14em] text-[#d6dbe3] shadow-[0_8px_28px_rgba(0,0,0,0.28)] backdrop-blur-[10px] sm:text-[9px] sm:tracking-[0.16em]"
+                aria-label="Choose intent"
+              >
+                <a
+                  href={anchorHref(pathname, '#properties')}
+                  className="relative inline-flex min-h-[34px] items-center px-3 font-medium text-[#f2f4f8] outline-none transition-colors focus-visible:bg-white/[0.05] sm:min-h-[36px] sm:px-4"
+                  aria-current="page"
+                >
                   Buy Properties
                   <span className="absolute inset-x-2 bottom-0 h-px bg-[rgba(0,159,227,0.72)]" aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  className="min-h-[32px] border-l border-white/[0.08] px-3 font-medium transition-colors hover:bg-white/[0.04] sm:min-h-[34px] sm:px-4"
+                </a>
+                <a
+                  href={anchorHref(pathname, '#about')}
+                  className="inline-flex min-h-[34px] items-center border-l border-white/[0.08] px-3 font-medium outline-none transition-colors hover:bg-white/[0.04] focus-visible:bg-white/[0.05] sm:min-h-[36px] sm:px-4"
+                  aria-label="Quick Lets — lettings network"
                 >
                   Quick Lets
-                </button>
-                <span className="flex min-h-[32px] items-center border-l border-white/[0.08] bg-[#0f1a2a]/65 px-2 text-[6.5px] tracking-[0.12em] text-[#6ea9df] sm:min-h-[34px] sm:px-2.5 sm:text-[7px] sm:tracking-[0.14em]">
+                </a>
+                <span className="flex min-h-[34px] items-center border-l border-white/[0.08] bg-[#0f1a2a]/65 px-2 text-[6.5px] tracking-[0.12em] text-[#6ea9df] sm:min-h-[36px] sm:px-2.5 sm:text-[7px] sm:tracking-[0.14em]">
                   Lettings Focus
                 </span>
               </div>
@@ -397,10 +406,10 @@ export default function Hero({ onSearch, suppressLogoIntro = false }: HeroProps)
 
             <div className="no-scrollbar mt-1.5 overflow-x-auto border border-white/[0.07] bg-[#07090c]/28 backdrop-blur-[6px] sm:mt-2">
               <div className="flex min-w-full divide-x divide-white/[0.07] lg:min-w-0">
-                {FEATURE_TABS.map(({ label, Icon }) => (
+                {FEATURE_TABS.map(({ label, Icon, href }) => (
                   <a
                     key={label}
-                    href={anchorHref(pathname, '#services')}
+                    href={anchorHref(pathname, href)}
                     className="group relative flex min-h-[40px] min-w-[42%] flex-1 items-center justify-center gap-1.5 px-2 py-2 text-center transition-colors hover:bg-white/[0.03] sm:min-h-[42px] sm:min-w-0 sm:gap-2 sm:px-2.5"
                   >
                     <Icon className="h-3 w-3 shrink-0 text-[#c5cad2] sm:h-3.5 sm:w-3.5" aria-hidden="true" />

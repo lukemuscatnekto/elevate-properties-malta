@@ -22,8 +22,8 @@ const secondaryContact = {
 /** Public marketing site configuration. Social URLs remain empty until you add real profiles (Footer hides icons automatically). */
 
 export const siteConfig = {
-  companyName: 'Elevate by Zanzi',
-  tagline: 'Official Zanzi Franchise · Malta Luxury Real Estate.',
+  companyName: 'Elevate Properties Malta',
+  tagline: 'Official Franchise · ZANZI & QUICK LETS · Malta',
 
   domainUrl: 'https://elevatepropertiesmalta.com',
 

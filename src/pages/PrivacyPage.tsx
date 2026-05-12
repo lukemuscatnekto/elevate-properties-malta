@@ -4,9 +4,9 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { siteConfig } from '../config/site';
 
-const PRIVACY_TITLE = 'Privacy & Data Handling | Elevate by Zanzi';
+const PRIVACY_TITLE = 'Privacy & Data Handling | Elevate Properties Malta';
 const PRIVACY_DESCRIPTION =
-  'How Elevate by Zanzi handles contact details, viewing requests, and seller enquiries submitted through this website — Malta and EU visitors.';
+  'How Elevate Properties Malta handles contact details, viewing requests, and seller enquiries submitted through this website — Malta and EU visitors.';
 
 export default function PrivacyPage() {
   useEffect(() => {

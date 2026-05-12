@@ -19,7 +19,7 @@ interface FormSubmissionResult {
 type FormPayload = Record<string, string | number | boolean | null | undefined>;
 
 const FALLBACK_CHANNELS =
-  'You may also reach us directly on +356 9981 6646, WhatsApp (see the contact section on this page), or at nicodalton@elevatepropertiesmalta.com — an Elevate by Zanzi advisor will handle your enquiry manually.';
+  'You may also reach us directly on +356 9981 6646, WhatsApp (see the contact section on this page), or at nicodalton@elevatepropertiesmalta.com — an Elevate Properties Malta advisor will handle your enquiry manually.';
 
 const FORM_PROVIDER = (import.meta.env.VITE_FORM_PROVIDER ?? 'none').toLowerCase() as FormProvider;
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined;
@@ -62,16 +62,16 @@ function normalizeMessage(formType: string, data: FormPayload): string {
 function buildPayload(formType: string, fields: FormPayload) {
   const subject =
     formType === 'contact'
-      ? `Elevate by Zanzi — website contact (${String(fields.type ?? 'enquiry')})`
+      ? `Elevate Properties Malta — website contact (${String(fields.type ?? 'enquiry')})`
       : formType === 'valuation'
-        ? 'Elevate by Zanzi — confidential valuation / list property'
-        : `Elevate by Zanzi — private viewing (${String(fields.propertyTitle ?? 'listing')})`;
+        ? 'Elevate Properties Malta — confidential valuation / list property'
+        : `Elevate Properties Malta — private viewing (${String(fields.propertyTitle ?? 'listing')})`;
 
   return {
     ...fields,
     formType,
     subject,
-    website: 'Elevate by Zanzi',
+    website: 'Elevate Properties Malta',
     submittedAt: new Date().toISOString(),
   };
 }
@@ -79,9 +79,9 @@ function buildPayload(formType: string, fields: FormPayload) {
 export function defaultSuccessForFormType(formType: string): string {
   switch (formType) {
     case 'contact':
-      return 'Thank you. Your enquiry has been received by Elevate by Zanzi. An advisor will follow up shortly.';
+      return 'Thank you. Your enquiry has been received by Elevate Properties Malta. An advisor will follow up shortly.';
     case 'valuation':
-      return 'Your confidential valuation request has been received. An advisor from Elevate by Zanzi will follow up shortly.';
+      return 'Your confidential valuation request has been received. An advisor from Elevate Properties Malta will follow up shortly.';
     case 'viewing':
       return 'Viewing request received. Our team will contact you shortly.';
     default:

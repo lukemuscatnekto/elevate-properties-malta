@@ -71,7 +71,7 @@ export function ElevateFeaturedLeadIn() {
             <span className="text-[#aeb6bf]">not catalogue scrolling.</span>
           </h2>
           <p className="mt-5 text-[15px] font-light leading-[1.7] text-[#aeb4bf] sm:text-base">
-            Elevate by Zanzi is engineered for purchasers who value clarity: curated introductions, valuation realism,
+            Elevate Properties Malta is engineered for purchasers who value clarity: curated introductions, valuation realism,
             and negotiation discipline. If nothing below mirrors your brief exactly,{' '}
             <a
               href={anchorHref(pathname, '#contact')}
@@ -361,7 +361,7 @@ export function SectionWhyElevate() {
           viewport={{ once: true }}
           className="mb-12 max-w-3xl lg:mb-14"
         >
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.38em] text-[#9ea8b5]">Why Elevate by Zanzi</p>
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.38em] text-[#9ea8b5]">Why Elevate Properties Malta</p>
           <h2 id="why-elevate-heading" className="font-playfair text-[clamp(2rem,4.5vw,3rem)] leading-[1.08] tracking-[0.02em] text-[#f7f7f5]">
             Elevate
           </h2>

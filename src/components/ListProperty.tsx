@@ -110,7 +110,7 @@ export default function ListProperty() {
             transition={{ delay: 0.08 }}
             className={`font-playfair text-brand-ivory leading-tight mb-4 ${elevatePreview ? 'text-2xl md:text-3xl' : 'text-3xl md:text-4xl'}`}
           >
-            {elevatePreview ? 'Confidential listing' : 'List Your Property With Elevate by Zanzi'}
+            {elevatePreview ? 'Confidential listing' : 'List Your Property With Elevate Properties Malta'}
           </motion.h2>
 
           <motion.p
