@@ -42,9 +42,10 @@ VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/xxxxxxxx
 
 ### Test forms locally
 
-1. With **Formspree** env set, run `npm run dev`, open the site, submit **Contact**, **List property**, and a **Viewing** from a featured listing modal.
-2. Confirm the submission appears in your Formspree dashboard / notification inbox. Payloads include **`formType`**, **`pageUrl`**, and (when the browser sends it) **`referrer`**.
-3. With **`VITE_FORM_PROVIDER=none`**, submits succeed in-browser only (no email) — useful for layout checks without burning Formspree quota.
+1. **Demo mode** is the default in `.env.example` (`VITE_FORM_PROVIDER=none`). Fresh clones run without Formspree credentials: submits succeed in-browser only (no email is sent). Useful for layout checks without burning Formspree quota.
+2. For real delivery, set **`VITE_FORM_PROVIDER=formspree`** plus a valid **`VITE_FORMSPREE_ENDPOINT`** in `.env.local`, then `npm run dev`. Submit **Contact**, **List property**, and a **Viewing** from a featured listing modal.
+3. Confirm the submission appears in your Formspree dashboard / notification inbox. Payloads include **`formType`**, **`pageUrl`**, and (when the browser sends it) **`referrer`**.
+4. **Developer console banner**: `submitForm` prints a one-shot `[Elevate forms]` warning on first submit when the configuration is missing or invalid (demo mode, missing endpoint, placeholder URL). Public users never see this; success/error UI copy stays premium.
 
 ## Scripts
 
@@ -99,7 +100,7 @@ Set env vars from `.env.example` and implement `submitToEmailJs` in `formSubmiss
 
 ### Demo mode (`VITE_FORM_PROVIDER=none`)
 
-Submissions resolve in the browser only (no outbound email). **Do not ship production like this.** The dev toolbar may still hint to configure env vars.
+Submissions resolve in the browser only (no outbound email). Visible success/error copy stays premium so accidental dev-mode pages don't expose technical hints to public visitors. A one-shot `[Elevate forms]` `console.warn` fires on first submit so developers see the configuration warning during local dev and preview deploys. **Do not ship production like this.**
 
 ## SEO before launch
 

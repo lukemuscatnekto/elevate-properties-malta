@@ -19,7 +19,7 @@ interface FormSubmissionResult {
 type FormPayload = Record<string, string | number | boolean | null | undefined>;
 
 const FALLBACK_CHANNELS =
-  'You may also reach us directly on +356 9981 6646, WhatsApp (see the contact section on this page), or at nicodalton@elevatepropertiesmalta.com — an Elevate Properties Malta advisor will handle your enquiry manually.';
+  'You may also reach us on +356 9981 6646, WhatsApp (see the contact section on this page), or at nicodalton@elevatepropertiesmalta.com. An Elevate Properties Malta advisor will handle your enquiry directly.';
 
 const FORM_PROVIDER = (import.meta.env.VITE_FORM_PROVIDER ?? 'none').toLowerCase() as FormProvider;
 const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined;
@@ -40,6 +40,38 @@ function formspreeEndpointReady(raw: string | undefined): boolean {
     return url.hostname === 'formspree.io' || url.hostname === 'formspree.com';
   } catch {
     return false;
+  }
+}
+
+/**
+ * Developer-facing one-shot banner. Public users never see this. Fires once per
+ * module load so the misconfiguration is loud during dev/preview without
+ * spamming the console on every submit.
+ */
+let devBannerShown = false;
+function emitDevConfigBanner() {
+  if (devBannerShown || typeof console === 'undefined') return;
+  devBannerShown = true;
+  if (FORM_PROVIDER === 'none') {
+    console.warn(
+      '[Elevate forms] VITE_FORM_PROVIDER=none (browser demo only, no emails are sent). ' +
+        'Set VITE_FORM_PROVIDER=formspree and VITE_FORMSPREE_ENDPOINT in your host env for production.',
+    );
+    return;
+  }
+  if (FORM_PROVIDER === 'formspree' && !formspreeEndpointReady(FORMSPREE_ENDPOINT)) {
+    console.warn(
+      '[Elevate forms] VITE_FORM_PROVIDER=formspree but VITE_FORMSPREE_ENDPOINT is missing or invalid. ' +
+        'Submissions will show the phone/WhatsApp fallback message until a valid https://formspree.io/f/<id> URL is set.',
+    );
+    return;
+  }
+  if (FORM_PROVIDER === 'netlify') {
+    console.warn('[Elevate forms] VITE_FORM_PROVIDER=netlify is not wired in this build. Use formspree.');
+    return;
+  }
+  if (FORM_PROVIDER === 'emailjs') {
+    console.warn('[Elevate forms] VITE_FORM_PROVIDER=emailjs is not wired in this build. Use formspree.');
   }
 }
 
@@ -79,13 +111,13 @@ function buildPayload(formType: string, fields: FormPayload) {
 export function defaultSuccessForFormType(formType: string): string {
   switch (formType) {
     case 'contact':
-      return 'Thank you. Your enquiry has been received by Elevate Properties Malta. An advisor will follow up shortly.';
+      return 'Thank you. An Elevate Properties Malta advisor will contact you shortly.';
     case 'valuation':
-      return 'Your confidential valuation request has been received. An advisor from Elevate Properties Malta will follow up shortly.';
+      return 'Thank you. Your confidential briefing has reached Elevate Properties Malta. An advisor will contact you shortly.';
     case 'viewing':
-      return 'Viewing request received. Our team will contact you shortly.';
+      return 'Thank you. Your viewing request has reached Elevate Properties Malta. An advisor will contact you shortly.';
     default:
-      return 'Thank you — your submission was received.';
+      return 'Thank you. Your submission has reached Elevate Properties Malta.';
   }
 }
 
@@ -117,9 +149,13 @@ async function mirrorToCRM(formType: string, data: FormPayload): Promise<void> {
 // ─── Providers ────────────────────────────────────────────────────────────────
 const submitToFormspree = async (payload: ReturnType<typeof buildPayload>): Promise<FormSubmissionResult> => {
   if (!formspreeEndpointReady(FORMSPREE_ENDPOINT)) {
+    console.warn(
+      '[Elevate forms] Submission attempted with no valid VITE_FORMSPREE_ENDPOINT. ' +
+        'Set it to your real https://formspree.io/f/<id> URL and redeploy.',
+    );
     return {
       success: false,
-      message: `Form delivery is not configured yet. Set VITE_FORMSPREE_ENDPOINT to your live https://formspree.io/f/… URL (replace any placeholder), rebuild, and redeploy. ${FALLBACK_CHANNELS}`,
+      message: `We could not deliver your enquiry right now. ${FALLBACK_CHANNELS}`,
     };
   }
 
@@ -151,35 +187,47 @@ const submitToFormspree = async (payload: ReturnType<typeof buildPayload>): Prom
     body?.error ||
     body?.message ||
     `HTTP ${response.status}`;
+  console.warn('[Elevate forms] Formspree rejected the submission:', remote);
 
   return {
     success: false,
-    message: `We could not deliver this submission (${remote}). ${FALLBACK_CHANNELS}`,
+    message: `We could not deliver your enquiry right now. ${FALLBACK_CHANNELS}`,
   };
 };
 
-const submitToNetlify = async (): Promise<FormSubmissionResult> => ({
-  success: false,
-  message: `This project is set up for Formspree. Switch VITE_FORM_PROVIDER to formspree and add your endpoint, then rebuild. ${FALLBACK_CHANNELS}`,
-});
+const submitToNetlify = async (): Promise<FormSubmissionResult> => {
+  console.warn(
+    '[Elevate forms] VITE_FORM_PROVIDER=netlify is not implemented. Switch to formspree in your host env.',
+  );
+  return {
+    success: false,
+    message: `We could not deliver your enquiry right now. ${FALLBACK_CHANNELS}`,
+  };
+};
 
-const submitToEmailJs = async (): Promise<FormSubmissionResult> => ({
-  success: false,
-  message: `EmailJS is not wired in this build. Use Formspree for production forms. ${FALLBACK_CHANNELS}`,
-});
+const submitToEmailJs = async (): Promise<FormSubmissionResult> => {
+  console.warn(
+    '[Elevate forms] VITE_FORM_PROVIDER=emailjs is not implemented in this build. Switch to formspree.',
+  );
+  return {
+    success: false,
+    message: `We could not deliver your enquiry right now. ${FALLBACK_CHANNELS}`,
+  };
+};
 
 const fallbackLocalSubmission = async (formType: string): Promise<FormSubmissionResult> =>
   new Promise((resolve) => {
     setTimeout(() => {
       resolve({
         success: true,
-        message: `${defaultSuccessForFormType(formType)} [Browser demo only — no email was sent. Add Formspree env vars and rebuild to go live.]`,
+        message: defaultSuccessForFormType(formType),
       });
     }, 600);
   });
 
 // ─── Main export ──────────────────────────────────────────────────────────────
 export const submitForm = async (formType: string, data: FormPayload): Promise<FormSubmissionResult> => {
+  emitDevConfigBanner();
   if (isHoneypotTripped(data)) {
     return SPAM_HONEYPOT_RESPONSE;
   }
@@ -218,10 +266,10 @@ export const submitForm = async (formType: string, data: FormPayload): Promise<F
 
     return result;
   } catch (error) {
-    console.error('Form submission error:', error);
+    console.error('[Elevate forms] Network/submit error:', error);
     return {
       success: false,
-      message: `A network error interrupted delivery. Please try again in a moment. ${FALLBACK_CHANNELS}`,
+      message: `A network issue interrupted delivery. Please try again in a moment. ${FALLBACK_CHANNELS}`,
     };
   }
 };
