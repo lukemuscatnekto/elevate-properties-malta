@@ -8,7 +8,7 @@ product
 Primary users are serious property buyers, sellers, and investors evaluating premium opportunities in Malta. They browse on desktop and mobile, often in focused, high-intent sessions, and expect clarity, trust signals, and immediate access to human advisory support.
 
 ## Product Purpose
-Elevate by Zanzi presents and qualifies premium Malta real estate opportunities while routing high-intent enquiries into advisory and listing workflows. The homepage should convert interest into guided next steps, specifically property search, confidential consultation, and listing intake, without adding friction or noise.
+Elevate Properties Malta presents and qualifies premium Malta real estate opportunities while routing high-intent enquiries into advisory and listing workflows. The brand operates as Elevate by ZANZI & QUICK LETS where franchise and network context apply. The homepage should convert interest into guided next steps, specifically property search, confidential consultation, and listing intake, without adding friction or noise.
 
 ## Brand Personality
 Cinematic, restrained, editorial. The interface should feel discreet, confident, and premium, with controlled pacing and high visual discipline rather than promotional overload.

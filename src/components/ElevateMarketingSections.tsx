@@ -185,7 +185,7 @@ export function SectionBuyMalta() {
             sourcing realism — before anyone wastes a Saturday on misaligned stock.
           </p>
           <p className="mt-6 border-t border-white/[0.07] pt-6 text-[12px] font-light leading-relaxed text-brand-metal">
-            elevatepropertiesmalta.com · Advisor continuity · Official Zanzi franchise positioning · Malta-wide execution.
+            elevatepropertiesmalta.com · Advisor continuity · Official ZANZI franchise positioning · Malta-wide execution.
           </p>
         </motion.div>
       </div>

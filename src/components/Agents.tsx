@@ -6,6 +6,7 @@ import { useElevatePreviewMode } from '../context/ElevatePreviewContext';
 
 const portraitFrame =
   'mx-auto shrink-0 overflow-hidden rounded-sm border border-white/[0.07] bg-[#07090d] shadow-[0_10px_32px_rgba(0,0,0,0.22)] md:mx-0';
+const portraitSize = 'aspect-[4/5] w-[8.25rem] max-w-full';
 
 function AdvisorAvatar({ advisor }: { advisor: PublicAdvisor }) {
   const [photoFailed, setPhotoFailed] = useState(false);
@@ -15,7 +16,7 @@ function AdvisorAvatar({ advisor }: { advisor: PublicAdvisor }) {
 
   if (showPhoto && photoSrc) {
     return (
-      <div className={`${portraitFrame} aspect-[4/5] w-[7.5rem] sm:w-[8.25rem]`}>
+      <div className={`${portraitFrame} ${portraitSize}`}>
         <img
           src={photoSrc}
           alt={photoAlt}
@@ -31,7 +32,7 @@ function AdvisorAvatar({ advisor }: { advisor: PublicAdvisor }) {
   }
 
   return (
-    <div className={`${portraitFrame} flex aspect-[4/5] w-[7.5rem] items-center justify-center sm:w-[8.25rem]`} aria-hidden="true">
+    <div className={`${portraitFrame} flex ${portraitSize} items-center justify-center`} aria-hidden="true">
       <span className="font-playfair text-xl tracking-[0.12em] text-[#d0d6de] sm:text-2xl">{advisor.initials}</span>
     </div>
   );
@@ -70,7 +71,7 @@ export default function Agents() {
           </p>
         </motion.div>
 
-        <ul className="m-0 grid list-none grid-cols-1 gap-6 p-0 md:grid-cols-2 md:gap-7">
+        <ul className="m-0 grid list-none grid-cols-1 items-stretch gap-6 p-0 md:grid-cols-2 md:gap-7">
           {publicAdvisors.map((advisor, i) => (
             <motion.li
               key={advisor.id}
@@ -78,20 +79,20 @@ export default function Agents() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className={`flex flex-col border border-white/[0.06] bg-[#07090d]/92 p-6 sm:p-7 ${elevatePreview ? 'rounded-sm' : ''}`}
+              className={`flex h-full min-h-0 flex-col border border-white/[0.06] bg-[#07090d]/92 p-6 sm:p-7 ${elevatePreview ? 'rounded-sm' : ''}`}
             >
-              <div className="flex w-full flex-col gap-6 md:flex-row md:items-start">
+              <div className="flex min-h-0 flex-1 flex-col gap-6 md:flex-row md:items-stretch">
                 <AdvisorAvatar advisor={advisor} />
-                <div className="min-w-0 flex-1 space-y-2 text-center md:text-left">
+                <div className="flex min-h-0 min-w-0 flex-1 flex-col space-y-2 text-center md:text-left">
                   <h3 className="font-playfair text-xl text-[#f4f4f2] sm:text-2xl">{advisor.name}</h3>
                   <p className="font-sans text-[11px] font-medium uppercase tracking-[0.14em] text-[#009FE3] sm:text-xs sm:tracking-[0.16em]">
                     {advisor.role}
                   </p>
-                  <p className="pt-1 font-sans text-sm font-light leading-relaxed text-[#b4bcc8]">{advisor.bio}</p>
+                  <p className="flex-1 pt-1 font-sans text-sm font-light leading-relaxed text-[#b4bcc8]">{advisor.bio}</p>
                 </div>
               </div>
 
-              <div className="mt-6 flex w-full flex-col gap-3 border-t border-white/[0.06] pt-6 sm:flex-row sm:justify-start md:justify-start">
+              <div className="mt-6 flex w-full flex-col gap-3 border-t border-white/[0.06] pt-6 sm:mt-auto sm:flex-row sm:justify-start md:justify-start">
                 <a
                   href={advisor.phoneHref}
                   className="inline-flex min-h-[48px] w-full touch-manipulation items-center justify-center gap-2 border border-white/[0.08] bg-[#080a10]/90 px-4 font-sans text-[11px] font-light text-[#f4f4f2] transition-colors hover:border-[rgba(0,159,227,0.32)] hover:text-[#e8eaee] sm:w-auto"

@@ -19,7 +19,9 @@ const secondaryContact = {
   whatsappHref: 'https://wa.me/35677424141',
 } satisfies SiteTeamMember;
 
-/** Public marketing site configuration. Social URLs remain empty until you add real profiles (Footer hides icons automatically). */
+/** Public marketing site configuration. Social URLs remain empty until you add real profiles (Footer hides icons automatically).
+ * Default HTML document SEO (title, meta description, Open Graph, JSON-LD) lives in `/index.html`; keep telephone and email in sync here.
+ */
 
 export const siteConfig = {
   companyName: 'Elevate Properties Malta',

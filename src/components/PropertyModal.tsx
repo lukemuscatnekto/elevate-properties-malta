@@ -137,6 +137,10 @@ export default function PropertyModal({ property, onClose }: PropertyModalProps)
                 <div>
                   <p className="text-[10px] text-brand-champagne/80 uppercase tracking-[0.3em] font-bold mb-2">Overview</p>
                   <p className="text-brand-sand text-sm font-light leading-relaxed">{property.description}</p>
+                  <p className="mt-4 text-[10px] font-light leading-relaxed text-brand-metal">
+                    Properties shown are representative of our advisory portfolio and are subject to availability. Contact Elevate Properties
+                    Malta for current status and private opportunities.
+                  </p>
                 </div>
 
                 {property.features?.length ? (

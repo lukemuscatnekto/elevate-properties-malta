@@ -3,7 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type PropertyStatus = 'For Sale' | 'For Rent' | 'Investment' | 'Draft' | 'Sold' | 'Rented';
+export type PropertyStatus =
+  | 'For Sale'
+  | 'For Rent'
+  | 'Investment'
+  | 'Draft'
+  | 'Sold'
+  | 'Rented'
+  /** Illustrative homepage spotlight entry; not a confirmed on-market listing. */
+  | 'Representative profile';
 export type PropertyType = 'Villa' | 'Penthouse' | 'Apartment' | 'House of Character';
 
 export interface Property {

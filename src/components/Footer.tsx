@@ -143,7 +143,7 @@ export default function Footer() {
               Services
             </a>
             <a href={anchorHref(pathname, '#trust')} className="inline-flex min-h-[44px] touch-manipulation items-center py-1 hover:text-[#e8eaee]">
-              Advisory
+              Approach
             </a>
             <a href={anchorHref(pathname, '#agents')} className="inline-flex min-h-[44px] touch-manipulation items-center py-1 hover:text-[#e8eaee]">
               Advisors
@@ -153,6 +153,12 @@ export default function Footer() {
             </a>
             <Link to="/privacy" className="inline-flex min-h-[44px] touch-manipulation items-center py-1 hover:text-[#e8eaee]">
               Legal
+            </Link>
+            <Link
+              to="/guides/malta-property-market"
+              className="inline-flex min-h-[44px] touch-manipulation items-center py-1 font-normal normal-case tracking-normal text-[#aeb4bf] hover:text-[#e8eaee] sm:text-[10px]"
+            >
+              Read our Malta Property Guide →
             </Link>
           </nav>
 

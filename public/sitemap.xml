@@ -11,38 +11,15 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://elevatepropertiesmalta.com/#properties</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://elevatepropertiesmalta.com/#list-property</loc>
+    <loc>https://elevatepropertiesmalta.com/guides</loc>
+    <lastmod>2026-05-13</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://elevatepropertiesmalta.com/#about</loc>
+    <loc>https://elevatepropertiesmalta.com/guides/malta-property-market</loc>
+    <lastmod>2026-05-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://elevatepropertiesmalta.com/#services</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://elevatepropertiesmalta.com/#trust</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://elevatepropertiesmalta.com/#agents</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
-  </url>
-  <url>
-    <loc>https://elevatepropertiesmalta.com/#contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
   </url>
 </urlset>

@@ -6,7 +6,7 @@ const defaultItems = [
     body: 'Bespoke service for discerning clients.',
   },
   {
-    title: 'Official Zanzi franchise',
+    title: 'Official ZANZI franchise',
     body: "Aligned with Malta's trusted real-estate network.",
   },
   {

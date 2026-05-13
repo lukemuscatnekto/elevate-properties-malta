@@ -1,13 +1,20 @@
 import { motion } from 'motion/react';
 import { Phone, Mail, Clock, MessageSquare, CheckCircle2, MessageCircle } from 'lucide-react';
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { siteConfig } from '../config/site';
 import { submitForm, FORM_HONEYPOT_FIELD } from '../utils/formSubmission';
 import { formDiscretionFootnote, formTechnicalFailureHint } from '../content/formFootnotes';
 import FormHoneypot from './FormHoneypot';
 import { useElevatePreviewMode } from '../context/ElevatePreviewContext';
 
-export default function ContactForm() {
+export type ContactIntentPresetSignal = { key: number; value: string } | null;
+
+type ContactFormProps = {
+  /** When `key` changes, the Interest field is set to `value` (for example from audience intent cards). */
+  contactIntentSignal?: ContactIntentPresetSignal;
+};
+
+export default function ContactForm({ contactIntentSignal = null }: ContactFormProps) {
   const elevatePreview = useElevatePreviewMode();
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [honeypot, setHoneypot] = useState('');
@@ -20,6 +27,11 @@ export default function ContactForm() {
     message: '',
   });
   const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    if (!contactIntentSignal) return;
+    setFormData((prev) => ({ ...prev, type: contactIntentSignal.value }));
+  }, [contactIntentSignal]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -174,6 +186,7 @@ export default function ContactForm() {
                           <option value="buying" className="bg-brand-panel">Buying a property</option>
                           <option value="selling" className="bg-brand-panel">Selling a property</option>
                           <option value="renting" className="bg-brand-panel">Renting a property</option>
+                          <option value="owner-direct" className="bg-brand-panel">Owner-direct listing</option>
                           <option value="letting" className="bg-brand-panel">Letting a property</option>
                           <option value="valuation" className="bg-brand-panel">Requesting a valuation</option>
                           <option value="viewing" className="bg-brand-panel">Booking a viewing</option>

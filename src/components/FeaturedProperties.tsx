@@ -39,7 +39,7 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
       ? null
       : !hasActiveHeroFilter(heroSearchCriteria)
         ? {
-            textBefore: 'Showing featured properties. For a tailored shortlist, ',
+            textBefore: 'Showing featured selections. For a tailored shortlist, ',
             linkLabel: 'contact our advisors',
             textAfter: '.',
           }
@@ -51,7 +51,7 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
               textAfter: ' for a tailored shortlist.',
             }
           : {
-              textBefore: 'Showing featured properties that match your selections. For a tailored shortlist, ',
+              textBefore: 'Showing featured selections that match your filters. For a tailored shortlist, ',
               linkLabel: 'contact our advisors',
               textAfter: '.',
             };
@@ -98,7 +98,7 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
                 </p>
               ) : (
                 <p className="max-w-md text-[13px] font-light leading-relaxed text-[#aeb4bf]">
-                  Availability confirmed on enquiry — prime Malta stock moves privately.
+                  Availability confirmed on enquiry — prime Malta opportunities often move privately.
                 </p>
               )}
             </div>
@@ -113,6 +113,11 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
               {elevatePreview ? 'Enquire' : 'View all properties'}
             </a>
           </div>
+
+          <p className="mx-auto mb-8 max-w-3xl text-center font-sans text-[11px] font-light leading-relaxed text-[#8e96a3] sm:mb-9 sm:text-xs">
+            Properties shown are representative of our advisory portfolio and are subject to availability. Contact Elevate Properties Malta
+            for current status and private opportunities.
+          </p>
 
           {heroBanner ? (
             <p className="mx-auto mb-8 max-w-2xl px-1 text-center font-sans text-xs font-light leading-relaxed text-[#c5cad2] sm:mb-9 sm:text-sm">
@@ -134,7 +139,8 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
               aria-live="polite"
             >
               <p className="mx-auto max-w-md font-sans text-sm font-light leading-relaxed text-[#c5cad2]">
-                No featured listings match every filter you chose. Try broader selections, or reach out for a confidential shortlist.
+                No representative profiles in this spotlight match every filter you chose. Try broader selections, or reach out for a
+                confidential shortlist.
               </p>
             </div>
           ) : (
@@ -230,7 +236,7 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
                         </dd>
                       </div>
                     </dl>
-                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                    <div className="flex flex-col gap-2.5">
                       <span
                         className={`pointer-events-none flex min-h-[44px] w-full items-center justify-center border px-3 py-2.5 text-center font-sans transition-colors touch-manipulation ${
                           elevatePreview
@@ -241,16 +247,20 @@ export default function FeaturedProperties({ heroSearchCriteria }: FeaturedPrope
                       >
                         Request private viewing
                       </span>
-                      <span
-                        className={`pointer-events-none flex min-h-[44px] w-full items-center justify-center border px-3 py-2.5 text-center font-sans transition-colors ${
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          open(property);
+                        }}
+                        className={`min-h-[44px] w-full touch-manipulation text-left font-sans text-[11px] font-light underline decoration-white/25 underline-offset-4 transition-colors sm:inline-flex sm:w-auto sm:items-center ${
                           elevatePreview
-                            ? 'border-white/[0.06] bg-transparent text-[10px] font-light tracking-wide text-[#9aa2ac] group-hover:border-white/[0.1] group-hover:text-[#c5cad2]'
-                            : 'border border-white/[0.08] text-[10px] font-semibold uppercase tracking-[0.14em] text-[#c5cad2] group-hover:border-white/[0.14] group-hover:text-[#e8eaee]'
+                            ? 'text-[#9aa2ac] decoration-white/15 hover:text-[#d2d6de] hover:decoration-white/30 focus:outline-none focus-visible:ring-1 focus-visible:ring-[rgba(0,159,227,0.45)]'
+                            : 'text-[#aeb4bf] decoration-white/20 hover:text-[#e8eaee] hover:decoration-[rgba(0,159,227,0.45)] focus:outline-none focus-visible:ring-1 focus-visible:ring-[rgba(0,159,227,0.45)]'
                         }`}
-                        aria-hidden="true"
                       >
-                        View details
-                      </span>
+                        View details <span aria-hidden="true">→</span>
+                      </button>
                     </div>
                   </div>
                 </motion.article>

@@ -121,7 +121,7 @@ export default function AboutServices() {
               viewport={{ once: true }}
               className="border border-white/[0.06] bg-[#07090d]/95 p-6 sm:p-7"
             >
-              <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#009FE3]">Elevate</p>
+              <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#9ea6b0]">Elevate</p>
               <h3 className="mb-3 font-playfair text-lg text-[#f4f4f2] sm:text-xl">Premium presentation</h3>
               <p className="mb-4 font-sans text-sm font-light leading-relaxed text-[#aeb4bf]">
                 Premium property presentation and private advisory.
@@ -149,7 +149,7 @@ export default function AboutServices() {
               viewport={{ once: true }}
               className="border border-white/[0.06] bg-[#07090d]/90 p-6 sm:p-7"
             >
-              <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#009FE3]">Zanzi</p>
+              <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#009FE3]">ZANZI</p>
               <h3 className="mb-3 font-playfair text-lg text-[#f4f4f2] sm:text-xl">Franchise credibility</h3>
               <p className="mb-4 font-sans text-sm font-light leading-relaxed text-[#aeb4bf]">
                 Official franchise backing and Malta market trust.
@@ -176,7 +176,7 @@ export default function AboutServices() {
               viewport={{ once: true }}
               className="border border-white/[0.06] bg-[#07090d]/90 p-6 sm:p-7"
             >
-              <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#9a8fb0]">Quick Lets</p>
+              <p className="mb-2 font-sans text-[11px] font-medium tracking-[0.12em] text-[#c9a8f0]">Quick Lets</p>
               <h3 className="mb-3 font-playfair text-lg text-[#f4f4f2] sm:text-xl">Lettings &amp; network reach</h3>
               <p className="mb-4 font-sans text-sm font-light leading-relaxed text-[#aeb4bf]">
                 Lettings network support and wider market awareness.
@@ -189,7 +189,7 @@ export default function AboutServices() {
                   'Malta tenant and landlord familiarity',
                 ].map((line) => (
                   <li key={line} className="flex items-start gap-2.5">
-                    <span className="mt-2 h-px w-4 shrink-0 bg-[rgba(139,123,168,0.45)]" aria-hidden="true" />
+                    <span className="mt-2 h-px w-4 shrink-0 bg-[rgba(201,168,240,0.4)]" aria-hidden="true" />
                     <span>{line}</span>
                   </li>
                 ))}

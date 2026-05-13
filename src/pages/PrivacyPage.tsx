@@ -115,6 +115,28 @@ export default function PrivacyPage() {
 
               <section className="border border-white/[0.06] bg-white/[0.02] p-6 sm:p-8">
                 <h2 className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#9ea6b0] mb-5">
+                  Cookies and analytics
+                </h2>
+                <p className="mb-4">
+                  This public marketing site does not load Google Analytics, Meta Pixel, or other third-party advertising or analytics
+                  scripts at present, so no cookie banner is required for those tools yet.
+                </p>
+                <p className="mb-4">
+                  We may use{' '}
+                  <span className="text-[#e8eaee]">sessionStorage</span> in your browser for lightweight presentation preferences (for
+                  example whether you have already seen the homepage intro during the current session). That storage stays on your device
+                  and is not used to profile you across unrelated websites.
+                </p>
+                <p>
+                  The separate CRM workspace reachable from this project uses{' '}
+                  <span className="text-[#e8eaee]">localStorage</span> for its demo data layer; it is not used to track casual visitors to
+                  the public pages. Before any analytics or advertising pixels are added to the live marketing site, we will introduce an
+                  appropriate consent flow and update this page accordingly.
+                </p>
+              </section>
+
+              <section className="border border-white/[0.06] bg-white/[0.02] p-6 sm:p-8">
+                <h2 className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#9ea6b0] mb-5">
                   Correction and deletion
                 </h2>
                 <p>

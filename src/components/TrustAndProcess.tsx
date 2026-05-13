@@ -5,7 +5,7 @@ import { useElevatePreviewMode } from '../context/ElevatePreviewContext';
 
 const trustPoints = [
   {
-    title: 'Official Zanzi franchise',
+    title: 'Official ZANZI franchise',
     body: 'Trusted local recognition paired with a premium advisory experience.',
   },
   {
@@ -87,7 +87,9 @@ export default function TrustAndProcess() {
         <div
           className={`border border-white/[0.06] bg-[#080a10]/90 px-5 py-7 sm:px-8 sm:py-9 ${elevatePreview ? 'rounded-sm border-[rgba(0,159,227,0.1)]' : 'rounded-sm'}`}
         >
-          <h3 className="mb-6 font-playfair text-lg text-[#f4f4f2] md:text-xl">{elevatePreview ? 'Our process' : 'Process'}</h3>
+          <p className="mb-5 font-sans text-[11px] font-medium tracking-[0.14em] text-[#9ea6b0]">
+            {elevatePreview ? 'Our process' : 'Process'}
+          </p>
           <ol className="grid grid-cols-1 divide-y divide-white/[0.05] md:grid-cols-4 md:divide-x md:divide-y-0 md:divide-white/[0.05]">
             {processSteps.map((step, idx) => (
               <li key={step.title} className="px-4 py-5 md:px-5 md:py-4">

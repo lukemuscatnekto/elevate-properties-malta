@@ -19,12 +19,12 @@ export const featuredHomepageProperties: Property[] = [
     baths: 4,
     sqft: 610,
     type: 'Villa',
-    status: 'For Sale',
+    status: 'Representative profile',
     image:
       'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1200',
     tag: 'Featured Selection',
     description:
-      'A refined villa profile in the Mosta corridor, framed for generous entertaining spaces, landscaped grounds, and a calm residential setting within reach of Malta’s key hubs.',
+      'A refined villa typology in the Mosta corridor: generous entertaining spaces, landscaped grounds, and a calm residential setting within reach of Malta’s key hubs. Indicative guide pricing for a comparable mandate.',
     features: ['Pool-ready grounds', 'Multi-car garage', 'Guest wing', 'Smart climate', 'Wine storage', 'Security system'],
     isFeatured: true,
     createdAt: '2024-06-01T10:00:00Z',
@@ -39,12 +39,12 @@ export const featuredHomepageProperties: Property[] = [
     baths: 3,
     sqft: 430,
     type: 'Penthouse',
-    status: 'For Sale',
+    status: 'Representative profile',
     image:
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200',
     tag: 'Curated Selection',
     description:
-      'A contemporary penthouse profile with elevated panoramas toward the Mediterranean. Shaped for breezy terraces, understated interiors, and a lock-up-and-leave lifestyle.',
+      'A contemporary penthouse typology with elevated panoramas toward the Mediterranean: breezy terraces, understated interiors, and a lock-up-and-leave rhythm. Indicative guide pricing for a comparable mandate.',
     features: ['Sweeping terraces', 'Private lift lobby', 'Marina proximity', 'Storage', 'High-spec kitchen', 'Double glazing'],
     isFeatured: true,
     createdAt: '2024-06-12T14:30:00Z',
@@ -59,12 +59,12 @@ export const featuredHomepageProperties: Property[] = [
     baths: 4,
     sqft: 520,
     type: 'Villa',
-    status: 'For Sale',
+    status: 'Representative profile',
     image:
       'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200',
     tag: 'Investment Profile',
     description:
-      'An Attard-style villa profile balanced across living and bedroom wings, with curated finishes and outdoor space oriented for Malta’s Mediterranean climate.',
+      'An Attard-style villa typology balanced across living and bedroom wings, with curated finishes and outdoor space oriented for Malta’s Mediterranean climate. Indicative guide pricing for a comparable mandate.',
     features: ['Garden & pool terrace', 'Home office suite', 'Cinema nook', 'Solar-ready roof', 'Gated driveway', 'Underfloor heating (select zones)'],
     isFeatured: true,
     createdAt: '2024-06-18T09:15:00Z',

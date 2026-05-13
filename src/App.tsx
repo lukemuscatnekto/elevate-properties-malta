@@ -9,7 +9,9 @@ import Agents from './components/Agents';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import PremiumTrustStrip from './components/PremiumTrustStrip';
+import AudienceIntentPaths from './components/AudienceIntentPaths';
 import ConsultationBand from './components/ConsultationBand';
+import MarketBriefingOptIn from './components/MarketBriefingOptIn';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import type { HeroSearchCriteria } from './types/heroSearch';
 
@@ -17,6 +19,7 @@ const INTRO_SESSION_KEY = 'elevate-intro-session-complete';
 const INTRO_ICON_MARK = '/images/elevate-logos/04_icon_mark_quick_lets_transparent.png';
 
 function readIntroComplete(): boolean {
+  if (typeof window === 'undefined') return false;
   try {
     return sessionStorage.getItem(INTRO_SESSION_KEY) === '1';
   } catch {
@@ -25,6 +28,7 @@ function readIntroComplete(): boolean {
 }
 
 function writeIntroComplete(): void {
+  if (typeof window === 'undefined') return;
   try {
     sessionStorage.setItem(INTRO_SESSION_KEY, '1');
   } catch {
@@ -153,6 +157,7 @@ export default function App() {
   const reduceMotion = useReducedMotion();
   const [heroSearchCriteria, setHeroSearchCriteria] = useState<HeroSearchCriteria | null>(null);
   const [introDone, setIntroDone] = useState(initialIntroDone);
+  const [contactIntentSignal, setContactIntentSignal] = useState<{ key: number; value: string } | null>(null);
 
   useEffect(() => {
     if (reduceMotion === true) {
@@ -178,13 +183,19 @@ export default function App() {
         <main className="space-y-0">
           <Hero onSearch={setHeroSearchCriteria} suppressLogoIntro />
           <PremiumTrustStrip />
+          <AudienceIntentPaths
+            onSelectIntent={(intent) => {
+              setContactIntentSignal({ key: Date.now(), value: intent });
+            }}
+          />
           <FeaturedProperties heroSearchCriteria={heroSearchCriteria} />
           <AboutServices />
           <TrustAndProcess />
           <ListProperty />
-          <ContactForm />
+          <ContactForm contactIntentSignal={contactIntentSignal} />
           <Agents />
           <ConsultationBand />
+          <MarketBriefingOptIn />
         </main>
 
         <Footer />

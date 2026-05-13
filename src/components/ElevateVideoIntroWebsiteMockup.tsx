@@ -5,10 +5,12 @@ import { Play } from 'lucide-react';
 import Navbar from './Navbar';
 import ElevateCinematicHero from './ElevateCinematicHero';
 import PremiumTrustStrip from './PremiumTrustStrip';
+import AudienceIntentPaths from './AudienceIntentPaths';
 import FeaturedProperties from './FeaturedProperties';
 import ElevatePreviewServiceTriad from './ElevatePreviewServiceTriad';
 import ContactForm from './ContactForm';
 import ListProperty from './ListProperty';
+import MarketBriefingOptIn from './MarketBriefingOptIn';
 import Footer from './Footer';
 import { ElevatePreviewContext } from '../context/ElevatePreviewContext';
 
@@ -16,6 +18,7 @@ const INTRO_SESSION_KEY = 'elevate-intro-session-complete';
 const VIDEO_SRC = '/videos/elevate-intro.mp4';
 
 function readIntroComplete(): boolean {
+  if (typeof window === 'undefined') return false;
   try {
     return sessionStorage.getItem(INTRO_SESSION_KEY) === '1';
   } catch {
@@ -24,6 +27,7 @@ function readIntroComplete(): boolean {
 }
 
 function writeIntroComplete(): void {
+  if (typeof window === 'undefined') return;
   try {
     sessionStorage.setItem(INTRO_SESSION_KEY, '1');
   } catch {
@@ -165,6 +169,7 @@ function initialIntroDone(): boolean {
 function ElevatePreviewShell() {
   const reduceMotion = useReducedMotion();
   const [introDone, setIntroDone] = useState(initialIntroDone);
+  const [contactIntentSignal, setContactIntentSignal] = useState<{ key: number; value: string } | null>(null);
 
   useEffect(() => {
     if (reduceMotion === true) {
@@ -200,10 +205,16 @@ function ElevatePreviewShell() {
       <main className="scroll-smooth space-y-0 [&>section]:scroll-mt-[min(5.75rem,18vw)]">
         <ElevateCinematicHero />
         <PremiumTrustStrip />
+        <AudienceIntentPaths
+          onSelectIntent={(intent) => {
+            setContactIntentSignal({ key: Date.now(), value: intent });
+          }}
+        />
         <FeaturedProperties heroSearchCriteria={null} />
         <ElevatePreviewServiceTriad />
-        <ContactForm />
+        <ContactForm contactIntentSignal={contactIntentSignal} />
         <ListProperty />
+        <MarketBriefingOptIn />
       </main>
 
       <Footer />

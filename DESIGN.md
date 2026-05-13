@@ -2,8 +2,9 @@
 
 ## Brand
 
-- **Primary identity:** Elevate Properties Malta, presented as **Elevate by ZANZI** (official Zanzi franchise).
-- **Network context:** **Quick Lets** / Quicklets network appears only where lettings or network reach is relevant; use **restrained purple** (existing Quick Lets cues) sparingly, never as a second primary palette competing with Zanzi blue.
+- **Primary identity:** Elevate Properties Malta (public-facing legal and SEO lead).
+- **Trust and network partners:** **ZANZI** and **QUICK LETS**; the site may present as **Elevate by ZANZI & QUICK LETS** where visually appropriate.
+- **Network context:** **Quick Lets** (also written Quicklets in some collateral) appears where lettings or network reach is relevant; use **restrained purple** (existing Quick Lets cues) sparingly, never as a second primary palette competing with Zanzi blue.
 
 ## Mood
 
